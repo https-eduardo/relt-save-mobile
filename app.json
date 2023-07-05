@@ -1,11 +1,12 @@
 {
   "expo": {
-    "name": "tcc-tinfem-projeto",
-    "slug": "tcc-tinfem-projeto",
+    "name": "relt-save",
+    "slug": "relt-save",
+    "scheme": "relt-save",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -21,10 +22,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.https_eduardin.reltsave"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "83d00430-9c8c-4761-96aa-cb5d7373caa1"
+      }
     }
   }
 }
