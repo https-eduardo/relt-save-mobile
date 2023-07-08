@@ -3,32 +3,32 @@ import {
   TouchableOpacity,
   GestureResponderEvent,
   Text,
-  TextStyle,
-  ViewStyle,
 } from "react-native";
 import { styles } from "./styles";
 
 interface AppButtonProps extends PropsWithChildren {
   onPress: (event: GestureResponderEvent) => void;
-  title: string;
-  containerStyle?: ViewStyle;
-  textStyle?: TextStyle;
+  text?: string;
+  primary?: boolean;
+  secondary?: boolean;
+  block?: boolean;
 }
 
-export default function AppButton({
-  onPress,
-  title,
-  containerStyle,
-  textStyle,
-  children,
-}: AppButtonProps) {
+export default function AppButton(props: AppButtonProps) {
+  const propsStyles = {
+    ...(props.primary && styles.primary),
+    ...(props.secondary && styles.secondary),
+    ...(props.block && styles.block),
+  }
+
   return (
     <TouchableOpacity
-      onPress={onPress}
-      style={{ ...styles.buttonContainer, ...containerStyle }}
+      onPress={props.onPress}
+      style={{ ...styles.buttonContainer, ...propsStyles }}
     >
-      {children}
-      <Text style={{ ...styles.buttonText, ...textStyle }}>{title}</Text>
+      {props.text ?
+        <Text style={styles.buttonText}>{props.text}</Text>
+        : props.children}
     </TouchableOpacity>
   );
 }

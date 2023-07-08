@@ -46,9 +46,8 @@ export default function ProfileScreen({ route, navigation }: ProfileProps) {
           value={email}
         ></AppTextInput>
         <AppButton
-          title="Salvar"
-          onPress={() => {}}
-          containerStyle={styles.button}
+          text="Salvar"
+          onPress={() => { }}
         ></AppButton>
       </View>
     </View>

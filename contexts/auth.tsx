@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, PropsWithChildren } from "react";
 
 interface AuthContextData {
   isAuthenticated: boolean;
@@ -8,7 +8,7 @@ interface AuthContextData {
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-export const AuthProvider = ({ children }: any) => {
+export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [user, setUser] = useState<object | null>({
     given_name: "Eduardo",
     picture:

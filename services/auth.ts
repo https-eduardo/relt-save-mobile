@@ -1,5 +1,9 @@
 import api from "./api";
 
+export class AuthService {
+  
+}
+
 async function getProfileByAccessToken(accessToken: string) {
   return api.get("auth/google/me", {
     headers: {

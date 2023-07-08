@@ -14,4 +14,11 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: "InterMedium",
   },
+  primary: {
+
+  },
+  secondary: {
+
+  },
+  block: {}
 });

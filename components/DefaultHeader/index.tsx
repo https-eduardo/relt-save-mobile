@@ -14,7 +14,6 @@ export default function DefaultHeader({ title }: DefaultHeaderProps) {
     <SafeAreaView style={styles.header}>
       <TouchableWithoutFeedback
         onPress={() => {
-          // @ts-ignore
           navigation.navigate("Home");
         }}
       >
