@@ -19,6 +19,7 @@ export default function Header() {
 
   return (
     <SafeAreaView style={styles.header}>
+      {/* Border radius image */}
       <View style={styles.profileImgContainer}>
         <Image source={{ uri: user.picture }} style={styles.profileImg}></Image>
       </View>
