@@ -1,4 +1,5 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
+import { COLORS } from "../../theme";
 
 export const styles = StyleSheet.create({
   buttonContainer: {
@@ -7,7 +8,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     gap: 4,
     padding: 16,
-    backgroundColor: "#fa20c0",
+    backgroundColor: COLORS.bgButton,
     borderRadius: 4,
   },
   buttonText: {
@@ -15,10 +16,14 @@ export const styles = StyleSheet.create({
     fontFamily: "InterMedium",
   },
   primary: {
-
+    backgroundColor: COLORS.primary,
+    color: COLORS.textWhite,
   },
   secondary: {
-
+    backgroundColor: COLORS.textBlack,
+    color: COLORS.textWhite,
   },
-  block: {}
+  block: {
+    width: "100%",
+  },
 });

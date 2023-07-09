@@ -1,9 +1,5 @@
 import { PropsWithChildren } from "react";
-import {
-  TouchableOpacity,
-  GestureResponderEvent,
-  Text,
-} from "react-native";
+import { TouchableOpacity, GestureResponderEvent, Text } from "react-native";
 import { styles } from "./styles";
 
 interface AppButtonProps extends PropsWithChildren {
@@ -19,16 +15,19 @@ export default function AppButton(props: AppButtonProps) {
     ...(props.primary && styles.primary),
     ...(props.secondary && styles.secondary),
     ...(props.block && styles.block),
-  }
+  };
 
   return (
     <TouchableOpacity
       onPress={props.onPress}
       style={{ ...styles.buttonContainer, ...propsStyles }}
     >
-      {props.text ?
-        <Text style={styles.buttonText}>{props.text}</Text>
-        : props.children}
+      {props.text && (
+        <Text style={{ ...styles.buttonText, ...propsStyles }}>
+          {props.text}
+        </Text>
+      )}
+      {props.children}
     </TouchableOpacity>
   );
 }

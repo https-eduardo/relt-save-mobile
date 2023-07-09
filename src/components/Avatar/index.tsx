@@ -1,12 +1,12 @@
 import { Image } from "react-native";
-import { styles } from './styles';
+import { styles } from "./styles";
 
 interface AvatarProps {
   avatarUrl: string;
 }
 
 export default function Avatar({ avatarUrl }: AvatarProps) {
-  const blankProfile = require('../../assets/images/blank-profile.png');
+  const blankProfile = require("../../../assets/images/blank-profile.png");
 
   return (
     <Image

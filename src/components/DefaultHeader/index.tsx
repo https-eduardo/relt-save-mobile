@@ -10,6 +10,7 @@ interface DefaultHeaderProps {
 
 export default function DefaultHeader({ title }: DefaultHeaderProps) {
   const navigation = useNavigation();
+
   return (
     <SafeAreaView style={styles.header}>
       <TouchableWithoutFeedback

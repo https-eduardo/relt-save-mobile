@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useContext } from "react";
 import AuthContext from "../../contexts/auth";
 import * as SecureStore from "expo-secure-store";
-import { styles } from './styles';
+import { styles } from "./styles";
 
 export default function Header() {
   const { user, updateUser } = useContext(AuthContext);

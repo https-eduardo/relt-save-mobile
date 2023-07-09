@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import LoginScreen from "./screens/Auth/Login";
+import GoogleLoginScreen from "./screens/Auth/GoogleLogin";
 import ProfileScreen from "./screens/Auth/Profile";
 import HomeScreen from "./screens/Summary";
 import SpendingsScreen from "./screens/Transactions";
@@ -13,7 +13,7 @@ type RootStackParamList = {
 };
 
 type AuthStackParamList = {
-  Login: undefined;
+  GoogleLogin: undefined;
   Profile: { token: string | null };
   Home: undefined;
   Spendings: undefined;
@@ -24,7 +24,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const AuthRoutes: React.FC = () => (
   <AuthStack.Navigator screenOptions={{ headerShown: false }}>
-    <AuthStack.Screen name="Login" component={LoginScreen} />
+    <AuthStack.Screen name="GoogleLogin" component={GoogleLoginScreen} />
     <AuthStack.Screen name="Profile" component={ProfileScreen} />
   </AuthStack.Navigator>
 );

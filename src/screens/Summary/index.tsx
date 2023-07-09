@@ -5,7 +5,7 @@ import IoniIcon from "@expo/vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
 import { useContext, useEffect } from "react";
 import AuthContext from "../../contexts/auth";
-import { getProfileByAccessToken } from "../../services/auth";
+import { AuthService } from "../../services/auth";
 import * as SecureStore from "expo-secure-store";
 import { styles } from "./styles";
 
@@ -16,8 +16,9 @@ export default function HomeScreen() {
   async function getProfileInfo() {
     const accessToken = await SecureStore.getItemAsync("accessToken");
     if (!accessToken) return;
+
     try {
-      let { data: profile } = await getProfileByAccessToken(accessToken);
+      let { data: profile } = await AuthService.getProfileByAccessToken(accessToken);
       updateUser(profile);
     } catch {}
   }
@@ -35,35 +36,18 @@ export default function HomeScreen() {
           <Text style={styles.spendingValueText}>R$ 2360,00</Text>
           <View style={styles.actions}>
             <View style={styles.iconButtons}>
-              <AppButton
-                onPress={() => {}}
-                title="Extrato"
-                containerStyle={styles.iconButton}
-                textStyle={styles.iconButtonText}
-              >
+              <AppButton onPress={() => {}} text="Extrato">
                 <IoniIcon name="reader-outline" size={20} />
               </AppButton>
-              <AppButton
-                onPress={() => {}}
-                title="Desempenho"
-                containerStyle={styles.iconButton}
-                textStyle={styles.iconButtonText}
-              >
+              <AppButton onPress={() => {}} text="Desempenho">
                 <IoniIcon name="stats-chart-outline" regular size={20} />
               </AppButton>
             </View>
             <AppButton
               onPress={() => {
-                navigation.navigate("Spendings" as never);
+                navigation.navigate("Spendings");
               }}
-              title="Gerenciar seus gastos"
-              containerStyle={{
-                backgroundColor: "#dedede",
-                justifyContent: "flex-start",
-                borderRadius: 16,
-                gap: 16,
-              }}
-              textStyle={{ fontSize: 14 }}
+              text="Gerenciar seus gastos"
             >
               <IoniIcon name="wallet-outline" regular size={24} />
             </AppButton>

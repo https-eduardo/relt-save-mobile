@@ -1,21 +1,18 @@
 import { createContext, useState, PropsWithChildren } from "react";
+import { User } from "../shared/interfaces/user.interface";
 
 interface AuthContextData {
   isAuthenticated: boolean;
-  user: any | null;
-  updateUser: (user: any | null) => void;
+  user: User | null;
+  updateUser: (user: User | null) => void;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
-  const [user, setUser] = useState<object | null>({
-    given_name: "Eduardo",
-    picture:
-      "https://cdn1.iconfinder.com/data/icons/social-black-buttons/512/anonymous-512.png",
-  });
+  const [user, setUser] = useState<User | null>(null);
 
-  function updateUser(user: any) {
+  function updateUser(user: User | null) {
     setUser(user);
   }
 
