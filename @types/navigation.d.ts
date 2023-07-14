@@ -2,7 +2,8 @@ export type AppRootParamList = {
   Home: undefined;
   Profile: { token: string | null };
   GoogleLogin: undefined;
-  Spendings: undefined;
+  MailLogin: undefined;
+  Transactions: undefined;
 };
 
 declare global {

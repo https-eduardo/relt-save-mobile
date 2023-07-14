@@ -18,11 +18,12 @@ export default function AppTextInput(props: TextInputProps) {
 
   return (
     <View style={styles.textInputContainer}>
-      <Text style={{ ...styles.label, color: colors.primary }}>{props.label}</Text>
+      <Text style={{ ...styles.label, color: colors.textBlack }}>{props.label}</Text>
       <TextInput
         style={{ ...styles.textInput, color: colors.text }}
         value={props.value}
         placeholder={props.placeholder}
+        secureTextEntry={props.validatorType === 'password'}
       ></TextInput>
     </View>
   );

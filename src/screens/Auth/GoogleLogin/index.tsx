@@ -23,7 +23,7 @@ export default function GoogleLoginScreen() {
   const googleIcon = require("../../../../assets/images/google-icon.png");
   const savingsImg = require("../../../../assets/images/savings-illustration.png");
 
-  const navigation = useNavigation();
+  const { navigate } = useNavigation();
   const { colors } = useTheme();
 
   const [loading, setLoading] = useState(false);
@@ -59,7 +59,10 @@ export default function GoogleLoginScreen() {
     updateUser(user);
   }
 
-  async function handleLogin() {}
+
+  async function navigateToMailLogin() {
+    navigate('MailLogin');
+  }
 
   async function handleGoogleLogin() {
     const authUrl = "https://f9f5-45-176-69-251.ngrok-free.app/auth/google";
@@ -73,7 +76,7 @@ export default function GoogleLoginScreen() {
     await SecureStore.setItemAsync("accessToken", params.access_token);
     if (params.refresh_token !== "undefined")
       await SecureStore.setItemAsync("refreshToken", params.refresh_token);
-    navigation.navigate("Profile", { token: params.access_token });
+    navigate("Profile", { token: params.access_token });
   }
 
   useEffect(() => {
@@ -91,7 +94,7 @@ export default function GoogleLoginScreen() {
           Gerencie e controle suas despesas mensais de forma eficiente.
         </Text>
         <View style={styles.buttons}>
-          <AppButton onPress={handleLogin}>
+          <AppButton onPress={navigateToMailLogin}>
             <IoniIcon name="mail-outline" size={18} color={colors.textBlack} />
             <Text style={styles.emailButtonText}>Entrar com email</Text>
           </AppButton>

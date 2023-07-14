@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
     borderRadius: 4,
   },
   buttonText: {
+    backgroundColor: 'transparent',
     fontSize: 18,
     fontFamily: "InterMedium",
   },

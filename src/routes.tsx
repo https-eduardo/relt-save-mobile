@@ -5,6 +5,7 @@ import HomeScreen from "./screens/Summary";
 import SpendingsScreen from "./screens/Transactions";
 import { useContext } from "react";
 import AuthContext from "./contexts/auth";
+import MailLoginScreen from './screens/Auth/MailLogin';
 
 type RootStackParamList = {
   Home: undefined;
@@ -14,6 +15,7 @@ type RootStackParamList = {
 
 type AuthStackParamList = {
   GoogleLogin: undefined;
+  MailLogin: undefined;
   Profile: { token: string | null };
   Home: undefined;
   Spendings: undefined;
@@ -25,6 +27,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const AuthRoutes: React.FC = () => (
   <AuthStack.Navigator screenOptions={{ headerShown: false }}>
     <AuthStack.Screen name="GoogleLogin" component={GoogleLoginScreen} />
+    <AuthStack.Screen name="MailLogin" component={MailLoginScreen} />
     <AuthStack.Screen name="Profile" component={ProfileScreen} />
   </AuthStack.Navigator>
 );
