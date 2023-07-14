@@ -2,14 +2,14 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import GoogleLoginScreen from "./screens/Auth/GoogleLogin";
 import ProfileScreen from "./screens/Auth/Profile";
 import HomeScreen from "./screens/Summary";
-import SpendingsScreen from "./screens/Transactions";
+import TransactionsScreen from "./screens/Transactions";
 import { useContext } from "react";
 import AuthContext from "./contexts/auth";
-import MailLoginScreen from './screens/Auth/MailLogin';
+import MailLoginScreen from "./screens/Auth/MailLogin";
 
 type RootStackParamList = {
   Home: undefined;
-  Spendings: undefined;
+  Transactions: undefined;
   Profile: { token: string | null };
 };
 
@@ -18,7 +18,7 @@ type AuthStackParamList = {
   MailLogin: undefined;
   Profile: { token: string | null };
   Home: undefined;
-  Spendings: undefined;
+  Transactions: undefined;
 };
 
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
@@ -35,7 +35,7 @@ const AuthRoutes: React.FC = () => (
 const AppRoutes: React.FC = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name="Home" component={HomeScreen} />
-    <Stack.Screen name="Spendings" component={SpendingsScreen} />
+    <Stack.Screen name="Transactions" component={TransactionsScreen} />
   </Stack.Navigator>
 );
 

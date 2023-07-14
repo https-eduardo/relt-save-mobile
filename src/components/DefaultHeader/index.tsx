@@ -9,15 +9,15 @@ interface DefaultHeaderProps {
 }
 
 export default function DefaultHeader({ title }: DefaultHeaderProps) {
-  const navigation = useNavigation();
+  const { navigate } = useNavigation();
+
+  function navigateToHome() {
+    navigate("Home");
+  }
 
   return (
     <SafeAreaView style={styles.header}>
-      <TouchableWithoutFeedback
-        onPress={() => {
-          navigation.navigate("Home");
-        }}
-      >
+      <TouchableWithoutFeedback onPress={navigateToHome}>
         <IoniIcon name="arrow-back-outline" size={24}></IoniIcon>
       </TouchableWithoutFeedback>
       <Text style={styles.h1}>{title}</Text>

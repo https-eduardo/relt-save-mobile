@@ -40,15 +40,11 @@ export default function GoogleLoginScreen() {
     }
 
     try {
-      let { data: profile } = await AuthService.getProfileByAccessToken(
-        accessToken
-      );
+      let profile = await AuthService.getProfile(accessToken);
       user = profile;
     } catch {
       try {
-        let { data: profile } = await AuthService.refreshAccessToken(
-          refreshToken
-        );
+        let profile = await AuthService.refreshAccessToken(refreshToken);
         await SecureStore.setItemAsync("accessToken", profile.access_token);
       } catch {
         setLoading(false);
@@ -59,9 +55,8 @@ export default function GoogleLoginScreen() {
     updateUser(user);
   }
 
-
-  async function navigateToMailLogin() {
-    navigate('MailLogin');
+  function navigateToMailLogin() {
+    navigate("MailLogin");
   }
 
   async function handleGoogleLogin() {

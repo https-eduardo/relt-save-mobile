@@ -10,15 +10,19 @@ import * as SecureStore from "expo-secure-store";
 import { styles } from "./styles";
 
 export default function HomeScreen() {
-  const navigation = useNavigation();
+  const { navigate } = useNavigation();
   const { updateUser } = useContext(AuthContext);
+
+  function navigateToTransactions() {
+    navigate("Transactions");
+  }
 
   async function getProfileInfo() {
     const accessToken = await SecureStore.getItemAsync("accessToken");
     if (!accessToken) return;
 
     try {
-      let { data: profile } = await AuthService.getProfileByAccessToken(accessToken);
+      const profile = await AuthService.getProfile(accessToken);
       updateUser(profile);
     } catch {}
   }
@@ -44,9 +48,7 @@ export default function HomeScreen() {
               </AppButton>
             </View>
             <AppButton
-              onPress={() => {
-                navigation.navigate("Spendings");
-              }}
+              onPress={navigateToTransactions}
               text="Gerenciar seus gastos"
             >
               <IoniIcon name="wallet-outline" regular size={24} />

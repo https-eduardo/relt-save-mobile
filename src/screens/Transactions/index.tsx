@@ -2,7 +2,7 @@ import { View } from "react-native";
 import DefaultHeader from "../../components/DefaultHeader";
 import { useNavigation } from "@react-navigation/native";
 
-export default function SpendingsScreen() {
+export default function TransactionsScreen() {
   const navigation = useNavigation();
 
   return (
