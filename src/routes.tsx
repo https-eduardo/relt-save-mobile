@@ -6,6 +6,7 @@ import TransactionsScreen from "./screens/Transactions";
 import { useContext } from "react";
 import AuthContext from "./contexts/auth";
 import MailLoginScreen from "./screens/Auth/MailLogin";
+import RegisterScreen from './screens/Auth/Register';
 
 type RootStackParamList = {
   Home: undefined;
@@ -19,6 +20,7 @@ type AuthStackParamList = {
   Profile: { token: string | null };
   Home: undefined;
   Transactions: undefined;
+  Register: undefined;
 };
 
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
@@ -28,6 +30,7 @@ const AuthRoutes: React.FC = () => (
   <AuthStack.Navigator screenOptions={{ headerShown: false }}>
     <AuthStack.Screen name="GoogleLogin" component={GoogleLoginScreen} />
     <AuthStack.Screen name="MailLogin" component={MailLoginScreen} />
+    <AuthStack.Screen name="Register" component={RegisterScreen} />
     <AuthStack.Screen name="Profile" component={ProfileScreen} />
   </AuthStack.Navigator>
 );

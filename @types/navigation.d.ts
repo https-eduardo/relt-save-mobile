@@ -3,6 +3,7 @@ export type AppRootParamList = {
   Profile: { token: string | null };
   GoogleLogin: undefined;
   MailLogin: undefined;
+  Register: undefined;
   Transactions: undefined;
 };
 

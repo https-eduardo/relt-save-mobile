@@ -2,11 +2,17 @@ import { Text, View } from "react-native";
 import { styles } from "./styles";
 import AppTextInput from "../../../components/AppTextInput";
 import AppButton from "../../../components/AppButton";
+import { useNavigation } from "@react-navigation/native";
 
 export default function MailLoginScreen() {
+  const { navigate } = useNavigation();
+
   async function handleLogin() {}
   function navigateToForgotPassword() {}
-  function navigateToRegister() {}
+
+  function navigateToRegister() {
+    navigate("Register");
+  }
 
   return (
     <View style={styles.container}>

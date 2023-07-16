@@ -22,18 +22,10 @@ export const styles = StyleSheet.create({
   },
   inputs: {
     gap: 8,
-    marginTop: 16,
-    marginBottom: 8,
+    marginVertical: 16,
   },
-  forgotPasswordContainer: {
-    alignItems: "flex-end",
-  },
-  buttons: {
-    marginTop: 16,
-    gap: 8,
-  },
-  forgotPassword: {
-    color: COLORS.primary,
-    fontWeight: "600",
+  returnIconContainer: {
+    top: 32,
+    position: "absolute",
   },
 });
