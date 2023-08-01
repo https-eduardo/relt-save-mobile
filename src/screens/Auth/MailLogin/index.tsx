@@ -7,8 +7,8 @@ import { useNavigation } from "@react-navigation/native";
 export default function MailLoginScreen() {
   const { navigate } = useNavigation();
 
-  async function handleLogin() { }
-  function navigateToForgotPassword() { }
+  async function handleLogin() {}
+  function navigateToForgotPassword() {}
 
   function navigateToRegister() {
     navigate("Register");
@@ -24,13 +24,14 @@ export default function MailLoginScreen() {
       </View>
       <View style={styles.inputs}>
         <AppTextInput
-          icon='person-outline'
+          icon="person-outline"
           label="Email"
           placeholder="john.doe@gmail.com"
           validatorType="email"
         />
         <AppTextInput
           label="Senha"
+          icon="lock-closed-outline"
           placeholder="senha123"
           validatorType="password"
         />
@@ -40,9 +41,15 @@ export default function MailLoginScreen() {
           Esqueceu sua senha?
         </Text>
       </View>
-      <View style={styles.buttons}>
+      <View style={styles.buttonContainer}>
         <AppButton onPress={handleLogin} primary text="Entrar" />
-        <AppButton onPress={navigateToRegister} text="Cadastrar-se" />
+        <Text style={styles.register}>
+          Ainda não tem conta?
+          <Text style={styles.registerLink} onPress={navigateToRegister}>
+            {" "}
+            Se registre aqui
+          </Text>
+        </Text>
       </View>
     </View>
   );
