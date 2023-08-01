@@ -22,6 +22,12 @@ export const styles = StyleSheet.create({
   buttons: {
     marginTop: 32,
     gap: 16,
+    padding: 32,
+  },
+  savingsImg: {
+    resizeMode: "contain",
+    width: "100%",
+    height: "50%",
   },
   googleButtonContainer: {
     marginTop: 32,
@@ -31,7 +37,7 @@ export const styles = StyleSheet.create({
   googleButtonText: {
     fontSize: 18,
     fontFamily: "InterSemiBold",
-    color: COLORS.textWhite,
+    color: COLORS.textBlack,
   },
   emailIcon: {
     fontSize: 18,
@@ -41,7 +47,7 @@ export const styles = StyleSheet.create({
   emailButtonText: {
     fontSize: 18,
     fontFamily: "InterSemiBold",
-    color: COLORS.textBlack,
+    color: COLORS.textWhite,
   },
   googleIcon: {
     maxWidth: 24,

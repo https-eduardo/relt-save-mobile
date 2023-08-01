@@ -83,21 +83,25 @@ export default function GoogleLoginScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Image source={savingsImg} />
+        <Image source={savingsImg} style={styles.savingsImg} />
         <Logo style={styles.logo} />
         <Text style={styles.subtitle}>
           Gerencie e controle suas despesas mensais de forma eficiente.
         </Text>
-        <View style={styles.buttons}>
-          <AppButton onPress={navigateToMailLogin}>
-            <IoniIcon name="mail-outline" size={18} color={colors.textBlack} />
-            <Text style={styles.emailButtonText}>Entrar com email</Text>
-          </AppButton>
-          <AppButton secondary onPress={handleGoogleLogin}>
-            <Image source={googleIcon} style={styles.googleIcon}></Image>
-            <Text style={styles.googleButtonText}>Entrar com o Google</Text>
-          </AppButton>
-        </View>
+      </View>
+      <View style={styles.buttons}>
+        <AppButton onPress={navigateToMailLogin} primary>
+          <Text style={styles.emailButtonText}>Continuar</Text>
+          <IoniIcon
+            name="arrow-forward-outline"
+            size={18}
+            color={colors.textWhite}
+          />
+        </AppButton>
+        <AppButton onPress={handleGoogleLogin}>
+          <Image source={googleIcon} style={styles.googleIcon}></Image>
+          <Text style={styles.googleButtonText}>Entrar com o Google</Text>
+        </AppButton>
       </View>
     </View>
   );
