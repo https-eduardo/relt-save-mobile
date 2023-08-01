@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { COLORS } from '../../theme';
 
 export const styles = StyleSheet.create({
   textInputContainer: {
@@ -11,9 +12,24 @@ export const styles = StyleSheet.create({
   },
   textInput: {
     borderRadius: 4,
-    backgroundColor: "#dedede",
     fontSize: 16,
     fontFamily: "InterSemiBold",
     padding: 16,
+    flex: 1,
   },
+  textInputWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: "#dedede",
+  },
+  decorativeIcon: {
+    paddingLeft: 16,
+    color: COLORS.text
+  },
+  passwordIcon: {
+    position: 'absolute',
+    right: 16,
+    color: COLORS.text
+  }
 });

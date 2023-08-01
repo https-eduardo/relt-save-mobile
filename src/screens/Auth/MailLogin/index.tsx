@@ -7,8 +7,8 @@ import { useNavigation } from "@react-navigation/native";
 export default function MailLoginScreen() {
   const { navigate } = useNavigation();
 
-  async function handleLogin() {}
-  function navigateToForgotPassword() {}
+  async function handleLogin() { }
+  function navigateToForgotPassword() { }
 
   function navigateToRegister() {
     navigate("Register");
@@ -24,6 +24,7 @@ export default function MailLoginScreen() {
       </View>
       <View style={styles.inputs}>
         <AppTextInput
+          icon='person-outline'
           label="Email"
           placeholder="john.doe@gmail.com"
           validatorType="email"
