@@ -20,10 +20,13 @@ export default function AppButton(props: AppButtonProps) {
   return (
     <TouchableOpacity
       onPress={props.onPress}
-      style={{ ...styles.buttonContainer, ...propsStyles }}
+      style={{
+        ...styles.buttonContainer,
+        backgroundColor: propsStyles.backgroundColor,
+      }}
     >
       {props.text && (
-        <Text style={{ ...styles.buttonText, ...propsStyles }}>
+        <Text style={{ ...styles.buttonText, color: propsStyles.color }}>
           {props.text}
         </Text>
       )}
