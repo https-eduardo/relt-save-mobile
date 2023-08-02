@@ -1,8 +1,11 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { COLORS } from "../../../theme";
 
 export const styles = StyleSheet.create({
   container: {
+    flex: 1,
+  },
+  content: {
     flex: 1,
     justifyContent: "center",
     margin: 32,
@@ -22,10 +25,19 @@ export const styles = StyleSheet.create({
   },
   inputs: {
     gap: 8,
-    marginVertical: 16,
+    marginVertical: 24,
   },
   returnIconContainer: {
-    top: 32,
-    position: "absolute",
+    marginTop: 16,
+    marginHorizontal: 24,
+  },
+  login: {
+    color: COLORS.text,
+    marginTop: 8,
+    textAlign: "center",
+  },
+  loginLink: {
+    color: COLORS.primary,
+    fontWeight: "600",
   },
 });
