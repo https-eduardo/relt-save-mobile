@@ -1,11 +1,50 @@
-import { Text, View } from "react-native";
+import {
+  NativeSyntheticEvent,
+  Text,
+  TextInputChangeEventData,
+  View,
+} from "react-native";
 import { styles } from "./styles";
 import AppTextInput from "../../../components/AppTextInput";
 import AppButton from "../../../components/AppButton";
 import { useNavigation } from "@react-navigation/native";
+import { ValidationError } from "vuct-validator";
+import { useValidatedState } from "vuct-validator/react";
+import { useState } from "react";
+import { VALIDATION_RULES } from "../../../constants/validation";
 
 export default function MailLoginScreen() {
   const { navigate } = useNavigation();
+  const [errors, setErrors] = useState<ValidationError>({});
+
+  function handleValidationError(error: ValidationError) {
+    setErrors((prevState) => ({ ...prevState, ...error }));
+  }
+
+  const [email, setEmail] = useValidatedState(
+    { name: "email", value: "" },
+    VALIDATION_RULES.email,
+    handleValidationError
+  );
+
+  const [password, setPassword] = useValidatedState(
+    { name: "password", value: "" },
+    VALIDATION_RULES.password,
+    handleValidationError
+  );
+
+
+  function handleEmailChange(
+    ev: NativeSyntheticEvent<TextInputChangeEventData>
+  ) {
+    setEmail(ev.nativeEvent.text);
+  }
+
+  function handlePasswordChange(
+    ev: NativeSyntheticEvent<TextInputChangeEventData>
+  ) {
+    setPassword(ev.nativeEvent.text);
+  }
 
   async function handleLogin() {}
   function navigateToForgotPassword() {}
@@ -28,12 +67,16 @@ export default function MailLoginScreen() {
           label="Email"
           placeholder="john.doe@gmail.com"
           validatorType="email"
+          value={email}
+          onChange={handleEmailChange}
         />
         <AppTextInput
           label="Senha"
           icon="lock-closed-outline"
           placeholder="senha123"
           validatorType="password"
+          value={password}
+          onChange={handlePasswordChange}
         />
       </View>
       <View style={styles.forgotPasswordContainer}>
