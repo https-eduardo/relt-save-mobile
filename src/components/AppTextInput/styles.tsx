@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native';
-import { COLORS } from '../../theme';
+import { StyleSheet } from "react-native";
+import { COLORS } from "../../theme";
 
 export const styles = StyleSheet.create({
   textInputContainer: {
@@ -11,25 +11,35 @@ export const styles = StyleSheet.create({
     fontFamily: "InterMedium",
   },
   textInput: {
-    borderRadius: 4,
     fontSize: 16,
     fontFamily: "InterSemiBold",
     padding: 16,
     flex: 1,
   },
   textInputWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    borderRadius: 4,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: "#dedede",
+    borderWidth: 1,
+    borderColor: "transparent",
   },
   decorativeIcon: {
     paddingLeft: 16,
-    color: COLORS.text
+    color: COLORS.text,
   },
   passwordIcon: {
-    position: 'absolute',
+    position: "absolute",
     right: 16,
-    color: COLORS.text
-  }
+    color: COLORS.text,
+  },
+  error: {
+    borderColor: COLORS.red,
+    borderWidth: 1,
+  },
+  errorMessage: {
+    color: COLORS.red,
+    fontSize: 12,
+  },
 });

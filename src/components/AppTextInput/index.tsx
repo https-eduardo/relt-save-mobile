@@ -27,6 +27,7 @@ interface TextInputProps {
   icon?: keyof typeof Ionicon.glyphMap;
   validatorType?: InputValidatorType;
   onChange?: (event: NativeSyntheticEvent<TextInputChangeEventData>) => void;
+  errorMessage?: string;
 }
 
 export default function AppTextInput(props: TextInputProps) {
@@ -48,7 +49,12 @@ export default function AppTextInput(props: TextInputProps) {
       <Text style={{ ...styles.label, color: colors.textBlack }}>
         {props.label}
       </Text>
-      <View style={styles.textInputWrapper}>
+      <View
+        style={[
+          styles.textInputWrapper,
+          !!props.errorMessage ? styles.error : {},
+        ]}
+      >
         {props.icon && (
           <Ionicon name={props.icon} size={18} style={styles.decorativeIcon} />
         )}
@@ -70,6 +76,11 @@ export default function AppTextInput(props: TextInputProps) {
           />
         )}
       </View>
+      <Text
+        style={[styles.errorMessage, { opacity: !!props.errorMessage ? 1 : 0 }]}
+      >
+        {props.errorMessage}
+      </Text>
     </View>
   );
 }
