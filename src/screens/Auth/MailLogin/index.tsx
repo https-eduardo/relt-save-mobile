@@ -33,7 +33,6 @@ export default function MailLoginScreen() {
     handleValidationError
   );
 
-
   function handleEmailChange(
     ev: NativeSyntheticEvent<TextInputChangeEventData>
   ) {
@@ -69,6 +68,7 @@ export default function MailLoginScreen() {
           validatorType="email"
           value={email}
           onChange={handleEmailChange}
+          errorMessage={errors.email}
         />
         <AppTextInput
           label="Senha"
@@ -77,6 +77,7 @@ export default function MailLoginScreen() {
           validatorType="password"
           value={password}
           onChange={handlePasswordChange}
+          errorMessage={errors.password}
         />
       </View>
       <View style={styles.forgotPasswordContainer}>
