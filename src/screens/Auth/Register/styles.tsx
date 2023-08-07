@@ -24,8 +24,9 @@ export const styles = StyleSheet.create({
     color: COLORS.text,
   },
   inputs: {
-    gap: 8,
-    marginVertical: 24,
+    gap: 2,
+    marginTop: 24,
+    marginBottom: 12,
   },
   returnIconContainer: {
     marginTop: 16,

@@ -21,9 +21,9 @@ export const styles = StyleSheet.create({
     color: COLORS.text,
   },
   inputs: {
-    gap: 8,
-    marginTop: 16,
-    marginBottom: 8,
+    gap: 2,
+    marginTop: 24,
+    marginBottom: 2,
   },
   forgotPasswordContainer: {
     alignItems: "flex-end",
