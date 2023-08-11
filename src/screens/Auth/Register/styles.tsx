@@ -10,27 +10,10 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     margin: 32,
   },
-  texts: {
-    gap: 4,
-  },
-  title: {
-    fontWeight: "bold",
-    fontSize: 28,
-    color: COLORS.primary,
-  },
-  subtitle: {
-    fontWeight: "500",
-    fontSize: 16,
-    color: COLORS.text,
-  },
   inputs: {
     gap: 2,
     marginTop: 24,
     marginBottom: 12,
-  },
-  returnIconContainer: {
-    marginTop: 16,
-    marginHorizontal: 24,
   },
   login: {
     color: COLORS.text,

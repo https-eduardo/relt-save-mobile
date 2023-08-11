@@ -15,6 +15,8 @@ import { useValidatedState } from "vuct-validator/react";
 import { VALIDATION_RULES } from "../../../constants";
 import { ValidationError } from "vuct-validator";
 import { useState } from "react";
+import { globalStyles } from "../../../shared/styles/global";
+import ReturnIcon from '../../../components/ReturnIcon';
 
 export default function RegisterScreen() {
   const navigation = useNavigation();
@@ -81,18 +83,11 @@ export default function RegisterScreen() {
 
   return (
     <View style={styles.container}>
-      <SafeAreaView style={styles.returnIconContainer}>
-        <IoniIcon
-          name="arrow-back"
-          size={24}
-          color={COLORS.text}
-          onPress={navigation.goBack}
-        />
-      </SafeAreaView>
+      <ReturnIcon />
       <View style={styles.content}>
-        <View style={styles.texts}>
-          <Text style={styles.title}>Cadastro</Text>
-          <Text style={styles.subtitle}>
+        <View style={globalStyles.texts}>
+          <Text style={globalStyles.title}>Cadastro</Text>
+          <Text style={globalStyles.subtitle}>
             Crie uma conta para acessar todos os recursos de nossa plataforma.
           </Text>
         </View>

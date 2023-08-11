@@ -12,6 +12,7 @@ import { ValidationError } from "vuct-validator";
 import { useValidatedState } from "vuct-validator/react";
 import { useState } from "react";
 import { VALIDATION_RULES } from "../../../constants/validation";
+import { globalStyles } from "../../../shared/styles/global";
 
 export default function MailLoginScreen() {
   const { navigate } = useNavigation();
@@ -54,9 +55,9 @@ export default function MailLoginScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.texts}>
-        <Text style={styles.title}>Login</Text>
-        <Text style={styles.subtitle}>
+      <View style={globalStyles.texts}>
+        <Text style={globalStyles.title}>Login</Text>
+        <Text style={globalStyles.subtitle}>
           Entre em sua conta para acessar os recursos da nossa plataforma.
         </Text>
       </View>
