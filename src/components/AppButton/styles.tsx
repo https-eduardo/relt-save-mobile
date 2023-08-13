@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
   buttonText: {
     backgroundColor: "transparent",
     fontSize: 18,
-    fontFamily: "InterMedium",
+    fontWeight: "600",
   },
   primary: {
     backgroundColor: COLORS.primary,
