@@ -47,7 +47,9 @@ export default function MailLoginScreen() {
   }
 
   async function handleLogin() {}
-  function navigateToForgotPassword() {}
+  function navigateToForgotPassword() {
+    navigate("ForgotPassword");
+  }
 
   function navigateToRegister() {
     navigate("Register");
