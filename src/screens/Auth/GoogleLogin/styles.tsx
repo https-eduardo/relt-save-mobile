@@ -1,7 +1,6 @@
 import { StyleSheet } from "react-native";
 import { COLORS } from "../../../theme";
 
-// Need refactoration in styles
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -37,11 +36,6 @@ export const styles = StyleSheet.create({
   googleButtonText: {
     fontSize: 18,
     fontFamily: "InterSemiBold",
-    color: COLORS.textBlack,
-  },
-  emailIcon: {
-    fontSize: 18,
-    fontWeight: "900",
     color: COLORS.textBlack,
   },
   emailButtonText: {

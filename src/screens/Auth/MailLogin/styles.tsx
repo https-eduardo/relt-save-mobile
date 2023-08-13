@@ -22,13 +22,14 @@ export const styles = StyleSheet.create({
   register: {
     textAlign: "center",
     color: COLORS.text,
+    fontFamily: "InterRegular",
   },
   registerLink: {
     color: COLORS.primary,
-    fontWeight: "600",
+    fontFamily: "InterSemiBold",
   },
   forgotPassword: {
     color: COLORS.primary,
-    fontWeight: "600",
+    fontFamily: "InterSemiBold",
   },
 });

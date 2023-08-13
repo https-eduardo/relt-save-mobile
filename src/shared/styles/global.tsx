@@ -6,12 +6,12 @@ export const globalStyles = StyleSheet.create({
     gap: 4,
   },
   title: {
-    fontWeight: "bold",
+    fontFamily: "InterBold",
     fontSize: 28,
     color: COLORS.primary,
   },
   subtitle: {
-    fontWeight: "500",
+    fontFamily: "InterMedium",
     fontSize: 16,
     color: COLORS.text,
   },

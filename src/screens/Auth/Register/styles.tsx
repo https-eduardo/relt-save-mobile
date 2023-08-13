@@ -17,11 +17,12 @@ export const styles = StyleSheet.create({
   },
   login: {
     color: COLORS.text,
+    fontFamily: "InterRegular",
     marginTop: 8,
     textAlign: "center",
   },
   loginLink: {
     color: COLORS.primary,
-    fontWeight: "600",
+    fontFamily: "InterSemiBold",
   },
 });
