@@ -43,9 +43,8 @@ export default function ForgotPasswordScreen() {
 
   async function sendRecoveryCode() {
     try {
-      await AuthService.sendPasswordRecoveryCode(email);
-      // Navigate to next RecoveryCodeScreen
-      // navigate('RecoveryCodeScreen');
+      // await AuthService.sendPasswordRecoveryCode(email);
+      navigate("RecoveryCode", { email });
     } catch {
       // Show some error message
     }
