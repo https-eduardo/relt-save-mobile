@@ -10,22 +10,12 @@ import { styles } from "./styles";
 import Ionicon from "@expo/vector-icons/Ionicons";
 import { useState } from "react";
 
-// Explore if there's a better alternative to do the validation.
-type InputValidatorType =
-  | "email"
-  | "small-text"
-  | "password"
-  | "text"
-  | "user"
-  | "price"
-  | "date";
-
 interface TextInputProps {
   label?: string;
   placeholder?: string;
   value?: string;
   icon?: keyof typeof Ionicon.glyphMap;
-  validatorType?: InputValidatorType;
+  password?: boolean;
   onChange?: (event: NativeSyntheticEvent<TextInputChangeEventData>) => void;
   errorMessage?: string;
 }
@@ -63,11 +53,9 @@ export default function AppTextInput(props: TextInputProps) {
           onChange={props.onChange}
           value={props.value}
           placeholder={props.placeholder}
-          secureTextEntry={
-            props.validatorType === "password" && !isPasswordVisible
-          }
+          secureTextEntry={props.password && !isPasswordVisible}
         />
-        {props.validatorType === "password" && (
+        {props.password && (
           <Ionicon
             name={passwordIcon}
             style={styles.passwordIcon}

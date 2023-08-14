@@ -65,7 +65,6 @@ export default function ForgotPasswordScreen() {
             icon="mail-outline"
             label="Email"
             placeholder="john.doe@gmail.com"
-            validatorType="email"
             value={email}
             onChange={handleEmailChange}
             errorMessage={errors.email}

@@ -68,7 +68,6 @@ export default function MailLoginScreen() {
           icon="person-outline"
           label="Email"
           placeholder="john.doe@gmail.com"
-          validatorType="email"
           value={email}
           onChange={handleEmailChange}
           errorMessage={errors.email}
@@ -77,7 +76,7 @@ export default function MailLoginScreen() {
           label="Senha"
           icon="lock-closed-outline"
           placeholder="senha123"
-          validatorType="password"
+          password
           value={password}
           onChange={handlePasswordChange}
           errorMessage={errors.password}

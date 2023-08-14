@@ -16,7 +16,7 @@ import { VALIDATION_RULES } from "../../../constants";
 import { ValidationError } from "vuct-validator";
 import { useState } from "react";
 import { globalStyles } from "../../../shared/styles/global";
-import ReturnIcon from '../../../components/ReturnIcon';
+import ReturnIcon from "../../../components/ReturnIcon";
 
 export default function RegisterScreen() {
   const navigation = useNavigation();
@@ -96,7 +96,6 @@ export default function RegisterScreen() {
             icon="person-outline"
             label="Nome de usuário"
             placeholder="John Doe"
-            validatorType="user"
             value={username}
             onChange={handleUsernameChange}
             errorMessage={errors.username}
@@ -105,7 +104,6 @@ export default function RegisterScreen() {
             icon="mail-outline"
             label="Email"
             placeholder="john.doe@gmail.com"
-            validatorType="email"
             value={email}
             onChange={handleEmailChange}
             errorMessage={errors.email}
@@ -114,7 +112,7 @@ export default function RegisterScreen() {
             icon="lock-closed-outline"
             label="Senha"
             placeholder="senha123"
-            validatorType="password"
+            password
             value={password}
             onChange={handlePasswordChange}
             errorMessage={errors.password}
@@ -123,7 +121,7 @@ export default function RegisterScreen() {
             icon="lock-closed-outline"
             label="Confirme sua senha"
             placeholder="senha123"
-            validatorType="password"
+            password
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
             errorMessage={errors.confirmPassword}
