@@ -37,9 +37,8 @@ export default function RecoveryCodeScreen() {
   async function validateRecoveryCode() {
     try {
       const { email } = route.params as RecoveryCodeRouteProps;
-      await AuthService.validateRecoveryCode(email, code);
-      // Navigate to RecoveryPassword screen since the code is valid
-      // navigate("RecoveryPassword", { email, code });
+      // await AuthService.validateRecoveryCode(email, code);
+      navigate("RecoverPassword", { email, recoveryCode: code });
     } catch {
       // Show some error
     }

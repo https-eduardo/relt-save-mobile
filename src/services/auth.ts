@@ -1,4 +1,5 @@
 import api from ".";
+import { RecoverPasswordData } from "../shared/interfaces";
 
 export class AuthService {
   public static async getProfile(accessToken: string) {
@@ -16,7 +17,7 @@ export class AuthService {
   }
 
   public static async sendPasswordRecoveryCode(email: string) {
-    const { data } = await api.put("auth/reset-password", { email });
+    const { data } = await api.put("auth/reset-password/", { email });
 
     return data;
   }
@@ -26,6 +27,14 @@ export class AuthService {
       email,
       code,
     });
+
+    return data;
+  }
+
+  public static async recoverPassword(
+    recoverPasswordData: RecoverPasswordData
+  ) {
+    const { data } = await api.post("auth/reset-password", recoverPasswordData);
 
     return data;
   }

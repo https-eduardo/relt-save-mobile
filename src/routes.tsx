@@ -9,7 +9,8 @@ import MailLoginScreen from "./screens/Auth/MailLogin";
 import RegisterScreen from "./screens/Auth/Register";
 import ForgotPasswordScreen from "./screens/Auth/ForgotPassword";
 import RecoveryCodeScreen from "./screens/Auth/RecoveryCode";
-import { RecoveryCodeRouteProps } from '../@types/navigation';
+import { RecoverPasswordRouteProps, RecoveryCodeRouteProps } from '../@types/navigation';
+import RecoverPasswordScreen from './screens/Auth/RecoverPassword';
 
 type RootStackParamList = {
   Home: undefined;
@@ -22,6 +23,7 @@ type AuthStackParamList = {
   MailLogin: undefined;
   Profile: { token: string | null };
   RecoveryCode: RecoveryCodeRouteProps;
+  RecoverPassword: RecoverPasswordRouteProps;
   Home: undefined;
   Transactions: undefined;
   Register: undefined;
@@ -38,6 +40,7 @@ const AuthRoutes: React.FC = () => (
     <AuthStack.Screen name="Register" component={RegisterScreen} />
     <AuthStack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
     <AuthStack.Screen name="RecoveryCode" component={RecoveryCodeScreen} />
+    <AuthStack.Screen name="RecoverPassword" component={RecoverPasswordScreen} />
     <AuthStack.Screen name="Profile" component={ProfileScreen} />
   </AuthStack.Navigator>
 );
