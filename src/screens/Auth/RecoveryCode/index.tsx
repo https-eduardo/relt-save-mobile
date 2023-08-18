@@ -1,12 +1,4 @@
-import {
-  NativeSyntheticEvent,
-  Text,
-  TextInputChangeEventData,
-  View,
-} from "react-native";
-import ReturnIcon from "../../../components/ReturnIcon";
-import { styles } from "./styles";
-import { globalStyles } from "../../../shared/styles/global";
+import { NativeSyntheticEvent, TextInputChangeEventData } from "react-native";
 import AppTextInput from "../../../components/AppTextInput";
 import AppButton from "../../../components/AppButton";
 import IoniIcon from "@expo/vector-icons/Ionicons";
@@ -18,6 +10,7 @@ import { VALIDATION_RULES } from "../../../constants";
 import { AuthService } from "../../../services/auth";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { RecoveryCodeRouteProps } from "../../../../@types/navigation";
+import AuthLayout from "../../../layouts/auth";
 
 export default function RecoveryCodeScreen() {
   const { colors } = useTheme();
@@ -51,17 +44,16 @@ export default function RecoveryCodeScreen() {
   }
 
   return (
-    <View style={styles.container}>
-      <ReturnIcon />
-      <View style={styles.content}>
-        <View style={globalStyles.texts}>
-          <Text style={globalStyles.title}>Recupere sua conta</Text>
-          <Text style={globalStyles.subtitle}>
+    <AuthLayout returnable>
+      <AuthLayout.Content>
+        <AuthLayout.Texts>
+          <AuthLayout.Title>Recupere sua conta</AuthLayout.Title>
+          <AuthLayout.Subtitle>
             Insira o código enviado ao seu email para conseguir alterar sua
             senha.
-          </Text>
-        </View>
-        <View style={styles.inputs}>
+          </AuthLayout.Subtitle>
+        </AuthLayout.Texts>
+        <AuthLayout.Inputs>
           <AppTextInput
             icon="key-outline"
             label="Código de recuperação"
@@ -70,7 +62,7 @@ export default function RecoveryCodeScreen() {
             onChange={handleCodeChange}
             errorMessage={errors.code}
           />
-        </View>
+        </AuthLayout.Inputs>
         <AppButton onPress={validateRecoveryCode} primary text="Avançar">
           <IoniIcon
             name="arrow-forward-outline"
@@ -78,7 +70,7 @@ export default function RecoveryCodeScreen() {
             color={colors.textWhite}
           />
         </AppButton>
-      </View>
-    </View>
+      </AuthLayout.Content>
+    </AuthLayout>
   );
 }

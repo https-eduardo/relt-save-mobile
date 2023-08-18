@@ -2,9 +2,6 @@ import { StyleSheet } from "react-native";
 import { COLORS } from "../../../theme";
 
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   logo: {
     marginTop: 16,
   },
@@ -12,11 +9,6 @@ export const styles = StyleSheet.create({
     fontFamily: "InterMedium",
     fontSize: 18,
     color: COLORS.text,
-  },
-  content: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 32,
   },
   buttons: {
     marginTop: 32,

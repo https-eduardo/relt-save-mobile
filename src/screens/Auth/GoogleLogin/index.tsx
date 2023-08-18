@@ -9,6 +9,7 @@ import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../../contexts/auth";
 import { AuthService } from "../../../services/auth";
 import { styles } from "./styles";
+import AuthLayout from "../../../layouts/auth";
 
 interface OAuthResponse {
   type: string;
@@ -81,15 +82,15 @@ export default function GoogleLoginScreen() {
   if (loading) return null;
 
   return (
-    <View style={styles.container}>
-      <View style={styles.content}>
+    <AuthLayout>
+      <AuthLayout.Content>
         <Image source={savingsImg} style={styles.savingsImg} />
         <Logo style={styles.logo} />
-        <Text style={styles.subtitle}>
+        <AuthLayout.Subtitle style={styles.subtitle}>
           Gerencie e controle suas despesas mensais de forma eficiente.
-        </Text>
-      </View>
-      <View style={styles.buttons}>
+        </AuthLayout.Subtitle>
+      </AuthLayout.Content>
+      <AuthLayout.ButtonContainer style={styles.buttons}>
         <AppButton onPress={navigateToMailLogin} primary>
           <Text style={styles.emailButtonText}>Continuar</Text>
           <IoniIcon
@@ -102,7 +103,7 @@ export default function GoogleLoginScreen() {
           <Image source={googleIcon} style={styles.googleIcon}></Image>
           <Text style={styles.googleButtonText}>Entrar com o Google</Text>
         </AppButton>
-      </View>
-    </View>
+      </AuthLayout.ButtonContainer>
+    </AuthLayout>
   );
 }

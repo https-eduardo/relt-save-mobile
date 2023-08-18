@@ -1,12 +1,4 @@
-import {
-  NativeSyntheticEvent,
-  Text,
-  TextInputChangeEventData,
-  View,
-} from "react-native";
-import ReturnIcon from "../../../components/ReturnIcon";
-import { globalStyles } from "../../../shared/styles/global";
-import { styles } from "./styles";
+import { NativeSyntheticEvent, TextInputChangeEventData } from "react-native";
 import AppTextInput from "../../../components/AppTextInput";
 import { useValidatedState } from "vuct-validator/react";
 import { VALIDATION_RULES } from "../../../constants";
@@ -16,12 +8,12 @@ import AppButton from "../../../components/AppButton";
 import IoniIcon from "@expo/vector-icons/Ionicons";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { AuthService } from "../../../services/auth";
+import AuthLayout from "../../../layouts/auth";
 
 export default function ForgotPasswordScreen() {
   const [errors, setErrors] = useState<ValidationError>({});
   const { navigate } = useNavigation();
   const { colors } = useTheme();
-
   function handleValidationError(error: ValidationError) {
     setErrors((prevState) => ({ ...prevState, ...error }));
   }
@@ -51,16 +43,15 @@ export default function ForgotPasswordScreen() {
   }
 
   return (
-    <View style={styles.container}>
-      <ReturnIcon />
-      <View style={styles.content}>
-        <View style={globalStyles.texts}>
-          <Text style={globalStyles.title}>Esqueceu sua senha?</Text>
-          <Text style={globalStyles.subtitle}>
+    <AuthLayout returnable>
+      <AuthLayout.Content>
+        <AuthLayout.Texts>
+          <AuthLayout.Title>Esqueceu sua senha?</AuthLayout.Title>
+          <AuthLayout.Subtitle>
             Enviaremos um código de recuperação para o seu email.
-          </Text>
-        </View>
-        <View style={styles.inputs}>
+          </AuthLayout.Subtitle>
+        </AuthLayout.Texts>
+        <AuthLayout.Inputs>
           <AppTextInput
             icon="mail-outline"
             label="Email"
@@ -69,7 +60,7 @@ export default function ForgotPasswordScreen() {
             onChange={handleEmailChange}
             errorMessage={errors.email}
           />
-        </View>
+        </AuthLayout.Inputs>
         <AppButton onPress={sendRecoveryCode} primary text="Enviar">
           <IoniIcon
             name="arrow-forward-outline"
@@ -77,7 +68,7 @@ export default function ForgotPasswordScreen() {
             color={colors.textWhite}
           />
         </AppButton>
-      </View>
-    </View>
+      </AuthLayout.Content>
+    </AuthLayout>
   );
 }

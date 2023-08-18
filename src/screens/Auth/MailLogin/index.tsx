@@ -12,7 +12,7 @@ import { ValidationError } from "vuct-validator";
 import { useValidatedState } from "vuct-validator/react";
 import { useState } from "react";
 import { VALIDATION_RULES } from "../../../constants/validation";
-import { globalStyles } from "../../../shared/styles/global";
+import AuthLayout from "../../../layouts/auth";
 
 export default function MailLoginScreen() {
   const { navigate } = useNavigation();
@@ -56,47 +56,52 @@ export default function MailLoginScreen() {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={globalStyles.texts}>
-        <Text style={globalStyles.title}>Login</Text>
-        <Text style={globalStyles.subtitle}>
-          Entre em sua conta para acessar os recursos da nossa plataforma.
-        </Text>
-      </View>
-      <View style={styles.inputs}>
-        <AppTextInput
-          icon="person-outline"
-          label="Email"
-          placeholder="john.doe@gmail.com"
-          value={email}
-          onChange={handleEmailChange}
-          errorMessage={errors.email}
-        />
-        <AppTextInput
-          label="Senha"
-          icon="lock-closed-outline"
-          placeholder="senha123"
-          password
-          value={password}
-          onChange={handlePasswordChange}
-          errorMessage={errors.password}
-        />
-      </View>
-      <View style={styles.forgotPasswordContainer}>
-        <Text style={styles.forgotPassword} onPress={navigateToForgotPassword}>
-          Esqueceu sua senha?
-        </Text>
-      </View>
-      <View style={styles.buttonContainer}>
-        <AppButton onPress={handleLogin} primary text="Entrar" />
-        <Text style={styles.register}>
-          Ainda não tem conta?
-          <Text style={styles.registerLink} onPress={navigateToRegister}>
-            {" "}
-            Se registre aqui
+    <AuthLayout>
+      <AuthLayout.Content>
+        <AuthLayout.Texts>
+          <AuthLayout.Title>Login</AuthLayout.Title>
+          <AuthLayout.Subtitle>
+            Entre em sua conta para acessar os recursos da nossa plataforma.
+          </AuthLayout.Subtitle>
+        </AuthLayout.Texts>
+        <AuthLayout.Inputs>
+          <AppTextInput
+            icon="person-outline"
+            label="Email"
+            placeholder="john.doe@gmail.com"
+            value={email}
+            onChange={handleEmailChange}
+            errorMessage={errors.email}
+          />
+          <AppTextInput
+            label="Senha"
+            icon="lock-closed-outline"
+            placeholder="senha123"
+            password
+            value={password}
+            onChange={handlePasswordChange}
+            errorMessage={errors.password}
+          />
+        </AuthLayout.Inputs>
+        <AuthLayout.ForgotPasswordContainer>
+          <Text
+            style={styles.forgotPassword}
+            onPress={navigateToForgotPassword}
+          >
+            Esqueceu sua senha?
           </Text>
-        </Text>
-      </View>
-    </View>
+        </AuthLayout.ForgotPasswordContainer>
+        <AuthLayout.ButtonContainer>
+          <AppButton onPress={handleLogin} primary text="Entrar" />
+          <Text style={styles.register}>
+            Ainda não tem conta?
+            <Text style={styles.registerLink} onPress={navigateToRegister}>
+              {" "}
+              Se registre aqui
+            </Text>
+          </Text>
+        </AuthLayout.ButtonContainer>
+      </AuthLayout.Content>
+    </AuthLayout>
   );
 }

@@ -2,7 +2,6 @@ import {
   NativeSyntheticEvent,
   Text,
   TextInputChangeEventData,
-  View,
 } from "react-native";
 import { styles } from "./styles";
 import AppTextInput from "../../../components/AppTextInput";
@@ -10,13 +9,11 @@ import AppButton from "../../../components/AppButton";
 import IoniIcon from "@expo/vector-icons/Ionicons";
 import { COLORS } from "../../../theme";
 import { useNavigation } from "@react-navigation/native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useValidatedState } from "vuct-validator/react";
 import { VALIDATION_RULES } from "../../../constants";
 import { ValidationError } from "vuct-validator";
 import { useState } from "react";
-import { globalStyles } from "../../../shared/styles/global";
-import ReturnIcon from "../../../components/ReturnIcon";
+import AuthLayout from "../../../layouts/auth";
 
 export default function RegisterScreen() {
   const navigation = useNavigation();
@@ -82,16 +79,15 @@ export default function RegisterScreen() {
   }
 
   return (
-    <View style={styles.container}>
-      <ReturnIcon />
-      <View style={styles.content}>
-        <View style={globalStyles.texts}>
-          <Text style={globalStyles.title}>Cadastro</Text>
-          <Text style={globalStyles.subtitle}>
+    <AuthLayout returnable>
+      <AuthLayout.Content>
+        <AuthLayout.Texts>
+          <AuthLayout.Title>Cadastro</AuthLayout.Title>
+          <AuthLayout.Subtitle>
             Crie uma conta para acessar todos os recursos de nossa plataforma.
-          </Text>
-        </View>
-        <View style={styles.inputs}>
+          </AuthLayout.Subtitle>
+        </AuthLayout.Texts>
+        <AuthLayout.Inputs>
           <AppTextInput
             icon="person-outline"
             label="Nome de usuário"
@@ -126,7 +122,7 @@ export default function RegisterScreen() {
             onChange={handleConfirmPasswordChange}
             errorMessage={errors.confirmPassword}
           />
-        </View>
+        </AuthLayout.Inputs>
         <AppButton onPress={handleRegister} primary text="Avançar">
           <IoniIcon name="arrow-forward" size={18} color={COLORS.textWhite} />
         </AppButton>
@@ -136,7 +132,7 @@ export default function RegisterScreen() {
             Faça seu login aqui.
           </Text>
         </Text>
-      </View>
-    </View>
+      </AuthLayout.Content>
+    </AuthLayout>
   );
 }

@@ -1,21 +1,14 @@
-import {
-  NativeSyntheticEvent,
-  Text,
-  TextInputChangeEventData,
-  View,
-} from "react-native";
-import ReturnIcon from "../../../components/ReturnIcon";
+import { NativeSyntheticEvent, TextInputChangeEventData } from "react-native";
 import AppTextInput from "../../../components/AppTextInput";
 import AppButton from "../../../components/AppButton";
-import { globalStyles } from "../../../shared/styles/global";
 import { useValidatedState } from "vuct-validator/react";
 import { VALIDATION_RULES } from "../../../constants";
 import { ValidationError } from "vuct-validator";
 import { useState } from "react";
 import { useNavigation, useRoute, useTheme } from "@react-navigation/native";
-import { styles } from "./styles";
 import { AuthService } from "../../../services/auth";
 import { RecoverPasswordRouteProps } from "../../../../@types/navigation";
+import AuthLayout from "../../../layouts/auth";
 
 export default function RecoverPasswordScreen() {
   const [errors, setErrors] = useState<ValidationError>({});
@@ -68,16 +61,15 @@ export default function RecoverPasswordScreen() {
   }
 
   return (
-    <View style={styles.container}>
-      <ReturnIcon />
-      <View style={styles.content}>
-        <View style={globalStyles.texts}>
-          <Text style={globalStyles.title}>Recuperar senha</Text>
-          <Text style={globalStyles.subtitle}>
+    <AuthLayout returnable>
+      <AuthLayout.Content>
+        <AuthLayout.Texts>
+          <AuthLayout.Title>Recuperar senha</AuthLayout.Title>
+          <AuthLayout.Subtitle>
             Escolha uma senha nova para garantir novamente o acesso a sua conta.
-          </Text>
-        </View>
-        <View style={styles.inputs}>
+          </AuthLayout.Subtitle>
+        </AuthLayout.Texts>
+        <AuthLayout.Inputs>
           <AppTextInput
             icon="lock-closed-outline"
             label="Senha"
@@ -94,9 +86,9 @@ export default function RecoverPasswordScreen() {
             onChange={handleConfirmPasswordChange}
             errorMessage={errors.confirmPassword}
           />
-        </View>
+        </AuthLayout.Inputs>
         <AppButton onPress={recoverPassword} primary text="Salvar" />
-      </View>
-    </View>
+      </AuthLayout.Content>
+    </AuthLayout>
   );
 }
