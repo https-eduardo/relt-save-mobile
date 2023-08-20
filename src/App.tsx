@@ -3,6 +3,7 @@ import * as Font from "expo-font";
 import Routes from "./routes";
 import { AuthProvider } from "./contexts/auth";
 import { AppTheme } from "./theme";
+import { AlertProvider } from "./contexts/alert";
 
 export default function App() {
   const [loaded] = Font.useFonts({
@@ -19,9 +20,11 @@ export default function App() {
 
   return (
     <NavigationContainer theme={AppTheme}>
-      <AuthProvider>
-        <Routes />
-      </AuthProvider>
+      <AlertProvider>
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
+      </AlertProvider>
     </NavigationContainer>
   );
 }

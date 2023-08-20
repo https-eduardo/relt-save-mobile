@@ -4,18 +4,23 @@ import AppButton from "../../../components/AppButton";
 import { useValidatedState } from "vuct-validator/react";
 import { VALIDATION_RULES } from "../../../constants";
 import { ValidationError } from "vuct-validator";
-import { useState } from "react";
-import { useNavigation, useRoute, useTheme } from "@react-navigation/native";
+import { useContext, useState } from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { AuthService } from "../../../services/auth";
 import { RecoverPasswordRouteProps } from "../../../../@types/navigation";
 import AuthLayout from "../../../layouts/auth";
+import AlertContext from "../../../contexts/alert";
+import { AlertType } from "../../../shared/interfaces/alert.interface";
+import { ErrorUtils } from "../../../utils/error";
+import { CANNOT_RECOVER_PASSWORD } from "../../../constants/messages";
+import { EmptyFieldError } from "../../../shared/errors/empty-field.error";
+import { InvalidValueError } from "../../../shared/errors/invalid-value.error";
 
 export default function RecoverPasswordScreen() {
   const [errors, setErrors] = useState<ValidationError>({});
   const { navigate } = useNavigation();
+  const alert = useContext(AlertContext);
   const route = useRoute();
-
-  const { colors } = useTheme();
 
   function handleValidationError(error: ValidationError) {
     setErrors((prevState) => ({ ...prevState, ...error }));
@@ -48,6 +53,11 @@ export default function RecoverPasswordScreen() {
   async function recoverPassword() {
     try {
       const { email, recoveryCode } = route.params as RecoverPasswordRouteProps;
+
+      if (ErrorUtils.hasAnyEmptyField(password, confirmPassword))
+        throw new EmptyFieldError();
+      if (ErrorUtils.hasAnyError(errors)) throw new InvalidValueError();
+
       await AuthService.recoverPassword({
         email,
         recoveryCode,
@@ -55,8 +65,13 @@ export default function RecoverPasswordScreen() {
         confirmPassword,
       });
       navigate("MailLogin");
-    } catch {
-      // Show some error
+    } catch (error) {
+      const msg = ErrorUtils.getErrorMessage(error);
+
+      alert.update({
+        text: msg ?? CANNOT_RECOVER_PASSWORD,
+        type: AlertType.ERROR,
+      });
     }
   }
 
