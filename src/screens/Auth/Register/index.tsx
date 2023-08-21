@@ -12,12 +12,22 @@ import { useNavigation } from "@react-navigation/native";
 import { useValidatedState } from "vuct-validator/react";
 import { VALIDATION_RULES } from "../../../constants";
 import { ValidationError } from "vuct-validator";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import AuthLayout from "../../../layouts/auth";
+import { AuthService } from "../../../services/auth";
+import { ErrorUtils } from "../../../utils/error";
+import AlertContext from "../../../contexts/alert";
+import {
+  CANNOT_REGISTER,
+  PASSWORDS_ARE_NOT_SAME,
+} from "../../../constants/messages";
+import { AlertType } from "../../../shared/interfaces/alert.interface";
+import { EmptyFieldError } from "../../../shared/errors/empty-field.error";
+import { InvalidValueError } from "../../../shared/errors/invalid-value.error";
 
 export default function RegisterScreen() {
-  const navigation = useNavigation();
-
+  const { navigate } = useNavigation();
+  const alert = useContext(AlertContext);
   const [errors, setErrors] = useState<ValidationError>({});
 
   function handleValidationError(error: ValidationError) {
@@ -72,10 +82,42 @@ export default function RegisterScreen() {
     setConfirmPassword(ev.nativeEvent.text);
   }
 
-  async function handleRegister() {}
+  async function handleRegister() {
+    try {
+      const hasAnyEmptyField = ErrorUtils.hasAnyEmptyField(
+        username,
+        email,
+        password,
+        confirmPassword
+      );
+
+      if (hasAnyEmptyField) throw new EmptyFieldError();
+      if (ErrorUtils.hasAnyError(errors)) throw new InvalidValueError();
+
+      if (password !== confirmPassword) {
+        errors.confirmPassword = PASSWORDS_ARE_NOT_SAME;
+        throw new InvalidValueError(PASSWORDS_ARE_NOT_SAME);
+      }
+
+      await AuthService.register({
+        username,
+        email,
+        password,
+        confirmPassword,
+      });
+      navigateToLogin();
+    } catch (error) {
+      const msg = ErrorUtils.getErrorMessage(error);
+
+      alert.update({
+        text: msg ?? CANNOT_REGISTER,
+        type: AlertType.ERROR,
+      });
+    }
+  }
 
   function navigateToLogin() {
-    navigation.navigate("MailLogin");
+    navigate("MailLogin");
   }
 
   return (

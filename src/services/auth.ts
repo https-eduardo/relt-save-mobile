@@ -1,5 +1,5 @@
 import api from ".";
-import { LoginData, RecoverPasswordData } from "../shared/interfaces";
+import { LoginData, RecoverPasswordData, RegisterData } from "../shared/interfaces";
 
 export class AuthService {
   public static async getProfile(accessToken: string) {
@@ -41,6 +41,12 @@ export class AuthService {
 
   public static async login(loginData: LoginData) {
     const { data } = await api.post("auth", loginData);
+
+    return data;
+  }
+
+  public static async register(registerData: RegisterData) {
+    const { data } = await api.post("users", registerData);
 
     return data;
   }
