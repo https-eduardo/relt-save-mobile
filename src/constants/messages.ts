@@ -6,7 +6,8 @@ export const INVALID_USERNAME_LENGTH =
 export const INVALID_RECOVERY_CODE_LENGTH =
   "O código de recuperação tem apenas 6 caracteres.";
 
-export const EMAIL_NOT_FOUND = "Não foi encontrado uma conta com esse email.";
+export const CANNOT_SEND_RECOVERY_CODE =
+  "Não foi possível enviar o código de recuperação";
 export const CANNOT_RECOVER_PASSWORD = "Não foi possível recuperar sua senha.";
 export const CANNOT_VALIDATE_RECOVERY_CODE = "O código é inválido ou expirou.";
 export const CANNOT_LOGIN = "Não foi possível realizar sua autenticação.";

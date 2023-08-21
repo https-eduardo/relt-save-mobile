@@ -14,7 +14,7 @@ import { AlertType } from "../../../shared/interfaces/alert.interface";
 import { EmptyFieldError } from "../../../shared/errors/empty-field.error";
 import { InvalidValueError } from "../../../shared/errors/invalid-value.error";
 import { ErrorUtils } from "../../../utils/error";
-import { EMAIL_NOT_FOUND } from "../../../constants/messages";
+import { CANNOT_SEND_RECOVERY_CODE } from "../../../constants/messages";
 
 export default function ForgotPasswordScreen() {
   const [errors, setErrors] = useState<ValidationError>({});
@@ -43,8 +43,7 @@ export default function ForgotPasswordScreen() {
 
   async function sendRecoveryCode() {
     try {
-      const f = ErrorUtils.hasAnyEmptyField(email);
-      if (f) throw new EmptyFieldError();
+      if (ErrorUtils.hasAnyEmptyField(email)) throw new EmptyFieldError();
       if (ErrorUtils.hasAnyError(errors)) throw new InvalidValueError();
 
       await AuthService.sendPasswordRecoveryCode(email);
@@ -53,7 +52,7 @@ export default function ForgotPasswordScreen() {
       const msg = ErrorUtils.getErrorMessage(error);
 
       alert.update({
-        text: msg ?? EMAIL_NOT_FOUND,
+        text: msg ?? CANNOT_SEND_RECOVERY_CODE,
         type: AlertType.ERROR,
       });
     }
