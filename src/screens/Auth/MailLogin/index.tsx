@@ -2,7 +2,6 @@ import {
   NativeSyntheticEvent,
   Text,
   TextInputChangeEventData,
-  View,
 } from "react-native";
 import { styles } from "./styles";
 import AppTextInput from "../../../components/AppTextInput";
@@ -10,13 +9,21 @@ import AppButton from "../../../components/AppButton";
 import { useNavigation } from "@react-navigation/native";
 import { ValidationError } from "vuct-validator";
 import { useValidatedState } from "vuct-validator/react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { VALIDATION_RULES } from "../../../constants/validation";
 import AuthLayout from "../../../layouts/auth";
+import { AuthService } from "../../../services/auth";
+import { ErrorUtils } from "../../../utils/error";
+import { EmptyFieldError } from "../../../shared/errors/empty-field.error";
+import { InvalidValueError } from "../../../shared/errors/invalid-value.error";
+import AlertContext from "../../../contexts/alert";
+import { CANNOT_LOGIN } from "../../../constants/messages";
+import { AlertType } from "../../../shared/interfaces/alert.interface";
 
 export default function MailLoginScreen() {
   const { navigate } = useNavigation();
   const [errors, setErrors] = useState<ValidationError>({});
+  const alert = useContext(AlertContext);
 
   function handleValidationError(error: ValidationError) {
     setErrors((prevState) => ({ ...prevState, ...error }));
@@ -46,7 +53,22 @@ export default function MailLoginScreen() {
     setPassword(ev.nativeEvent.text);
   }
 
-  async function handleLogin() {}
+  async function handleLogin() {
+    try {
+      if (ErrorUtils.hasAnyEmptyField(email, password))
+        throw new EmptyFieldError();
+      if (ErrorUtils.hasAnyError(errors)) throw new InvalidValueError();
+
+      const { authToken } = await AuthService.login({ email, password });
+    } catch (error) {
+      const msg = ErrorUtils.getErrorMessage(error);
+
+      alert.update({
+        text: msg ?? CANNOT_LOGIN,
+        type: AlertType.ERROR,
+      });
+    }
+  }
   function navigateToForgotPassword() {
     navigate("ForgotPassword");
   }

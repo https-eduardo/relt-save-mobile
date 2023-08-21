@@ -4,3 +4,8 @@ export interface RecoverPasswordData {
   password: string;
   confirmPassword: string;
 }
+
+export interface LoginData {
+  email: string;
+  password: string;
+}

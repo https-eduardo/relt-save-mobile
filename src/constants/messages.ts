@@ -9,3 +9,4 @@ export const INVALID_RECOVERY_CODE_LENGTH =
 export const EMAIL_NOT_FOUND = "Não foi encontrado uma conta com esse email.";
 export const CANNOT_RECOVER_PASSWORD = "Não foi possível recuperar sua senha.";
 export const CANNOT_VALIDATE_RECOVERY_CODE = "O código é inválido ou expirou.";
+export const CANNOT_LOGIN = "Não foi possível realizar sua autenticação.";

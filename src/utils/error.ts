@@ -8,8 +8,11 @@ export class ErrorUtils {
   public static hasAnyError(errors: ValidationError) {
     return Object.values(errors).some((v) => typeof v == "string");
   }
-  public static getErrorMessage(error: unknown) {
-    if (!(error instanceof Error) || error instanceof AxiosError) return null;
-    return error.message;
+  public static getErrorMessage(error: unknown): string | null | undefined {
+    if (!(error instanceof Error)) return null;
+    if (!(error instanceof AxiosError)) return error.message;
+
+    const serverErrorMessage = error.response?.data?.message;
+    return serverErrorMessage;
   }
 }
