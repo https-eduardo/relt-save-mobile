@@ -5,6 +5,10 @@ export const INVALID_USERNAME_LENGTH =
   "Seu nome de usuário precisa ter ao menos 4 caracteres.";
 export const INVALID_RECOVERY_CODE_LENGTH =
   "O código de recuperação tem apenas 6 caracteres.";
+export const INVALID_PASSWORD =
+  "Sua senha precisa ter letras minusculas e maiusculas e números.";
+export const RECOVERY_CODE_INVALID =
+  "O formato do código de recuperação é inválido.";
 
 export const CANNOT_SEND_RECOVERY_CODE =
   "Não foi possível enviar o código de recuperação";
