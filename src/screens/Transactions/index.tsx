@@ -1,14 +1,15 @@
 import { View } from "react-native";
-import DefaultHeader from "../../components/DefaultHeader";
+import Header from "../../components/Header";
 import { useNavigation } from "@react-navigation/native";
 
 export default function TransactionsScreen() {
   const navigation = useNavigation();
 
   return (
-    <View style={{ flex: 1 }}>
-      <DefaultHeader title="Suas movimentações"></DefaultHeader>
-      <View></View>
+    <View>
+      <Header>
+        <Header.Title>Suas movimentações</Header.Title>
+      </Header>
     </View>
   );
 }

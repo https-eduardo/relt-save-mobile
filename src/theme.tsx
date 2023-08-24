@@ -10,11 +10,13 @@ export const COLORS = {
   bgGreen: "#4BD429",
   primary: "#373EEA",
   text: "#686868",
-  textBlack: "#121212",
-  textWhite: "#FFFFFF",
+  black: "#121212",
+  white: "#FFFFFF",
   red: "#DE3E3E",
   yellow: "#F2A000",
   green: "#37AC00",
+  shadowColor: "#A7A7A740",
+  blurColor: "#00000080",
 };
 
 export const AppTheme: AppCustomTheme = {

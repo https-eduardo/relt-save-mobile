@@ -96,7 +96,7 @@ export default function GoogleLoginScreen() {
           <IoniIcon
             name="arrow-forward-outline"
             size={18}
-            color={colors.textWhite}
+            color={colors.white}
           />
         </AppButton>
         <AppButton onPress={handleGoogleLogin}>

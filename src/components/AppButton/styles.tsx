@@ -18,11 +18,11 @@ export const styles = StyleSheet.create({
   },
   primary: {
     backgroundColor: COLORS.primary,
-    color: COLORS.textWhite,
+    color: COLORS.white,
   },
   secondary: {
-    backgroundColor: COLORS.textBlack,
-    color: COLORS.textWhite,
+    backgroundColor: COLORS.black,
+    color: COLORS.white,
   },
   block: {
     width: "100%",

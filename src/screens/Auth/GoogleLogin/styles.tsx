@@ -28,12 +28,12 @@ export const styles = StyleSheet.create({
   googleButtonText: {
     fontSize: 18,
     fontFamily: "InterSemiBold",
-    color: COLORS.textBlack,
+    color: COLORS.black,
   },
   emailButtonText: {
     fontSize: 18,
     fontFamily: "InterSemiBold",
-    color: COLORS.textWhite,
+    color: COLORS.white,
   },
   googleIcon: {
     maxWidth: 24,

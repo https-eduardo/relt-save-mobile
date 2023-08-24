@@ -36,7 +36,7 @@ export default function AppTextInput(props: TextInputProps) {
 
   return (
     <View style={styles.textInputContainer}>
-      <Text style={{ ...styles.label, color: colors.textBlack }}>
+      <Text style={{ ...styles.label, color: colors.black }}>
         {props.label}
       </Text>
       <View

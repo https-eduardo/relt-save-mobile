@@ -1,5 +1,4 @@
 import { StyleSheet, Text, View } from "react-native";
-import HomeHeader from "../../components/HomeHeader";
 import AppButton from "../../components/AppButton";
 import IoniIcon from "@expo/vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
@@ -8,10 +7,12 @@ import AuthContext from "../../contexts/auth";
 import { AuthService } from "../../services/auth";
 import * as SecureStore from "expo-secure-store";
 import { styles } from "./styles";
+import Header from "../../components/Header";
+import Avatar from "../../components/Avatar";
 
 export default function HomeScreen() {
   const { navigate } = useNavigation();
-  const { updateUser } = useContext(AuthContext);
+  const { updateUser, user } = useContext(AuthContext);
 
   function navigateToTransactions() {
     navigate("Transactions");
@@ -33,30 +34,12 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <HomeHeader></HomeHeader>
-      <View>
-        <Text style={styles.h1}>Gastos</Text>
-        <View style={styles.spendingContainer}>
-          <Text style={styles.spendingValueText}>R$ 2360,00</Text>
-          <View style={styles.actions}>
-            <View style={styles.iconButtons}>
-              <AppButton onPress={() => {}} text="Extrato">
-                <IoniIcon name="reader-outline" size={20} />
-              </AppButton>
-              <AppButton onPress={() => {}} text="Desempenho">
-                <IoniIcon name="stats-chart-outline" regular size={20} />
-              </AppButton>
-            </View>
-            <AppButton
-              onPress={navigateToTransactions}
-              text="Gerenciar seus gastos"
-            >
-              <IoniIcon name="wallet-outline" regular size={24} />
-            </AppButton>
-          </View>
+      <Header monthSelector>
+        <View style={styles.profileContainer}>
+          <Header.Title>Olá, {user?.name.split(" ")[0]}</Header.Title>
+          <Avatar url={user?.profileUrl} style={styles.profile} />
         </View>
-        <Text style={styles.h1}>Últimos 7 dias</Text>
-      </View>
+      </Header>
     </View>
   );
 }

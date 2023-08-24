@@ -19,11 +19,13 @@ import { InvalidValueError } from "../../../shared/errors/invalid-value.error";
 import AlertContext from "../../../contexts/alert";
 import { CANNOT_LOGIN } from "../../../constants/messages";
 import { AlertType } from "../../../shared/interfaces/alert.interface";
+import AuthContext from "../../../contexts/auth";
 
 export default function MailLoginScreen() {
   const { navigate } = useNavigation();
   const [errors, setErrors] = useState<ValidationError>({});
   const alert = useContext(AlertContext);
+  const { updateUser } = useContext(AuthContext);
 
   function handleValidationError(error: ValidationError) {
     setErrors((prevState) => ({ ...prevState, ...error }));
@@ -59,7 +61,14 @@ export default function MailLoginScreen() {
         throw new EmptyFieldError();
       if (ErrorUtils.hasAnyError(errors)) throw new InvalidValueError();
 
-      const { authToken } = await AuthService.login({ email, password });
+      // const { authToken } = await AuthService.login({ email, password });
+      updateUser({
+        email: "zedamanga@gmail.com",
+        name: "José da Manga",
+        createdAt: new Date(),
+        profileUrl:
+          "https://www.fakepersongenerator.com/Face/male/male1085730143616.jpg",
+      });
     } catch (error) {
       const msg = ErrorUtils.getErrorMessage(error);
 
