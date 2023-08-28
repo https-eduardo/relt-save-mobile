@@ -1,4 +1,4 @@
-import { Image, Text, View } from "react-native";
+import { Image, Text, View, ViewStyle } from "react-native";
 import IoniIcon from "@expo/vector-icons/Ionicons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "./styles";
@@ -8,6 +8,7 @@ import { COLORS } from "../../theme";
 
 interface HeaderProps extends PropsWithChildren {
   monthSelector?: boolean;
+  style?: ViewStyle;
 }
 
 interface HeaderProfileProps {
@@ -32,13 +33,13 @@ export default function Header(props: HeaderProps) {
   ];
 
   return (
-    <SafeAreaView style={styles.header}>
+    <SafeAreaView style={[styles.header, props.style]}>
       {props.monthSelector && (
         <View style={styles.monthContainer}>
           <AppSelect
             data={data}
             label="Finish"
-            selected="1"
+            selected={data[0].value}
             onSelect={(item) => console.log(item)}
             color={COLORS.primary}
           />

@@ -17,11 +17,13 @@ import {
 import RecoverPasswordScreen from "./screens/Auth/RecoverPassword";
 import Ionicon from "@expo/vector-icons/Ionicons";
 import { COLORS } from "./theme";
+import SettingsScreen from './screens/Settings';
 
 export type RootStackParamList = {
   Home: undefined;
   Transactions: undefined;
   Profile: { token: string | null };
+  Settings: undefined;
 };
 
 export type AuthStackParamList = {
@@ -83,6 +85,16 @@ const AppRoutes: React.FC = () => (
         title: "Movimentações",
         tabBarIcon: ({ size, color }) => (
           <Ionicon name="shuffle-outline" size={size} color={color} />
+        ),
+      }}
+    />
+    <Stack.Screen
+      name="Settings"
+      component={SettingsScreen}
+      options={{
+        title: "Mais",
+        tabBarIcon: ({ size, color }) => (
+          <Ionicon name="ellipsis-horizontal-outline" size={size} color={color} />
         ),
       }}
     />

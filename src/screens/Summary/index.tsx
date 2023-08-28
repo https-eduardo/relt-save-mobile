@@ -25,7 +25,7 @@ export default function HomeScreen() {
     try {
       const profile = await AuthService.getProfile(accessToken);
       updateUser(profile);
-    } catch {}
+    } catch { }
   }
 
   useEffect(() => {

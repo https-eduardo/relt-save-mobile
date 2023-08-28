@@ -3,14 +3,14 @@ import { COLORS } from "../../theme";
 
 export const styles = StyleSheet.create({
   header: {
-    backgroundColor: "#fff",
-    borderBottomLeftRadius: 8,
-    borderBottomRightRadius: 8,
+    backgroundColor: COLORS.white,
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 16,
     shadowOffset: { width: 2, height: 2 },
     shadowRadius: 16,
     shadowColor: COLORS.shadowColor,
     paddingHorizontal: 24,
-    paddingBottom: 16,
+    paddingVertical: 16,
   },
   title: {
     fontSize: 24,

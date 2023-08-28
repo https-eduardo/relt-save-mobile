@@ -17,10 +17,11 @@ export type AppRootParamList = {
   MailLogin: undefined;
   Register: undefined;
   Transactions: undefined;
+  Settings: undefined;
 };
 
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends AppRootParamList {}
+    interface RootParamList extends AppRootParamList { }
   }
 }

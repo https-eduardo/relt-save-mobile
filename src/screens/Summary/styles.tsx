@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
   profile: {
     width: 48,
     height: 48,
-    borderRadius: 21,
+    borderRadius: 24,
     borderWidth: 0,
   },
 });
