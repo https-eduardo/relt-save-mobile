@@ -17,19 +17,19 @@ import {
 import RecoverPasswordScreen from "./screens/Auth/RecoverPassword";
 import Ionicon from "@expo/vector-icons/Ionicons";
 import { COLORS } from "./theme";
-import SettingsScreen from './screens/Settings';
+import SettingsScreen from "./screens/Settings";
 
 export type RootStackParamList = {
   Home: undefined;
   Transactions: undefined;
-  Profile: { token: string | null };
+  Profile: undefined;
   Settings: undefined;
 };
 
 export type AuthStackParamList = {
   GoogleLogin: undefined;
   MailLogin: undefined;
-  Profile: { token: string | null };
+  Profile: undefined;
   RecoveryCode: RecoveryCodeRouteProps;
   RecoverPassword: RecoverPasswordRouteProps;
   Home: undefined;
@@ -94,7 +94,11 @@ const AppRoutes: React.FC = () => (
       options={{
         title: "Mais",
         tabBarIcon: ({ size, color }) => (
-          <Ionicon name="ellipsis-horizontal-outline" size={size} color={color} />
+          <Ionicon
+            name="ellipsis-horizontal-outline"
+            size={size}
+            color={color}
+          />
         ),
       }}
     />

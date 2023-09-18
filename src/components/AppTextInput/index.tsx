@@ -18,6 +18,7 @@ interface TextInputProps {
   password?: boolean;
   onChange?: (event: NativeSyntheticEvent<TextInputChangeEventData>) => void;
   errorMessage?: string;
+  disabled?: boolean;
 }
 
 export default function AppTextInput(props: TextInputProps) {
@@ -54,6 +55,7 @@ export default function AppTextInput(props: TextInputProps) {
           value={props.value}
           placeholder={props.placeholder}
           secureTextEntry={props.password && !isPasswordVisible}
+          editable={!props.disabled}
         />
         {props.password && (
           <Ionicon

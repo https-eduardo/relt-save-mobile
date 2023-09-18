@@ -20,6 +20,12 @@ import AlertContext from "../../../contexts/alert";
 import { CANNOT_LOGIN } from "../../../constants/messages";
 import { AlertType } from "../../../shared/interfaces/alert.interface";
 import AuthContext from "../../../contexts/auth";
+import {
+  ACCESS_TOKEN_STORE_KEY,
+  REFRESH_TOKEN_STORE_KEY,
+} from "../../../constants/auth";
+import { setDefaultBearerToken } from "../../../services";
+import * as SecureStore from "expo-secure-store";
 
 export default function MailLoginScreen() {
   const { navigate } = useNavigation();
@@ -61,14 +67,15 @@ export default function MailLoginScreen() {
         throw new EmptyFieldError();
       if (ErrorUtils.hasAnyError(errors)) throw new InvalidValueError();
 
-      // const { authToken } = await AuthService.login({ email, password });
-      updateUser({
-        email: "zedamanga@gmail.com",
-        name: "José da Manga",
-        createdAt: new Date(),
-        profileUrl:
-          "https://www.fakepersongenerator.com/Face/male/male1085730143616.jpg",
+      const { accessToken, refreshToken } = await AuthService.login({
+        email,
+        password,
       });
+      SecureStore.setItemAsync(ACCESS_TOKEN_STORE_KEY, accessToken);
+      SecureStore.setItemAsync(REFRESH_TOKEN_STORE_KEY, refreshToken);
+      setDefaultBearerToken(accessToken);
+      const profile = await AuthService.getProfile();
+      updateUser(profile);
     } catch (error) {
       const msg = ErrorUtils.getErrorMessage(error);
 

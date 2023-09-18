@@ -17,3 +17,5 @@ export const CANNOT_VALIDATE_RECOVERY_CODE = "O código é inválido ou expirou.
 export const CANNOT_LOGIN = "Não foi possível realizar sua autenticação.";
 export const CANNOT_REGISTER = "Não foi possível registrar sua conta";
 export const PASSWORDS_ARE_NOT_SAME = "As senhas não coincidem";
+export const CANNOT_SAVE_PROFILE =
+  "Não foi possível salvar seu perfil. Tente novamente.";

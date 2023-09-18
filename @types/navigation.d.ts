@@ -9,7 +9,7 @@ export interface RecoverPasswordRouteProps {
 
 export type AppRootParamList = {
   Home: undefined;
-  Profile: { token: string | null };
+  Profile: undefined;
   GoogleLogin: undefined;
   ForgotPassword: undefined;
   RecoveryCode: RecoveryCodeRouteProps;
@@ -22,6 +22,6 @@ export type AppRootParamList = {
 
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends AppRootParamList { }
+    interface RootParamList extends AppRootParamList {}
   }
 }

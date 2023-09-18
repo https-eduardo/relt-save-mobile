@@ -1,7 +1,7 @@
-import { Text, TextStyle } from 'react-native';
-import AppButton from '../../AppButton';
-import { styles } from './styles';
-import Ionicon from '@expo/vector-icons/Ionicons';
+import { Text, TextStyle } from "react-native";
+import AppButton from "../../AppButton";
+import { styles } from "./styles";
+import Ionicon from "@expo/vector-icons/Ionicons";
 
 interface SettingsButtonProps {
   icon: keyof typeof Ionicon.glyphMap;
@@ -16,5 +16,5 @@ export default function SettingsButton(props: SettingsButtonProps) {
       <Ionicon name={props.icon} style={[styles.buttonIcon, props.style]} />
       <Text style={[styles.buttonText, props.style]}>{props.text}</Text>
     </AppButton>
-  )
+  );
 }

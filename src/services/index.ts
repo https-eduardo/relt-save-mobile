@@ -1,7 +1,11 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://f9f5-45-176-69-251.ngrok-free.app",
+  baseURL: "https://9cba-45-176-69-235.ngrok-free.app",
 });
+
+export function setDefaultBearerToken(accessToken: string) {
+  api.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+}
 
 export default api;
