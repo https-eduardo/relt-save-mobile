@@ -2,9 +2,10 @@ import { Image, Text, View, ViewStyle } from "react-native";
 import IoniIcon from "@expo/vector-icons/Ionicons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "./styles";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useContext } from "react";
 import AppSelect from "../AppSelect";
 import { COLORS } from "../../theme";
+import GlobalContext from "../../contexts/global";
 
 interface HeaderProps extends PropsWithChildren {
   monthSelector?: boolean;
@@ -16,6 +17,7 @@ interface HeaderProfileProps {
 }
 
 export default function Header(props: HeaderProps) {
+  const { month, updateMonth } = useContext(GlobalContext);
   // Gonna be dynamic in the future
   const data = [
     { label: "Janeiro, 2023", value: "1" },
@@ -39,8 +41,8 @@ export default function Header(props: HeaderProps) {
           <AppSelect
             data={data}
             label="Finish"
-            selected={data[0].value}
-            onSelect={(item) => console.log(item)}
+            selected={data[Number(month)].value ?? data[0].value}
+            onSelect={(item) => updateMonth(Number(item.value))}
             color={COLORS.primary}
           />
         </View>

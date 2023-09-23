@@ -4,6 +4,8 @@ import Routes from "./routes";
 import { AuthProvider } from "./contexts/auth";
 import { AppTheme } from "./theme";
 import { AlertProvider } from "./contexts/alert";
+import { GlobalProvider } from "./contexts/global";
+import { TransactionsProvider } from "./contexts/transactions";
 
 export default function App() {
   const [loaded] = Font.useFonts({
@@ -20,11 +22,15 @@ export default function App() {
 
   return (
     <NavigationContainer theme={AppTheme}>
-      <AlertProvider>
-        <AuthProvider>
-          <Routes />
-        </AuthProvider>
-      </AlertProvider>
+      <GlobalProvider>
+        <TransactionsProvider>
+          <AlertProvider>
+            <AuthProvider>
+              <Routes />
+            </AuthProvider>
+          </AlertProvider>
+        </TransactionsProvider>
+      </GlobalProvider>
     </NavigationContainer>
   );
 }

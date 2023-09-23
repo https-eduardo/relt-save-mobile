@@ -4,6 +4,7 @@ import {
   Text,
   TextInput,
   TextInputChangeEventData,
+  TextStyle,
   View,
 } from "react-native";
 import { styles } from "./styles";
@@ -13,6 +14,7 @@ import { useState } from "react";
 interface TextInputProps {
   label?: string;
   placeholder?: string;
+  style?: TextStyle;
   value?: string;
   icon?: keyof typeof Ionicon.glyphMap;
   password?: boolean;
@@ -37,26 +39,25 @@ export default function AppTextInput(props: TextInputProps) {
 
   return (
     <View style={styles.textInputContainer}>
-      <Text style={{ ...styles.label, color: colors.black }}>
-        {props.label}
-      </Text>
+      <Text style={[styles.label, { color: colors.black }]}>{props.label}</Text>
       <View
         style={[
           styles.textInputWrapper,
-          !!props.errorMessage ? styles.error : {},
+          props.errorMessage ? styles.error : {},
         ]}
       >
         {props.icon && (
           <Ionicon name={props.icon} size={18} style={styles.decorativeIcon} />
         )}
         <TextInput
-          style={{ ...styles.textInput, color: colors.text }}
+          style={[styles.textInput, { color: colors.text }, props.style]}
           onChange={props.onChange}
           value={props.value}
           placeholder={props.placeholder}
           secureTextEntry={props.password && !isPasswordVisible}
           editable={!props.disabled}
         />
+
         {props.password && (
           <Ionicon
             name={passwordIcon}
@@ -67,7 +68,10 @@ export default function AppTextInput(props: TextInputProps) {
         )}
       </View>
       <Text
-        style={[styles.errorMessage, { opacity: !!props.errorMessage ? 1 : 0 }]}
+        style={[
+          styles.errorMessage,
+          { display: props.errorMessage ? "flex" : "none" },
+        ]}
       >
         {props.errorMessage}
       </Text>
