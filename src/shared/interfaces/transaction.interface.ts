@@ -1,4 +1,6 @@
+import { Card } from "./card.interface";
 import { Category } from "./category.interface";
+import { Charge } from "./charge.interface";
 
 export interface Transaction {
   id: number;
@@ -9,6 +11,9 @@ export interface Transaction {
   installments: number;
   paid_at: Date | null;
   created_at: string;
+  card: Card | null;
+  due_date: Date | null;
+  charges: Charge[];
 }
 
 export type TransactionType = "expenses" | "incomes";
