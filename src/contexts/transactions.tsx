@@ -26,6 +26,7 @@ export const TransactionsProvider = ({ children }: PropsWithChildren) => {
 
   function clearFilters() {
     setFilters({});
+    setTempFilters({});
   }
 
   return (

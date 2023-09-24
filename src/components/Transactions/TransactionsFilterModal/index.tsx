@@ -4,7 +4,7 @@ import TransactionFilterGroup from "./FilterGroup";
 import AppButton from "../../AppButton";
 import AppBadge from "../../AppBadge";
 import { CategoriesService } from "../../../services/categories";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { Category } from "../../../shared/interfaces/category.interface";
 import AppDatePicker from "../../AppDatePicker";
 import FilterOptionSelect, { Option } from "./FilterOptionSelect";
@@ -39,15 +39,23 @@ export default function TransactionsFilterModal(
     },
   ];
   const context = useContext(TransactionsContext);
+  const [transactionType, setTransactionType] = useState<
+    TransactionType | undefined
+  >();
+  const [categoryId, setCategoryId] = useState<number | undefined>();
 
   function handleTransactionTypeSelect(value?: string) {
+    const transactionType = value as TransactionType;
+    setTransactionType(transactionType);
     context.updateFilters({
-      type: value as TransactionType,
+      type: transactionType,
     });
   }
 
   function handleCategoriesSelect(value?: string) {
-    context.updateFilters({ categoryId: value ? Number(value) : undefined });
+    const categoryId = value ? Number(value) : undefined;
+    setCategoryId(categoryId);
+    context.updateFilters({ categoryId });
   }
 
   async function fetchCategories() {
@@ -71,6 +79,8 @@ export default function TransactionsFilterModal(
   function clearFilters() {
     setMinDate(undefined);
     setMaxDate(undefined);
+    setCategoryId(undefined);
+    setTransactionType(undefined);
     context.clearFilters();
   }
 
@@ -107,14 +117,14 @@ export default function TransactionsFilterModal(
           <FilterOptionSelect
             options={transactionTypeOptions}
             onSelect={handleTransactionTypeSelect}
-            default={context.filters.type}
+            value={transactionType}
           />
         </TransactionFilterGroup>
         <TransactionFilterGroup label="Categorias">
           <FilterOptionSelect
             options={categoriesOptions}
             onSelect={handleCategoriesSelect}
-            default={context.filters.categoryId?.toString()}
+            value={categoryId?.toString()}
           />
         </TransactionFilterGroup>
         <AppDatePicker

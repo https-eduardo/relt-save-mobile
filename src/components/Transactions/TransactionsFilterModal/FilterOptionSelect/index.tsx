@@ -13,7 +13,7 @@ export interface Option {
 
 interface FilterOptionSelectProps {
   options: Option[];
-  default?: string;
+  value?: string;
   onSelect: (selectedOption?: string) => void;
 }
 
@@ -25,7 +25,6 @@ export default function FilterOptionSelect(props: FilterOptionSelectProps) {
     if (isSelected(option)) newSelectedOption = null;
 
     setSelected(newSelectedOption);
-    console.log(newSelectedOption?.value);
     props.onSelect(newSelectedOption?.value);
   }
 
@@ -46,10 +45,10 @@ export default function FilterOptionSelect(props: FilterOptionSelectProps) {
 
   useEffect(() => {
     const defaultOption = props.options.find(
-      (option) => option.value === props.default
+      (option) => option.value === props.value
     );
     setSelected(defaultOption ?? null);
-  }, []);
+  }, [props.value]);
 
   return (
     <View style={styles.multiSelectContainer}>
