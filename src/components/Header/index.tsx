@@ -1,48 +1,52 @@
-import { Image, Text, View, ViewStyle } from "react-native";
-import IoniIcon from "@expo/vector-icons/Ionicons";
+import { Text, View, ViewStyle } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "./styles";
-import { PropsWithChildren, useContext } from "react";
+import { PropsWithChildren, useContext, useMemo } from "react";
 import AppSelect from "../AppSelect";
 import { COLORS } from "../../theme";
 import GlobalContext from "../../contexts/global";
+import { NumberUtils } from "../../utils/number";
 
 interface HeaderProps extends PropsWithChildren {
-  monthSelector?: boolean;
+  periodSelector?: boolean;
   style?: ViewStyle;
 }
 
-interface HeaderProfileProps {
-  uri?: string;
-}
-
 export default function Header(props: HeaderProps) {
-  const { month, updateMonth } = useContext(GlobalContext);
+  const { period, updatePeriod } = useContext(GlobalContext);
   // Gonna be dynamic in the future
   const data = [
-    { label: "Janeiro, 2023", value: "1" },
-    { label: "Fevereiro, 2023", value: "2" },
-    { label: "Março, 2023", value: "3" },
-    { label: "Abril, 2023", value: "4" },
-    { label: "Maio, 2023", value: "5" },
-    { label: "Junho, 2023", value: "6" },
-    { label: "Julho, 2023", value: "7" },
-    { label: "Agosto, 2023", value: "8" },
-    { label: "Setembro, 2023", value: "9" },
-    { label: "Outubro, 2023", value: "10" },
-    { label: "Novembro, 2023", value: "11" },
-    { label: "Dezembro, 2023", value: "12" },
+    { label: "Janeiro, 2023", value: "01/2023" },
+    { label: "Fevereiro, 2023", value: "02/2023" },
+    { label: "Março, 2023", value: "03/2023" },
+    { label: "Abril, 2023", value: "04/2023" },
+    { label: "Maio, 2023", value: "05/2023" },
+    { label: "Junho, 2023", value: "06/2023" },
+    { label: "Julho, 2023", value: "07/2023" },
+    { label: "Agosto, 2023", value: "08/2023" },
+    { label: "Setembro, 2023", value: "09/2023" },
+    { label: "Outubro, 2023", value: "10/2023" },
+    { label: "Novembro, 2023", value: "11/2023" },
+    { label: "Dezembro, 2023", value: "12/2023" },
   ];
+
+  const selectedPeriod = useMemo(() => {
+    const [month, year] = NumberUtils.formatZeros(
+      period.getUTCMonth() + 1,
+      period.getUTCFullYear()
+    );
+    return `${month}/${year}`;
+  }, [period]);
 
   return (
     <SafeAreaView style={[styles.header, props.style]}>
-      {props.monthSelector && (
+      {props.periodSelector && (
         <View style={styles.monthContainer}>
           <AppSelect
             data={data}
             label="Finish"
-            selected={data[Number(month)].value ?? data[0].value}
-            onSelect={(item) => updateMonth(Number(item.value))}
+            selected={selectedPeriod}
+            onSelect={(item) => updatePeriod(item.value)}
             color={COLORS.primary}
           />
         </View>

@@ -8,6 +8,7 @@ import { useContext, useEffect, useState } from "react";
 import TransactionCard from "../../components/Transactions/TransactionsCard";
 import TransactionsSearch from "../../components/Transactions/TransactionSearch";
 import TransactionsContext from "../../contexts/transactions";
+import GlobalContext from "../../contexts/global";
 
 export default function TransactionsScreen() {
   const [transactionsByDay, setTransactionsByDay] =
@@ -36,7 +37,7 @@ export default function TransactionsScreen() {
 
   return (
     <View style={styles.transactionsContainer}>
-      <Header monthSelector>
+      <Header periodSelector>
         <Header.Title>Suas movimentações</Header.Title>
         <TransactionsSearch style={styles.transactionsSearch} />
       </Header>

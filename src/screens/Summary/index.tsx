@@ -18,7 +18,7 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Header monthSelector>
+      <Header periodSelector>
         <View style={styles.profileContainer}>
           <Header.Title>Olá, {user?.name.split(" ")[0]}</Header.Title>
           <Avatar url={user?.profile_url} style={styles.profile} />
