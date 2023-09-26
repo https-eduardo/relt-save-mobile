@@ -8,7 +8,9 @@ import { useContext, useEffect, useState } from "react";
 import TransactionCard from "../../components/Transactions/TransactionsCard";
 import TransactionsSearch from "../../components/Transactions/TransactionSearch";
 import TransactionsContext from "../../contexts/transactions";
-import GlobalContext from "../../contexts/global";
+import Ionicon from "@expo/vector-icons/Ionicons";
+import AppButton from "../../components/AppButton";
+import TransactionFloatingButton from "../../components/Transactions/TransactionFloatingButton";
 
 export default function TransactionsScreen() {
   const [transactionsByDay, setTransactionsByDay] =
@@ -60,6 +62,7 @@ export default function TransactionsScreen() {
           );
         })}
       </View>
+      <TransactionFloatingButton />
     </View>
   );
 }
