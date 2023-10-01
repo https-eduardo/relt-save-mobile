@@ -29,7 +29,7 @@ export default function TransactionCard({ transaction }: TransactionCardProps) {
   }, [transaction.value]);
 
   const value = useMemo(() => {
-    return NumberUtils.formatPrice(transaction.value);
+    return NumberUtils.formatValue(transaction.value);
   }, [transaction.value]);
 
   const badges = useMemo(() => {

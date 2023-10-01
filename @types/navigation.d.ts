@@ -14,6 +14,7 @@ export type AppRootParamList = {
   ForgotPassword: undefined;
   RecoveryCode: RecoveryCodeRouteProps;
   RecoverPassword: RecoverPasswordRouteProps;
+  TransactionsIncomeRegister: undefined;
   MailLogin: undefined;
   Register: undefined;
   Transactions: undefined;

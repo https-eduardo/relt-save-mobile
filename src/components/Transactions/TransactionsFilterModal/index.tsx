@@ -7,10 +7,11 @@ import { CategoriesService } from "../../../services/categories";
 import { useContext, useEffect, useMemo, useState } from "react";
 import { Category } from "../../../shared/interfaces/category.interface";
 import AppDatePicker from "../../AppDatePicker";
-import FilterOptionSelect, { Option } from "./FilterOptionSelect";
+import AppBadgeSelect from "../../AppBadgeSelect";
 import { COLORS } from "../../../theme";
 import TransactionsContext from "../../../contexts/transactions";
 import { TransactionType } from "../../../shared/interfaces/transaction.interface";
+import { BadgeSelect } from "../../../shared/interfaces/badge-select.interface";
 
 interface TransactionsFilterProps {
   visible: boolean;
@@ -23,7 +24,7 @@ export default function TransactionsFilterModal(
   const [categories, setCategories] = useState<Category[]>([]);
   const [minDate, setMinDate] = useState<Date>();
   const [maxDate, setMaxDate] = useState<Date>();
-  const [categoriesOptions, setCategoriesOptions] = useState<Option[]>([]);
+  const [categoriesOptions, setCategoriesOptions] = useState<BadgeSelect[]>([]);
   const transactionTypeOptions = [
     {
       label: "Despesas",
@@ -114,14 +115,14 @@ export default function TransactionsFilterModal(
           </Text>
         </View>
         <TransactionFilterGroup label="Tipo">
-          <FilterOptionSelect
+          <AppBadgeSelect
             options={transactionTypeOptions}
             onSelect={handleTransactionTypeSelect}
             value={transactionType}
           />
         </TransactionFilterGroup>
         <TransactionFilterGroup label="Categorias">
-          <FilterOptionSelect
+          <AppBadgeSelect
             options={categoriesOptions}
             onSelect={handleCategoriesSelect}
             value={categoryId?.toString()}

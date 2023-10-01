@@ -6,10 +6,10 @@ import Avatar from "../../Avatar";
 import { styles } from "./styles";
 import { DateUtils } from "../../../utils/date";
 import { useContext, useMemo } from "react";
-import AuthContext from "../../../contexts/auth";
+import UserContext from "../../../contexts/auth";
 
 export default function SettingsHeader() {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(UserContext);
 
   const createdAt = useMemo(() => {
     if (!user || !user.created_at) return;

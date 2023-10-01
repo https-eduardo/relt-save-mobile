@@ -15,7 +15,7 @@ export default function TransactionFloatingButton() {
   }
 
   function navigateToIncomeRegister() {
-    // navigate('TransactionsIncomeRegister')
+    navigate("TransactionsIncomeRegister");
   }
 
   function navigateToExpenseRegister() {

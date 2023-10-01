@@ -4,7 +4,6 @@ import {
   PropsWithChildren,
   useContext,
   useEffect,
-  useMemo,
 } from "react";
 import { TransactionsFilter } from "../shared/interfaces/transaction.interface";
 import GlobalContext from "./global";

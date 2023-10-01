@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import * as Font from "expo-font";
 import Routes from "./routes";
-import { AuthProvider } from "./contexts/auth";
+import { UserProvider } from "./contexts/auth";
 import { AppTheme } from "./theme";
 import { AlertProvider } from "./contexts/alert";
 import { GlobalProvider } from "./contexts/global";
@@ -25,9 +25,9 @@ export default function App() {
       <GlobalProvider>
         <TransactionsProvider>
           <AlertProvider>
-            <AuthProvider>
+            <UserProvider>
               <Routes />
-            </AuthProvider>
+            </UserProvider>
           </AlertProvider>
         </TransactionsProvider>
       </GlobalProvider>

@@ -1,5 +1,6 @@
 import { useTheme } from "@react-navigation/native";
 import {
+  KeyboardTypeOptions,
   NativeSyntheticEvent,
   Text,
   TextInput,
@@ -17,10 +18,12 @@ interface TextInputProps {
   style?: TextStyle;
   value?: string;
   icon?: keyof typeof Ionicon.glyphMap;
+  block?: boolean;
   password?: boolean;
   onChange?: (event: NativeSyntheticEvent<TextInputChangeEventData>) => void;
   errorMessage?: string;
   disabled?: boolean;
+  keyboardType?: KeyboardTypeOptions;
 }
 
 export default function AppTextInput(props: TextInputProps) {
@@ -38,7 +41,7 @@ export default function AppTextInput(props: TextInputProps) {
   }
 
   return (
-    <View style={styles.textInputContainer}>
+    <View style={[styles.textInputContainer, { flex: props.block ? 1 : 0 }]}>
       <Text style={[styles.label, { color: colors.black }]}>{props.label}</Text>
       <View
         style={[
@@ -50,6 +53,7 @@ export default function AppTextInput(props: TextInputProps) {
           <Ionicon name={props.icon} size={18} style={styles.decorativeIcon} />
         )}
         <TextInput
+          keyboardType={props.keyboardType}
           style={[styles.textInput, { color: colors.text }, props.style]}
           onChange={props.onChange}
           value={props.value}

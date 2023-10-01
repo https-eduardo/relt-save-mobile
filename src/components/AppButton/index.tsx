@@ -1,5 +1,10 @@
 import { PropsWithChildren } from "react";
-import { TouchableOpacity, GestureResponderEvent, Text, ViewStyle } from "react-native";
+import {
+  TouchableOpacity,
+  GestureResponderEvent,
+  Text,
+  ViewStyle,
+} from "react-native";
 import { styles } from "./styles";
 
 interface AppButtonProps extends PropsWithChildren {
@@ -8,7 +13,7 @@ interface AppButtonProps extends PropsWithChildren {
   primary?: boolean;
   secondary?: boolean;
   block?: boolean;
-  style?: ViewStyle,
+  style?: ViewStyle;
 }
 
 export default function AppButton(props: AppButtonProps) {

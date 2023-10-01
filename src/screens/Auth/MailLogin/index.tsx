@@ -19,7 +19,7 @@ import { InvalidValueError } from "../../../shared/errors/invalid-value.error";
 import AlertContext from "../../../contexts/alert";
 import { CANNOT_LOGIN } from "../../../constants/messages";
 import { AlertType } from "../../../shared/interfaces/alert.interface";
-import AuthContext from "../../../contexts/auth";
+import UserContext from "../../../contexts/auth";
 import {
   ACCESS_TOKEN_STORE_KEY,
   REFRESH_TOKEN_STORE_KEY,
@@ -31,7 +31,7 @@ export default function MailLoginScreen() {
   const { navigate } = useNavigation();
   const [errors, setErrors] = useState<ValidationError>({});
   const alert = useContext(AlertContext);
-  const { updateUser } = useContext(AuthContext);
+  const { updateUser } = useContext(UserContext);
 
   function handleValidationError(error: ValidationError) {
     setErrors((prevState) => ({ ...prevState, ...error }));

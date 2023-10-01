@@ -1,6 +1,7 @@
 import api from ".";
 import {
   Transaction,
+  TransactionData,
   TransactionsFilter,
 } from "../shared/interfaces/transaction.interface";
 import qs from "query-string";
@@ -14,9 +15,9 @@ export class TransactionsService {
 
     return data;
   }
-  // public static async create() {
-  //   const { data } = await api.post("transactions");
+  public static async create(transactionData: TransactionData) {
+    const { data } = await api.post("transactions", transactionData);
 
-  //   return data;
-  // }
+    return data;
+  }
 }

@@ -25,3 +25,23 @@ export interface TransactionsFilter {
   paid?: boolean;
   type?: TransactionType;
 }
+
+export interface TransactionData {
+  name: string;
+  description: string;
+  value: number;
+  dueDate?: Date;
+  categories?: number[];
+  paymentType: TransactionPaymentType;
+  paidAt?: Date;
+  installments: number;
+}
+
+export interface TransactionFormProps {
+  type: TransactionFormType;
+  transaction?: Transaction;
+}
+
+export type TransactionFormType = "NEW_INCOME" | "NEW_EXPENSE" | "EDIT";
+
+export type TransactionPaymentType = "BALANCE" | "PHYSICAL_MONEY" | "CARD";

@@ -19,3 +19,8 @@ export const CANNOT_REGISTER = "Não foi possível registrar sua conta";
 export const PASSWORDS_ARE_NOT_SAME = "As senhas não coincidem";
 export const CANNOT_SAVE_PROFILE =
   "Não foi possível salvar seu perfil. Tente novamente.";
+export const NOT_POSITIVE = "O valor tem que ser positivo.";
+export const TRANSACTION_NAME_INVALID =
+  "O nome da transação deve ter entre 4 a 32 caracteres.";
+export const CANNOT_REGISTER_TRANSACTION =
+  "Houve um erro ao registrar sua transação.";

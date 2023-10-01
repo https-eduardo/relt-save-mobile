@@ -6,7 +6,7 @@ import * as AuthSession from "expo-auth-session";
 import * as SecureStore from "expo-secure-store";
 import IoniIcon from "@expo/vector-icons/Ionicons";
 import { useContext, useEffect, useState } from "react";
-import AuthContext from "../../../contexts/auth";
+import UserContext from "../../../contexts/auth";
 import { AuthService } from "../../../services/auth";
 import { styles } from "./styles";
 import AuthLayout from "../../../layouts/auth";
@@ -34,7 +34,7 @@ export default function GoogleLoginScreen() {
   const { colors } = useTheme();
 
   const [loading, setLoading] = useState(false);
-  const { updateUser } = useContext(AuthContext);
+  const { updateUser } = useContext(UserContext);
 
   async function handleAutomaticAuthentication() {
     const refreshToken = await SecureStore.getItemAsync(
@@ -81,7 +81,7 @@ export default function GoogleLoginScreen() {
       authUrl,
     })) as OAuthResponse;
     if (type !== "success") return;
-  
+
     SecureStore.setItemAsync(ACCESS_TOKEN_STORE_KEY, params.access_token);
     SecureStore.setItemAsync(REFRESH_TOKEN_STORE_KEY, params.refresh_token);
     setDefaultBearerToken(params.access_token);

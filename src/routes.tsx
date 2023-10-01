@@ -4,8 +4,8 @@ import GoogleLoginScreen from "./screens/Auth/GoogleLogin";
 import ProfileScreen from "./screens/Auth/Profile";
 import HomeScreen from "./screens/Summary";
 import TransactionsScreen from "./screens/Transactions";
-import { useContext } from "react";
-import AuthContext from "./contexts/auth";
+import React, { useContext } from "react";
+import UserContext from "./contexts/auth";
 import MailLoginScreen from "./screens/Auth/MailLogin";
 import RegisterScreen from "./screens/Auth/Register";
 import ForgotPasswordScreen from "./screens/Auth/ForgotPassword";
@@ -18,12 +18,16 @@ import RecoverPasswordScreen from "./screens/Auth/RecoverPassword";
 import Ionicon from "@expo/vector-icons/Ionicons";
 import { COLORS } from "./theme";
 import SettingsScreen from "./screens/Settings";
+import TransactionsRegister from "./screens/TransactionsRegister";
+import { NavigationContainer } from "@react-navigation/native";
 
 export type RootStackParamList = {
   Home: undefined;
   Transactions: undefined;
   Profile: undefined;
   Settings: undefined;
+  TransactionsIncomeRegister: undefined;
+  TabRoutes: undefined;
 };
 
 export type AuthStackParamList = {
@@ -39,6 +43,7 @@ export type AuthStackParamList = {
 };
 
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 const Stack = createBottomTabNavigator<RootStackParamList>();
 
 const AuthRoutes: React.FC = () => (
@@ -56,7 +61,7 @@ const AuthRoutes: React.FC = () => (
   </AuthStack.Navigator>
 );
 
-const AppRoutes: React.FC = () => (
+const TabRoutes: React.FC = () => (
   <Stack.Navigator
     screenOptions={{
       headerShown: false,
@@ -105,8 +110,18 @@ const AppRoutes: React.FC = () => (
   </Stack.Navigator>
 );
 
+const AppRoutes: React.FC = () => (
+  <RootStack.Navigator screenOptions={{ headerShown: false }}>
+    <RootStack.Screen name="TabRoutes" component={TabRoutes} />
+    <RootStack.Screen
+      name="TransactionsIncomeRegister"
+      component={TransactionsRegister}
+    />
+  </RootStack.Navigator>
+);
+
 const Routes: React.FC = () => {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated } = useContext(UserContext);
   return isAuthenticated ? <AppRoutes /> : <AuthRoutes />;
 };
 

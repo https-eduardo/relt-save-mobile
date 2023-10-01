@@ -3,14 +3,14 @@ import AppButton from "../../components/AppButton";
 import IoniIcon from "@expo/vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
-import AuthContext from "../../contexts/auth";
+import UserContext from "../../contexts/auth";
 import { styles } from "./styles";
 import Header from "../../components/Header";
 import Avatar from "../../components/Avatar";
 
 export default function HomeScreen() {
   const { navigate } = useNavigation();
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(UserContext);
 
   function navigateToTransactions() {
     navigate("Transactions");
