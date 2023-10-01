@@ -100,7 +100,7 @@ export default function RegisterScreen() {
       }
 
       await AuthService.register({
-        username,
+        name: username,
         email,
         password,
         confirmPassword,
@@ -166,7 +166,7 @@ export default function RegisterScreen() {
           />
         </AuthLayout.Inputs>
         <AppButton onPress={handleRegister} primary text="Avançar">
-          <IoniIcon name="arrow-forward" size={18} color={COLORS.textWhite} />
+          <IoniIcon name="arrow-forward" size={18} color={COLORS.white} />
         </AppButton>
         <Text style={styles.login}>
           Já tem conta?{" "}

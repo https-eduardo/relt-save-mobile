@@ -1,13 +1,18 @@
 import api from ".";
-import { LoginData, RecoverPasswordData, RegisterData } from "../shared/interfaces";
+import {
+  LoginData,
+  RecoverPasswordData,
+  RegisterData,
+} from "../shared/interfaces";
 
 export class AuthService {
-  public static async getProfile(accessToken: string) {
-    const { data } = await api.get("auth/google/me", {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+  public static async getProfile() {
+    const { data } = await api.get("users/me");
+    return data;
+  }
+
+  public static async saveProfile(name: string) {
+    const { data } = await api.patch("users", { name });
     return data;
   }
 

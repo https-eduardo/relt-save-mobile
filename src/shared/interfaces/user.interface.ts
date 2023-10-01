@@ -1,6 +1,7 @@
 export interface User {
+  id: number;
   name: string;
   email: string;
-  profileUrl: string;
-  createdAt: Date;
+  profile_url: string;
+  created_at: Date;
 }

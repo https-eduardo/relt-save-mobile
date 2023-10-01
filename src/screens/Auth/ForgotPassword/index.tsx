@@ -81,7 +81,7 @@ export default function ForgotPasswordScreen() {
           <IoniIcon
             name="arrow-forward-outline"
             size={18}
-            color={colors.textWhite}
+            color={colors.white}
           />
         </AppButton>
       </AuthLayout.Content>

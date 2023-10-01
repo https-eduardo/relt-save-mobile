@@ -1,9 +1,11 @@
 import { NavigationContainer } from "@react-navigation/native";
 import * as Font from "expo-font";
 import Routes from "./routes";
-import { AuthProvider } from "./contexts/auth";
+import { UserProvider } from "./contexts/auth";
 import { AppTheme } from "./theme";
 import { AlertProvider } from "./contexts/alert";
+import { GlobalProvider } from "./contexts/global";
+import { TransactionsProvider } from "./contexts/transactions";
 
 export default function App() {
   const [loaded] = Font.useFonts({
@@ -20,11 +22,15 @@ export default function App() {
 
   return (
     <NavigationContainer theme={AppTheme}>
-      <AlertProvider>
-        <AuthProvider>
-          <Routes />
-        </AuthProvider>
-      </AlertProvider>
+      <GlobalProvider>
+        <TransactionsProvider>
+          <AlertProvider>
+            <UserProvider>
+              <Routes />
+            </UserProvider>
+          </AlertProvider>
+        </TransactionsProvider>
+      </GlobalProvider>
     </NavigationContainer>
   );
 }

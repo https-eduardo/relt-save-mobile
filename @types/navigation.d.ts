@@ -9,14 +9,16 @@ export interface RecoverPasswordRouteProps {
 
 export type AppRootParamList = {
   Home: undefined;
-  Profile: { token: string | null };
+  Profile: undefined;
   GoogleLogin: undefined;
   ForgotPassword: undefined;
   RecoveryCode: RecoveryCodeRouteProps;
   RecoverPassword: RecoverPasswordRouteProps;
+  TransactionsIncomeRegister: undefined;
   MailLogin: undefined;
   Register: undefined;
   Transactions: undefined;
+  Settings: undefined;
 };
 
 declare global {

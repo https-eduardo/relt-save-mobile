@@ -12,7 +12,7 @@ export default function Logo({ style }: { style: TextStyle }) {
         ...style,
       }}
     >
-      Relt<Text style={{ color: colors.textBlack }}>Save</Text>
+      Relt<Text style={{ color: colors.black }}>Save</Text>
     </Text>
   );
 }

@@ -1,27 +1,27 @@
-import { NavigationProp, Route } from "@react-navigation/native";
-import { useCallback, useEffect, useState } from "react";
-import {
-  NativeSyntheticEvent,
-  TextInputChangeEventData,
-  View,
-} from "react-native";
+import { useCallback, useContext, useEffect, useState } from "react";
+import { NativeSyntheticEvent, TextInputChangeEventData } from "react-native";
 import AppTextInput from "../../../components/AppTextInput";
 import AppButton from "../../../components/AppButton";
-import { styles } from "./styles";
 import Avatar from "../../../components/Avatar";
 import { useValidatedState } from "vuct-validator/react";
 import { VALIDATION_RULES } from "../../../constants";
 import { ValidationError } from "vuct-validator";
-import { OAuthService } from "../../../services/oauth";
 import AuthLayout from "../../../layouts/auth";
+import { AuthService } from "../../../services/auth";
+import * as SecureStore from "expo-secure-store";
+import { ACCESS_TOKEN_STORE_KEY } from "../../../constants/auth";
+import { useNavigation } from "@react-navigation/native";
+import AlertContext from "../../../contexts/alert";
+import { CANNOT_SAVE_PROFILE } from "../../../constants/messages";
+import { AlertType } from "../../../shared/interfaces/alert.interface";
+import { EmptyFieldError } from "../../../shared/errors/empty-field.error";
+import { ErrorUtils } from "../../../utils/error";
+import { InvalidValueError } from "../../../shared/errors/invalid-value.error";
 
-interface ProfileProps {
-  route: Route<"Profile", { token: string | null }>;
-  navigation: NavigationProp<ReactNavigation.RootParamList>;
-}
-
-export default function ProfileScreen({ route, navigation }: ProfileProps) {
+export default function ProfileScreen() {
   const [errors, setErrors] = useState<ValidationError>({});
+  const { navigate } = useNavigation();
+  const alert = useContext(AlertContext);
 
   function handleValidationError(error: ValidationError) {
     setErrors((prevState) => ({ ...prevState, ...error }));
@@ -32,21 +32,19 @@ export default function ProfileScreen({ route, navigation }: ProfileProps) {
     VALIDATION_RULES.username,
     handleValidationError
   );
-  const [email, setEmail] = useValidatedState(
-    { name: "email", value: "" },
-    VALIDATION_RULES.email,
-    handleValidationError
-  );
 
   const [profileUrl, setProfileUrl] = useState("");
+  const [email, setEmail] = useState("");
 
   const loadProfileInfo = useCallback(async () => {
     try {
-      const token = route.params.token as string;
-      const profile = await OAuthService.getUserInfoFromGoogle(token);
+      const token = await SecureStore.getItemAsync(ACCESS_TOKEN_STORE_KEY);
+      if (!token) throw new Error();
+      const profile = await AuthService.getProfile();
+
       setUsername(profile.name);
       setEmail(profile.email);
-      setProfileUrl(profile.picture);
+      setProfileUrl(profile.profile_url);
     } catch {}
   }, []);
 
@@ -56,13 +54,23 @@ export default function ProfileScreen({ route, navigation }: ProfileProps) {
     setUsername(ev.nativeEvent.text);
   }
 
-  function handleEmailChange(
-    ev: NativeSyntheticEvent<TextInputChangeEventData>
-  ) {
-    setEmail(ev.nativeEvent.text);
-  }
+  async function handleProfileSave() {
+    try {
+      if (ErrorUtils.hasAnyEmptyField(username, email))
+        throw new EmptyFieldError();
+      if (ErrorUtils.hasAnyError(errors)) throw new InvalidValueError();
 
-  function handleProfileSave() {}
+      await AuthService.saveProfile(username);
+    } catch (error) {
+      const msg = ErrorUtils.getErrorMessage(error);
+
+      alert.update({
+        text: msg ?? CANNOT_SAVE_PROFILE,
+        type: AlertType.ERROR,
+      });
+    }
+    navigate("Profile");
+  }
 
   useEffect(() => {
     loadProfileInfo();
@@ -94,9 +102,8 @@ export default function ProfileScreen({ route, navigation }: ProfileProps) {
           icon="mail-outline"
           label="Email"
           placeholder="johndoe@email.com"
-          onChange={handleEmailChange}
           value={email}
-          errorMessage={errors.email}
+          disabled={true}
         />
         <AppButton primary text="Salvar" onPress={handleProfileSave} />
       </AuthLayout.Content>

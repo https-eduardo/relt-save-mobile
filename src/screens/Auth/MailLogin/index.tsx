@@ -19,11 +19,19 @@ import { InvalidValueError } from "../../../shared/errors/invalid-value.error";
 import AlertContext from "../../../contexts/alert";
 import { CANNOT_LOGIN } from "../../../constants/messages";
 import { AlertType } from "../../../shared/interfaces/alert.interface";
+import UserContext from "../../../contexts/auth";
+import {
+  ACCESS_TOKEN_STORE_KEY,
+  REFRESH_TOKEN_STORE_KEY,
+} from "../../../constants/auth";
+import { setDefaultBearerToken } from "../../../services";
+import * as SecureStore from "expo-secure-store";
 
 export default function MailLoginScreen() {
   const { navigate } = useNavigation();
   const [errors, setErrors] = useState<ValidationError>({});
   const alert = useContext(AlertContext);
+  const { updateUser } = useContext(UserContext);
 
   function handleValidationError(error: ValidationError) {
     setErrors((prevState) => ({ ...prevState, ...error }));
@@ -59,7 +67,15 @@ export default function MailLoginScreen() {
         throw new EmptyFieldError();
       if (ErrorUtils.hasAnyError(errors)) throw new InvalidValueError();
 
-      const { authToken } = await AuthService.login({ email, password });
+      const { accessToken, refreshToken } = await AuthService.login({
+        email,
+        password,
+      });
+      SecureStore.setItemAsync(ACCESS_TOKEN_STORE_KEY, accessToken);
+      SecureStore.setItemAsync(REFRESH_TOKEN_STORE_KEY, refreshToken);
+      setDefaultBearerToken(accessToken);
+      const profile = await AuthService.getProfile();
+      updateUser(profile);
     } catch (error) {
       const msg = ErrorUtils.getErrorMessage(error);
 

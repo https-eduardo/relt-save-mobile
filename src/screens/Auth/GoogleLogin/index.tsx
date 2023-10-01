@@ -1,4 +1,4 @@
-import { View, Image, Text } from "react-native";
+import { Image, Text } from "react-native";
 import Logo from "../../../components/Logo";
 import AppButton from "../../../components/AppButton";
 import { useNavigation, useTheme } from "@react-navigation/native";
@@ -6,16 +6,22 @@ import * as AuthSession from "expo-auth-session";
 import * as SecureStore from "expo-secure-store";
 import IoniIcon from "@expo/vector-icons/Ionicons";
 import { useContext, useEffect, useState } from "react";
-import AuthContext from "../../../contexts/auth";
+import UserContext from "../../../contexts/auth";
 import { AuthService } from "../../../services/auth";
 import { styles } from "./styles";
 import AuthLayout from "../../../layouts/auth";
+import {
+  ACCESS_TOKEN_STORE_KEY,
+  REFRESH_TOKEN_STORE_KEY,
+} from "../../../constants/auth";
+import { setDefaultBearerToken } from "../../../services";
 
 interface OAuthResponse {
   type: string;
   params: {
     access_token: string;
     refresh_token: string;
+    already_registered: boolean;
   };
   url: string;
 }
@@ -28,11 +34,13 @@ export default function GoogleLoginScreen() {
   const { colors } = useTheme();
 
   const [loading, setLoading] = useState(false);
-  const { updateUser } = useContext(AuthContext);
+  const { updateUser } = useContext(UserContext);
 
   async function handleAutomaticAuthentication() {
-    const refreshToken = await SecureStore.getItemAsync("refreshToken");
-    let accessToken = await SecureStore.getItemAsync("accessToken");
+    const refreshToken = await SecureStore.getItemAsync(
+      REFRESH_TOKEN_STORE_KEY
+    );
+    let accessToken = await SecureStore.getItemAsync(ACCESS_TOKEN_STORE_KEY);
     let user = null;
 
     if (!refreshToken || !accessToken) {
@@ -41,12 +49,15 @@ export default function GoogleLoginScreen() {
     }
 
     try {
-      let profile = await AuthService.getProfile(accessToken);
+      let profile = await AuthService.getProfile();
       user = profile;
     } catch {
       try {
         let profile = await AuthService.refreshAccessToken(refreshToken);
-        await SecureStore.setItemAsync("accessToken", profile.access_token);
+        await SecureStore.setItemAsync(
+          ACCESS_TOKEN_STORE_KEY,
+          profile.access_token
+        );
       } catch {
         setLoading(false);
         return;
@@ -61,18 +72,23 @@ export default function GoogleLoginScreen() {
   }
 
   async function handleGoogleLogin() {
-    const authUrl = "https://f9f5-45-176-69-251.ngrok-free.app/auth/google";
-    // Initialize OAuth 2.0 flux
+    const redirectUri = AuthSession.makeRedirectUri({
+      path: "expo-auth-session",
+    });
+    const authUrl = `https://9cba-45-176-69-235.ngrok-free.app/auth/google?redirect_uri=${redirectUri}`;
+
     const { type, params } = (await AuthSession.startAsync({
       authUrl,
     })) as OAuthResponse;
-    // If OAuth flux worked properly, store tokens and navigate to profile.
     if (type !== "success") return;
 
-    await SecureStore.setItemAsync("accessToken", params.access_token);
-    if (params.refresh_token !== "undefined")
-      await SecureStore.setItemAsync("refreshToken", params.refresh_token);
-    navigate("Profile", { token: params.access_token });
+    SecureStore.setItemAsync(ACCESS_TOKEN_STORE_KEY, params.access_token);
+    SecureStore.setItemAsync(REFRESH_TOKEN_STORE_KEY, params.refresh_token);
+    setDefaultBearerToken(params.access_token);
+    if (!params.already_registered) return navigate("Profile");
+
+    const profile = await AuthService.getProfile();
+    updateUser(profile);
   }
 
   useEffect(() => {
@@ -96,7 +112,7 @@ export default function GoogleLoginScreen() {
           <IoniIcon
             name="arrow-forward-outline"
             size={18}
-            color={colors.textWhite}
+            color={colors.white}
           />
         </AppButton>
         <AppButton onPress={handleGoogleLogin}>

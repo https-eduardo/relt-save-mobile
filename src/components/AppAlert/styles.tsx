@@ -15,11 +15,11 @@ export const styles = StyleSheet.create({
   },
   icon: {
     fontSize: 20,
-    color: COLORS.textWhite,
+    color: COLORS.white,
   },
   text: {
     flexShrink: 1,
     fontFamily: "InterMedium",
-    color: COLORS.textWhite,
+    color: COLORS.white,
   },
 });

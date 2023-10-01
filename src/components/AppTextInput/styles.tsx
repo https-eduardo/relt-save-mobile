@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#dedede",
+    backgroundColor: COLORS.bgInput,
     borderWidth: 1,
     borderColor: "transparent",
   },
