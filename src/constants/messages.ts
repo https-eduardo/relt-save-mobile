@@ -9,7 +9,7 @@ export const INVALID_PASSWORD =
   "Sua senha precisa ter letras minusculas e maiusculas e números.";
 export const RECOVERY_CODE_INVALID =
   "O formato do código de recuperação é inválido.";
-
+export const REQUIRED_FIELD = "Esse campo é obrigatório";
 export const CANNOT_SEND_RECOVERY_CODE =
   "Não foi possível enviar o código de recuperação";
 export const CANNOT_RECOVER_PASSWORD = "Não foi possível recuperar sua senha.";
@@ -21,6 +21,6 @@ export const CANNOT_SAVE_PROFILE =
   "Não foi possível salvar seu perfil. Tente novamente.";
 export const NOT_POSITIVE = "O valor tem que ser positivo.";
 export const TRANSACTION_NAME_INVALID =
-  "O nome da transação deve ter entre 4 a 32 caracteres.";
+  "O nome da transação deve ter até 32 caracteres.";
 export const CANNOT_REGISTER_TRANSACTION =
   "Houve um erro ao registrar sua transação.";

@@ -1,21 +1,12 @@
-import {
-  NativeSyntheticEvent,
-  Text,
-  TextInputChangeEventData,
-} from "react-native";
+import { Text } from "react-native";
 import { styles } from "./styles";
 import AppTextInput from "../../../components/AppTextInput";
 import AppButton from "../../../components/AppButton";
 import { useNavigation } from "@react-navigation/native";
-import { ValidationError } from "vuct-validator";
-import { useValidatedState } from "vuct-validator/react";
-import { useContext, useState } from "react";
-import { VALIDATION_RULES } from "../../../constants/validation";
+import { useContext, useEffect } from "react";
 import AuthLayout from "../../../layouts/auth";
 import { AuthService } from "../../../services/auth";
 import { ErrorUtils } from "../../../utils/error";
-import { EmptyFieldError } from "../../../shared/errors/empty-field.error";
-import { InvalidValueError } from "../../../shared/errors/invalid-value.error";
 import AlertContext from "../../../contexts/alert";
 import { CANNOT_LOGIN } from "../../../constants/messages";
 import { AlertType } from "../../../shared/interfaces/alert.interface";
@@ -26,47 +17,36 @@ import {
 } from "../../../constants/auth";
 import { setDefaultBearerToken } from "../../../services";
 import * as SecureStore from "expo-secure-store";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { mailLoginSchema } from "../../../validation/schemas/auth.schema";
+
+interface LoginFormValues {
+  email: string;
+  password: string;
+}
 
 export default function MailLoginScreen() {
   const { navigate } = useNavigation();
-  const [errors, setErrors] = useState<ValidationError>({});
   const alert = useContext(AlertContext);
   const { updateUser } = useContext(UserContext);
 
-  function handleValidationError(error: ValidationError) {
-    setErrors((prevState) => ({ ...prevState, ...error }));
-  }
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(mailLoginSchema),
+  });
 
-  const [email, setEmail] = useValidatedState(
-    { name: "email", value: "" },
-    VALIDATION_RULES.email,
-    handleValidationError
-  );
+  useEffect(() => {
+    register("email");
+    register("password");
+  }, [register]);
 
-  const [password, setPassword] = useValidatedState(
-    { name: "password", value: "" },
-    VALIDATION_RULES.password,
-    handleValidationError
-  );
-
-  function handleEmailChange(
-    ev: NativeSyntheticEvent<TextInputChangeEventData>
-  ) {
-    setEmail(ev.nativeEvent.text);
-  }
-
-  function handlePasswordChange(
-    ev: NativeSyntheticEvent<TextInputChangeEventData>
-  ) {
-    setPassword(ev.nativeEvent.text);
-  }
-
-  async function handleLogin() {
+  async function handleLogin({ email, password }: LoginFormValues) {
     try {
-      if (ErrorUtils.hasAnyEmptyField(email, password))
-        throw new EmptyFieldError();
-      if (ErrorUtils.hasAnyError(errors)) throw new InvalidValueError();
-
       const { accessToken, refreshToken } = await AuthService.login({
         email,
         password,
@@ -74,6 +54,7 @@ export default function MailLoginScreen() {
       SecureStore.setItemAsync(ACCESS_TOKEN_STORE_KEY, accessToken);
       SecureStore.setItemAsync(REFRESH_TOKEN_STORE_KEY, refreshToken);
       setDefaultBearerToken(accessToken);
+
       const profile = await AuthService.getProfile();
       updateUser(profile);
     } catch (error) {
@@ -107,18 +88,16 @@ export default function MailLoginScreen() {
             icon="person-outline"
             label="Email"
             placeholder="john.doe@gmail.com"
-            value={email}
-            onChange={handleEmailChange}
-            errorMessage={errors.email}
+            onChangeText={(text) => setValue("email", text)}
+            errorMessage={errors.email?.message}
           />
           <AppTextInput
             label="Senha"
             icon="lock-closed-outline"
             placeholder="senha123"
             password
-            value={password}
-            onChange={handlePasswordChange}
-            errorMessage={errors.password}
+            onChangeText={(text) => setValue("password", text)}
+            errorMessage={errors.password?.message}
           />
         </AuthLayout.Inputs>
         <AuthLayout.ForgotPasswordContainer>
@@ -130,7 +109,11 @@ export default function MailLoginScreen() {
           </Text>
         </AuthLayout.ForgotPasswordContainer>
         <AuthLayout.ButtonContainer>
-          <AppButton onPress={handleLogin} primary text="Entrar" />
+          <AppButton
+            onPress={handleSubmit(handleLogin)}
+            primary
+            text="Entrar"
+          />
           <Text style={styles.register}>
             Ainda não tem conta?
             <Text style={styles.registerLink} onPress={navigateToRegister}>

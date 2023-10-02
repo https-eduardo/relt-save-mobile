@@ -8,7 +8,7 @@ import {
 import { styles } from "./styles";
 
 interface AppButtonProps extends PropsWithChildren {
-  onPress: (event: GestureResponderEvent) => void;
+  onPress: (event: any) => void;
   text?: string;
   primary?: boolean;
   secondary?: boolean;

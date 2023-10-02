@@ -1,110 +1,51 @@
-import {
-  NativeSyntheticEvent,
-  Text,
-  TextInputChangeEventData,
-} from "react-native";
+import { Text } from "react-native";
 import { styles } from "./styles";
 import AppTextInput from "../../../components/AppTextInput";
 import AppButton from "../../../components/AppButton";
 import IoniIcon from "@expo/vector-icons/Ionicons";
 import { COLORS } from "../../../theme";
 import { useNavigation } from "@react-navigation/native";
-import { useValidatedState } from "vuct-validator/react";
-import { VALIDATION_RULES } from "../../../constants";
-import { ValidationError } from "vuct-validator";
-import { useContext, useState } from "react";
+import { useContext, useEffect } from "react";
 import AuthLayout from "../../../layouts/auth";
 import { AuthService } from "../../../services/auth";
 import { ErrorUtils } from "../../../utils/error";
 import AlertContext from "../../../contexts/alert";
-import {
-  CANNOT_REGISTER,
-  PASSWORDS_ARE_NOT_SAME,
-} from "../../../constants/messages";
+import { CANNOT_REGISTER } from "../../../constants/messages";
 import { AlertType } from "../../../shared/interfaces/alert.interface";
-import { EmptyFieldError } from "../../../shared/errors/empty-field.error";
-import { InvalidValueError } from "../../../shared/errors/invalid-value.error";
+import { useForm } from "react-hook-form";
+import { registerSchema } from "../../../validation/schemas/auth.schema";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+interface RegisterFormData {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
 
 export default function RegisterScreen() {
   const { navigate } = useNavigation();
   const alert = useContext(AlertContext);
-  const [errors, setErrors] = useState<ValidationError>({});
 
-  function handleValidationError(error: ValidationError) {
-    setErrors((prevState) => ({ ...prevState, ...error }));
-  }
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(registerSchema),
+  });
 
-  const [username, setUsername] = useValidatedState(
-    { name: "username", value: "" },
-    VALIDATION_RULES.username,
-    handleValidationError
-  );
+  useEffect(() => {
+    register("name");
+    register("email");
+    register("password");
+    register("confirmPassword");
+  }, [register]);
 
-  const [email, setEmail] = useValidatedState(
-    { name: "email", value: "" },
-    VALIDATION_RULES.email,
-    handleValidationError
-  );
-
-  const [password, setPassword] = useValidatedState(
-    { name: "password", value: "" },
-    VALIDATION_RULES.password,
-    handleValidationError
-  );
-
-  const [confirmPassword, setConfirmPassword] = useValidatedState(
-    { name: "confirmPassword", value: "" },
-    VALIDATION_RULES.password,
-    handleValidationError
-  );
-
-  function handleUsernameChange(
-    ev: NativeSyntheticEvent<TextInputChangeEventData>
-  ) {
-    setUsername(ev.nativeEvent.text);
-  }
-
-  function handleEmailChange(
-    ev: NativeSyntheticEvent<TextInputChangeEventData>
-  ) {
-    setEmail(ev.nativeEvent.text);
-  }
-
-  function handlePasswordChange(
-    ev: NativeSyntheticEvent<TextInputChangeEventData>
-  ) {
-    setPassword(ev.nativeEvent.text);
-  }
-
-  function handleConfirmPasswordChange(
-    ev: NativeSyntheticEvent<TextInputChangeEventData>
-  ) {
-    setConfirmPassword(ev.nativeEvent.text);
-  }
-
-  async function handleRegister() {
+  async function handleRegister(formData: RegisterFormData) {
     try {
-      const hasAnyEmptyField = ErrorUtils.hasAnyEmptyField(
-        username,
-        email,
-        password,
-        confirmPassword
-      );
-
-      if (hasAnyEmptyField) throw new EmptyFieldError();
-      if (ErrorUtils.hasAnyError(errors)) throw new InvalidValueError();
-
-      if (password !== confirmPassword) {
-        errors.confirmPassword = PASSWORDS_ARE_NOT_SAME;
-        throw new InvalidValueError(PASSWORDS_ARE_NOT_SAME);
-      }
-
-      await AuthService.register({
-        name: username,
-        email,
-        password,
-        confirmPassword,
-      });
+      await AuthService.register(formData);
       navigateToLogin();
     } catch (error) {
       const msg = ErrorUtils.getErrorMessage(error);
@@ -134,38 +75,38 @@ export default function RegisterScreen() {
             icon="person-outline"
             label="Nome de usuário"
             placeholder="John Doe"
-            value={username}
-            onChange={handleUsernameChange}
-            errorMessage={errors.username}
+            onChangeText={(text) => setValue("name", text)}
+            errorMessage={errors.name?.message}
           />
           <AppTextInput
             icon="mail-outline"
             label="Email"
             placeholder="john.doe@gmail.com"
-            value={email}
-            onChange={handleEmailChange}
-            errorMessage={errors.email}
+            onChangeText={(text) => setValue("email", text)}
+            errorMessage={errors.email?.message}
           />
           <AppTextInput
             icon="lock-closed-outline"
             label="Senha"
             placeholder="senha123"
             password
-            value={password}
-            onChange={handlePasswordChange}
-            errorMessage={errors.password}
+            onChangeText={(text) => setValue("password", text)}
+            errorMessage={errors.password?.message}
           />
           <AppTextInput
             icon="lock-closed-outline"
             label="Confirme sua senha"
             placeholder="senha123"
             password
-            value={confirmPassword}
-            onChange={handleConfirmPasswordChange}
-            errorMessage={errors.confirmPassword}
+            onChangeText={(text) => setValue("confirmPassword", text)}
+            errorMessage={errors.confirmPassword?.message}
           />
         </AuthLayout.Inputs>
-        <AppButton onPress={handleRegister} primary text="Avançar">
+        <AppButton
+          onPress={handleSubmit(handleRegister)}
+          primary
+          text="Avançar"
+        >
           <IoniIcon name="arrow-forward" size={18} color={COLORS.white} />
         </AppButton>
         <Text style={styles.login}>

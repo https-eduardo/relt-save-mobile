@@ -5,6 +5,7 @@ import {
   Text,
   TextInput,
   TextInputChangeEventData,
+  TextInputProps,
   TextStyle,
   View,
 } from "react-native";
@@ -12,21 +13,16 @@ import { styles } from "./styles";
 import Ionicon from "@expo/vector-icons/Ionicons";
 import { useState } from "react";
 
-interface TextInputProps {
+interface AppTextInputProps extends TextInputProps {
   label?: string;
-  placeholder?: string;
-  style?: TextStyle;
-  value?: string;
   icon?: keyof typeof Ionicon.glyphMap;
   block?: boolean;
   password?: boolean;
-  onChange?: (event: NativeSyntheticEvent<TextInputChangeEventData>) => void;
   errorMessage?: string;
   disabled?: boolean;
-  keyboardType?: KeyboardTypeOptions;
 }
 
-export default function AppTextInput(props: TextInputProps) {
+export default function AppTextInput(props: AppTextInputProps) {
   const { colors } = useTheme();
 
   const [isPasswordVisible, setPasswordVisible] = useState(false);
@@ -53,11 +49,8 @@ export default function AppTextInput(props: TextInputProps) {
           <Ionicon name={props.icon} size={18} style={styles.decorativeIcon} />
         )}
         <TextInput
-          keyboardType={props.keyboardType}
+          {...props}
           style={[styles.textInput, { color: colors.text }, props.style]}
-          onChange={props.onChange}
-          value={props.value}
-          placeholder={props.placeholder}
           secureTextEntry={props.password && !isPasswordVisible}
           editable={!props.disabled}
         />
