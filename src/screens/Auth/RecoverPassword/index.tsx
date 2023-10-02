@@ -1,10 +1,6 @@
-import { NativeSyntheticEvent, TextInputChangeEventData } from "react-native";
 import AppTextInput from "../../../components/AppTextInput";
 import AppButton from "../../../components/AppButton";
-import { useValidatedState } from "vuct-validator/react";
-import { VALIDATION_RULES } from "../../../constants";
-import { ValidationError } from "vuct-validator";
-import { useContext, useState } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { AuthService } from "../../../services/auth";
 import { RecoverPasswordRouteProps } from "../../../../@types/navigation";
@@ -13,50 +9,40 @@ import AlertContext from "../../../contexts/alert";
 import { AlertType } from "../../../shared/interfaces/alert.interface";
 import { ErrorUtils } from "../../../utils/error";
 import { CANNOT_RECOVER_PASSWORD } from "../../../constants/messages";
-import { EmptyFieldError } from "../../../shared/errors/empty-field.error";
-import { InvalidValueError } from "../../../shared/errors/invalid-value.error";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { recoverPasswordSchema } from "../../../validation/schemas/auth.schema";
+
+interface RecoverFormData {
+  password: string;
+  confirmPassword: string;
+}
 
 export default function RecoverPasswordScreen() {
-  const [errors, setErrors] = useState<ValidationError>({});
   const { navigate } = useNavigation();
   const alert = useContext(AlertContext);
   const route = useRoute();
 
-  function handleValidationError(error: ValidationError) {
-    setErrors((prevState) => ({ ...prevState, ...error }));
-  }
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(recoverPasswordSchema),
+  });
 
-  const [password, setPassword] = useValidatedState(
-    { name: "password", value: "" },
-    VALIDATION_RULES.password,
-    handleValidationError
-  );
+  useEffect(() => {
+    register("password");
+    register("confirmPassword");
+  }, [register]);
 
-  const [confirmPassword, setConfirmPassword] = useValidatedState(
-    { name: "confirmPassword", value: "" },
-    VALIDATION_RULES.password,
-    handleValidationError
-  );
-
-  function handlePasswordChange(
-    ev: NativeSyntheticEvent<TextInputChangeEventData>
-  ) {
-    setPassword(ev.nativeEvent.text);
-  }
-
-  function handleConfirmPasswordChange(
-    ev: NativeSyntheticEvent<TextInputChangeEventData>
-  ) {
-    setConfirmPassword(ev.nativeEvent.text);
-  }
-
-  async function recoverPassword() {
+  async function recoverPassword({
+    password,
+    confirmPassword,
+  }: RecoverFormData) {
     try {
       const { email, recoveryCode } = route.params as RecoverPasswordRouteProps;
-
-      if (ErrorUtils.hasAnyEmptyField(password, confirmPassword))
-        throw new EmptyFieldError();
-      if (ErrorUtils.hasAnyError(errors)) throw new InvalidValueError();
 
       await AuthService.recoverPassword({
         email,
@@ -89,20 +75,22 @@ export default function RecoverPasswordScreen() {
             icon="lock-closed-outline"
             label="Senha"
             placeholder="suanovasenha123"
-            value={password}
-            onChange={handlePasswordChange}
-            errorMessage={errors.password}
+            onChangeText={(text) => setValue("password", text)}
+            errorMessage={errors.password?.message}
           />
           <AppTextInput
             icon="lock-closed-outline"
             label="Confirme sua senha"
             placeholder="suanovasenha123"
-            value={confirmPassword}
-            onChange={handleConfirmPasswordChange}
-            errorMessage={errors.confirmPassword}
+            onChangeText={(text) => setValue("confirmPassword", text)}
+            errorMessage={errors.confirmPassword?.message}
           />
         </AuthLayout.Inputs>
-        <AppButton onPress={recoverPassword} primary text="Salvar" />
+        <AppButton
+          onPress={handleSubmit(recoverPassword)}
+          primary
+          text="Salvar"
+        />
       </AuthLayout.Content>
     </AuthLayout>
   );

@@ -1,9 +1,5 @@
-import { NativeSyntheticEvent, TextInputChangeEventData } from "react-native";
 import AppTextInput from "../../../components/AppTextInput";
-import { useValidatedState } from "vuct-validator/react";
-import { VALIDATION_RULES } from "../../../constants";
-import { ValidationError } from "vuct-validator";
-import { useContext, useState } from "react";
+import { useContext, useEffect } from "react";
 import AppButton from "../../../components/AppButton";
 import IoniIcon from "@expo/vector-icons/Ionicons";
 import { useNavigation, useTheme } from "@react-navigation/native";
@@ -11,41 +7,36 @@ import { AuthService } from "../../../services/auth";
 import AuthLayout from "../../../layouts/auth";
 import AlertContext from "../../../contexts/alert";
 import { AlertType } from "../../../shared/interfaces/alert.interface";
-import { EmptyFieldError } from "../../../shared/errors/empty-field.error";
-import { InvalidValueError } from "../../../shared/errors/invalid-value.error";
 import { ErrorUtils } from "../../../utils/error";
 import { CANNOT_SEND_RECOVERY_CODE } from "../../../constants/messages";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { forgotPasswordSchema } from "../../../validation/schemas/auth.schema";
+
+interface ForgotPasswordFormData {
+  email: string;
+}
 
 export default function ForgotPasswordScreen() {
-  const [errors, setErrors] = useState<ValidationError>({});
   const { navigate } = useNavigation();
   const { colors } = useTheme();
   const alert = useContext(AlertContext);
 
-  function handleValidationError(error: ValidationError) {
-    setErrors((prevState) => ({ ...prevState, ...error }));
-  }
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(forgotPasswordSchema),
+  });
 
-  const [email, setEmail] = useValidatedState(
-    {
-      name: "email",
-      value: "",
-    },
-    VALIDATION_RULES.email,
-    handleValidationError
-  );
+  useEffect(() => {
+    register("email");
+  }, [register]);
 
-  function handleEmailChange(
-    ev: NativeSyntheticEvent<TextInputChangeEventData>
-  ) {
-    setEmail(ev.nativeEvent.text);
-  }
-
-  async function sendRecoveryCode() {
+  async function sendRecoveryCode({ email }: ForgotPasswordFormData) {
     try {
-      if (ErrorUtils.hasAnyEmptyField(email)) throw new EmptyFieldError();
-      if (ErrorUtils.hasAnyError(errors)) throw new InvalidValueError();
-
       await AuthService.sendPasswordRecoveryCode(email);
       navigate("RecoveryCode", { email });
     } catch (error) {
@@ -72,12 +63,15 @@ export default function ForgotPasswordScreen() {
             icon="mail-outline"
             label="Email"
             placeholder="john.doe@gmail.com"
-            value={email}
-            onChange={handleEmailChange}
-            errorMessage={errors.email}
+            onChangeText={(text) => setValue("email", text)}
+            errorMessage={errors.email?.message}
           />
         </AuthLayout.Inputs>
-        <AppButton onPress={sendRecoveryCode} primary text="Enviar">
+        <AppButton
+          onPress={handleSubmit(sendRecoveryCode)}
+          primary
+          text="Enviar"
+        >
           <IoniIcon
             name="arrow-forward-outline"
             size={18}

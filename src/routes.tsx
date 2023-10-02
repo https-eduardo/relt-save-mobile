@@ -9,7 +9,7 @@ import UserContext from "./contexts/auth";
 import MailLoginScreen from "./screens/Auth/MailLogin";
 import RegisterScreen from "./screens/Auth/Register";
 import ForgotPasswordScreen from "./screens/Auth/ForgotPassword";
-import RecoveryCodeScreen from "./screens/Auth/RecoveryCode";
+import RecoveryCodeScreen from "./screens/Auth/RecoveryCode/RecoveryCodeScreen";
 import {
   RecoverPasswordRouteProps,
   RecoveryCodeRouteProps,

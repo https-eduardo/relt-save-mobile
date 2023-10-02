@@ -1,7 +1,7 @@
 import { Text, TextStyle, View } from "react-native";
 import AppBadge from "../AppBadge";
 import { COLORS } from "../../theme";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { styles } from "./styles";
 import { BadgeSelect } from "../../shared/interfaces/badge-select.interface";
 
@@ -11,10 +11,18 @@ interface AppBadgeMultiSelectProps {
   label?: string;
   color?: string;
   backgroundColor?: string;
+  values?: string[];
 }
 
 export default function AppBadgeMultiSelect(props: AppBadgeMultiSelectProps) {
   const [selectedOptions, setSelectedOptions] = useState<BadgeSelect[]>([]);
+
+  useEffect(() => {
+    const defaultValues = props.options.filter((badge) =>
+      props.values?.includes(badge.value)
+    );
+    setSelectedOptions(defaultValues);
+  }, []);
 
   function select(option: BadgeSelect) {
     let newOptions: BadgeSelect[];
