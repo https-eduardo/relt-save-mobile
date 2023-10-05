@@ -19,14 +19,14 @@ import Ionicon from "@expo/vector-icons/Ionicons";
 import { COLORS } from "./theme";
 import SettingsScreen from "./screens/Settings";
 import TransactionsRegister from "./screens/TransactionsRegister";
-import { NavigationContainer } from "@react-navigation/native";
+import { TransactionFormProps } from "./shared/interfaces";
 
 export type RootStackParamList = {
   Home: undefined;
   Transactions: undefined;
   Profile: undefined;
   Settings: undefined;
-  TransactionsIncomeRegister: undefined;
+  TransactionsRegister: TransactionFormProps;
   TabRoutes: undefined;
 };
 
@@ -114,7 +114,7 @@ const AppRoutes: React.FC = () => (
   <RootStack.Navigator screenOptions={{ headerShown: false }}>
     <RootStack.Screen name="TabRoutes" component={TabRoutes} />
     <RootStack.Screen
-      name="TransactionsIncomeRegister"
+      name="TransactionsRegister"
       component={TransactionsRegister}
     />
   </RootStack.Navigator>

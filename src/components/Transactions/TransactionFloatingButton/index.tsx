@@ -15,11 +15,11 @@ export default function TransactionFloatingButton() {
   }
 
   function navigateToIncomeRegister() {
-    navigate("TransactionsIncomeRegister");
+    navigate("TransactionsRegister", { type: "NEW_INCOME" });
   }
 
   function navigateToExpenseRegister() {
-    // navigate('TransactionsExpenseRegister')
+    navigate("TransactionsRegister", { type: "NEW_EXPENSE" });
   }
 
   return (

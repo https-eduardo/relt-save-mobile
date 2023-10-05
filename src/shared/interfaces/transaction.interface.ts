@@ -33,6 +33,8 @@ export interface TransactionData {
   dueDate?: Date;
   categories?: number[];
   paymentType: TransactionPaymentType;
+  cardId?: number;
+  bankAccountId?: number;
   paidAt?: Date;
   installments: number;
 }
@@ -45,3 +47,15 @@ export interface TransactionFormProps {
 export type TransactionFormType = "NEW_INCOME" | "NEW_EXPENSE" | "EDIT";
 
 export type TransactionPaymentType = "BALANCE" | "PHYSICAL_MONEY" | "CARD";
+
+export interface TransactionFormData {
+  name: string;
+  description: string;
+  value: string;
+  categories?: (number | undefined)[];
+  paymentDate: Date;
+  paymentType: string;
+  installments: number;
+  bankAccountId?: number;
+  cardId?: number;
+}

@@ -46,7 +46,8 @@ export default function Header(props: HeaderProps) {
             data={data}
             label="Finish"
             selected={selectedPeriod}
-            onSelect={(item) => updatePeriod(item.value)}
+            style={{ backgroundColor: "transaparent" }}
+            onSelect={(item) => updatePeriod(item)}
             color={COLORS.primary}
           />
         </View>

@@ -1,4 +1,10 @@
-import React, { ReactElement, useEffect, useRef, useState } from "react";
+import React, {
+  ReactElement,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   FlatList,
   Text,
@@ -6,6 +12,7 @@ import {
   Modal,
   View,
   Pressable,
+  ViewStyle,
 } from "react-native";
 import Ionicon from "@expo/vector-icons/Ionicons";
 import { styles } from "./styles";
@@ -19,28 +26,34 @@ interface AppSelectProps {
   label: string;
   selected?: string;
   data: Array<SelectItem>;
-  onSelect: (item: SelectItem) => void;
+  onSelect: (item: string) => void;
   color?: string;
+  style?: ViewStyle;
 }
 
 export default function AppSelect(props: AppSelectProps) {
   const [visible, setVisible] = useState(false);
-  const [selected, setSelected] = useState<SelectItem | null>(null);
+  const [selected, setSelected] = useState<string | null>(null);
 
   function toggleDropdown() {
     setVisible(!visible);
   }
 
   function onItemPress(item: SelectItem) {
-    setSelected(item);
-    props.onSelect(item);
+    setSelected(item.value);
+    props.onSelect(item.value);
     setVisible(false);
   }
 
   function renderItem({ item }: { item: SelectItem }) {
     return (
       <TouchableOpacity style={styles.item} onPress={() => onItemPress(item)}>
-        <Text style={[styles.itemText, item === selected && styles.activeText]}>
+        <Text
+          style={[
+            styles.itemText,
+            item.value === selected && styles.activeText,
+          ]}
+        >
           {item.label}
         </Text>
       </TouchableOpacity>
@@ -63,18 +76,29 @@ export default function AppSelect(props: AppSelectProps) {
     );
   }
 
+  function getItemByValue(selectedValue: string | null) {
+    return props.data.find(({ value }) => value === selectedValue);
+  }
+
   useEffect(() => {
     if (props.selected) {
-      const item = props.data.find(({ value }) => value === props.selected);
-      setSelected(item ?? null);
+      const item = getItemByValue(props.selected);
+      setSelected(item?.value ?? null);
     }
   }, [props.selected]);
 
+  const selectedItem = useMemo(() => {
+    return getItemByValue(selected);
+  }, [selected]);
+
   return (
-    <TouchableOpacity style={styles.select} onPress={toggleDropdown}>
+    <TouchableOpacity
+      style={[styles.select, props.style]}
+      onPress={toggleDropdown}
+    >
       {renderDropdown()}
       <Text style={[styles.selectText, { color: props.color }]}>
-        {(selected && selected.label) || props.label}
+        {(selected && selectedItem?.label) || props.label}
       </Text>
       <Ionicon name="chevron-down" size={16} style={{ color: props.color }} />
     </TouchableOpacity>

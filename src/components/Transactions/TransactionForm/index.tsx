@@ -8,7 +8,7 @@ import { COLORS } from "../../../theme";
 import { CANNOT_REGISTER_TRANSACTION } from "../../../constants/messages";
 import { TransactionsService } from "../../../services/transactions";
 import { NumberUtils } from "../../../utils/number";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { CategoriesService } from "../../../services/categories";
 import AlertContext from "../../../contexts/alert";
 import { ErrorUtils } from "../../../utils/error";
@@ -17,24 +17,17 @@ import {
   AlertType,
   BadgeSelect,
   TransactionData,
+  TransactionFormData,
+  TransactionFormProps,
   TransactionPaymentType,
 } from "../../../shared/interfaces";
 import { useNavigation } from "@react-navigation/native";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { transactionSchema } from "../../../validation/schemas/transaction.schema";
+import PaymentTypeOption from "./PaymentTypeOption";
 
-interface TransactionFormData {
-  name: string;
-  description: string;
-  value: string;
-  categories?: (number | undefined)[];
-  paymentDate: Date;
-  paymentType: string;
-  installments: number;
-}
-
-export default function TransactionForm() {
+export default function TransactionForm(props: TransactionFormProps) {
   const alert = useContext(AlertContext);
   const { navigate } = useNavigation();
   const [userCategoriesOptions, setUserCategoriesOptions] = useState<
@@ -106,9 +99,18 @@ export default function TransactionForm() {
     paymentDate,
     categories,
     paymentType,
+    cardId,
+    bankAccountId,
   }: TransactionFormData) {
     try {
-      const numericValue = NumberUtils.unformat(value);
+      let numericValue = NumberUtils.unformat(value);
+
+      if (props.type === "NEW_EXPENSE") numericValue = -numericValue;
+      if (props.type === "EDIT") {
+        const editTransactionValue = props.transaction?.value;
+        if (editTransactionValue && editTransactionValue < 0)
+          numericValue = -numericValue;
+      }
 
       const date =
         installments > 1 ? { dueDate: paymentDate } : { paidAt: paymentDate };
@@ -119,9 +121,14 @@ export default function TransactionForm() {
         paymentType: paymentType as TransactionPaymentType,
         categories: categories as number[],
         installments,
+        cardId,
+        bankAccountId,
         ...date,
       };
-      await TransactionsService.create(body);
+
+      if (props.type === "EDIT" && props.transaction)
+        await TransactionsService.updateById(props.transaction.id, body);
+      else await TransactionsService.create(body);
       navigate("Transactions");
     } catch (error) {
       const msg = ErrorUtils.getErrorMessage(error);
@@ -133,9 +140,24 @@ export default function TransactionForm() {
     }
   }
 
+  const formTitle = useMemo(() => {
+    switch (props.type) {
+      case "NEW_EXPENSE":
+        return "Nova despesa";
+      case "NEW_INCOME":
+        return "Nova receita";
+      case "EDIT":
+        const value = props.transaction?.value;
+        if (value) {
+          if (value > 0) return "Editar receita";
+          return "Editar despesa";
+        }
+    }
+  }, [props.type, props.transaction]);
+
   return (
     <View style={styles.transactionsRegisterContainer}>
-      <Text style={styles.title}>Nova receita</Text>
+      <Text style={styles.title}>{formTitle}</Text>
       <View style={styles.inputs}>
         <Controller
           name="name"
@@ -166,7 +188,7 @@ export default function TransactionForm() {
         <View style={styles.valueGroup}>
           <Controller
             name="value"
-            defaultValue={"R$ 0,00"}
+            defaultValue={"R$ 00,00"}
             control={control}
             render={({ field }) => (
               <AppTextInput
@@ -209,6 +231,7 @@ export default function TransactionForm() {
             />
           )}
         />
+        <PaymentTypeOption control={control} />
         <Controller
           name="categories"
           control={control}

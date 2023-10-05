@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import Header from "../../components/Header";
 import { useNavigation } from "@react-navigation/native";
 import { styles } from "./styles";
@@ -41,9 +41,9 @@ export default function TransactionsScreen() {
     <View style={styles.transactionsContainer}>
       <Header periodSelector>
         <Header.Title>Suas movimentações</Header.Title>
-        <TransactionsSearch style={styles.transactionsSearch} />
+        <TransactionsSearch />
       </Header>
-      <View style={styles.transactionsList}>
+      <ScrollView style={styles.transactionsList}>
         {transactionsByDay?.map(([day, transactions]) => {
           return (
             <View style={styles.transactionsByDayContainer} key={day}>
@@ -61,7 +61,7 @@ export default function TransactionsScreen() {
             </View>
           );
         })}
-      </View>
+      </ScrollView>
       <TransactionFloatingButton />
     </View>
   );

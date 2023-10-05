@@ -20,4 +20,12 @@ export class TransactionsService {
 
     return data;
   }
+  public static async updateById(
+    id: number,
+    transactionData: Partial<TransactionData>
+  ) {
+    const { data } = await api.patch(`transactions/${id}`, transactionData);
+
+    return data;
+  }
 }
