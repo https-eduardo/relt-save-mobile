@@ -5,15 +5,13 @@ export const styles = StyleSheet.create({
   transactionsContainer: {
     flex: 1,
   },
-  transactionsSearch: {
-    marginTop: 8,
-  },
   transactionsList: {
     flex: 1,
     margin: 16,
     gap: 16,
   },
   transactionsByDayContainer: {
+    marginTop: 8,
     gap: 8,
   },
   transactionsDayTitle: {

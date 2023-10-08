@@ -1,9 +1,9 @@
 import { Text, TextStyle, TouchableOpacity, ViewStyle } from "react-native";
 import Ionicon from "@expo/vector-icons/Ionicons";
-import AppButton from "../../../AppButton";
+import AppButton from "../AppButton";
 import { styles } from "./styles";
 
-interface FloatingButtonProps {
+interface AppFloatingButtonProps {
   label?: string;
   primary?: boolean;
   style?: ViewStyle;
@@ -13,7 +13,7 @@ interface FloatingButtonProps {
   icon: keyof typeof Ionicon.glyphMap;
 }
 
-export default function FloatingButton(props: FloatingButtonProps) {
+export default function AppFloatingButton(props: AppFloatingButtonProps) {
   return (
     <TouchableOpacity style={[styles.floatingButtonContainer, props.style]}>
       {props.label && (

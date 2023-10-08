@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { COLORS } from "../../../../theme";
+import { COLORS } from "../../theme";
 
 export const styles = StyleSheet.create({
   floatingButtonContainer: {
@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     borderRadius: 64,
   },
   floatingButtonLabel: {
-    fontFamily: "InterMedium",
+    fontFamily: "InterSemiBold",
     color: COLORS.black,
     fontSize: 14,
   },

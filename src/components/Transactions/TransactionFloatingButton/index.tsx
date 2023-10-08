@@ -1,9 +1,7 @@
 import { View } from "react-native";
-import AppButton from "../../AppButton";
-import Ionicon from "@expo/vector-icons/Ionicons";
 import { styles } from "./styles";
 import { useState } from "react";
-import FloatingButton from "./FloatingButton";
+import AppFloatingButton from "../../AppFloatingButton";
 import { useNavigation } from "@react-navigation/native";
 
 export default function TransactionFloatingButton() {
@@ -15,16 +13,16 @@ export default function TransactionFloatingButton() {
   }
 
   function navigateToIncomeRegister() {
-    navigate("TransactionsIncomeRegister");
+    navigate("TransactionsRegister", { type: "NEW_INCOME" });
   }
 
   function navigateToExpenseRegister() {
-    // navigate('TransactionsExpenseRegister')
+    navigate("TransactionsRegister", { type: "NEW_EXPENSE" });
   }
 
   return (
     <View style={styles.transactionsFloatingButtons}>
-      <FloatingButton
+      <AppFloatingButton
         icon="add-outline"
         onPress={toggleOptionsButtons}
         primary
@@ -36,14 +34,14 @@ export default function TransactionFloatingButton() {
           { display: optionsOpen ? "flex" : "none" },
         ]}
       >
-        <FloatingButton
+        <AppFloatingButton
           buttonStyle={styles.transactionsOptionButton}
           icon="wallet-outline"
           textStyle={styles.incomesFloatingButton}
           onPress={navigateToIncomeRegister}
           label="Nova receita"
         />
-        <FloatingButton
+        <AppFloatingButton
           icon="card-outline"
           buttonStyle={styles.transactionsOptionButton}
           onPress={navigateToExpenseRegister}

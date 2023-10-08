@@ -5,9 +5,12 @@ export const styles = StyleSheet.create({
   select: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
     height: 50,
     zIndex: 1,
     paddingHorizontal: 16,
+    backgroundColor: COLORS.bgInput,
+    borderRadius: 4,
   },
   selectText: {
     fontFamily: "InterMedium",
@@ -23,7 +26,7 @@ export const styles = StyleSheet.create({
     borderTopStartRadius: 24,
     borderTopEndRadius: 24,
     maxHeight: "60%",
-    minHeight: "50%",
+    minHeight: 100,
   },
   overlay: {
     width: "100%",

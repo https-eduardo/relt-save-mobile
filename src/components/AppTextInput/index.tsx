@@ -1,14 +1,5 @@
 import { useTheme } from "@react-navigation/native";
-import {
-  KeyboardTypeOptions,
-  NativeSyntheticEvent,
-  Text,
-  TextInput,
-  TextInputChangeEventData,
-  TextInputProps,
-  TextStyle,
-  View,
-} from "react-native";
+import { Text, TextInput, TextInputProps, View } from "react-native";
 import { styles } from "./styles";
 import Ionicon from "@expo/vector-icons/Ionicons";
 import { useState } from "react";

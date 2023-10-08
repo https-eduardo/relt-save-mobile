@@ -4,15 +4,18 @@ import { DateUtils } from "../../../utils/date";
 import { useMemo } from "react";
 import { NumberUtils } from "../../../utils/number";
 import { Transaction } from "../../../shared/interfaces/transaction.interface";
-import TransactionCardBadge from "../../AppBadge";
+import AppBadge from "../../AppBadge";
 import { COLORS } from "../../../theme";
 import { TransactionBadges } from "../../../utils/transaction-badges";
+import { transactionsStyles } from "../../../shared/styles/transaction.styles";
+import { useNavigation } from "@react-navigation/native";
 
 interface TransactionCardProps {
   transaction: Transaction;
 }
 
 export default function TransactionCard({ transaction }: TransactionCardProps) {
+  const { navigate } = useNavigation();
   const createdAt = useMemo(
     () => DateUtils.formatDate(new Date(transaction.created_at)),
     [transaction.created_at]
@@ -25,7 +28,9 @@ export default function TransactionCard({ transaction }: TransactionCardProps) {
   }, [transaction.due_date]);
 
   const valueStyle = useMemo(() => {
-    return transaction.value < 0 ? styles.expense : styles.income;
+    return transaction.value < 0
+      ? transactionsStyles.expense
+      : transactionsStyles.income;
   }, [transaction.value]);
 
   const value = useMemo(() => {
@@ -36,25 +41,25 @@ export default function TransactionCard({ transaction }: TransactionCardProps) {
     return TransactionBadges.getBadges(transaction);
   }, [transaction.categories]);
 
+  function navigateToTransaction() {
+    navigate("Transaction", { transactionId: transaction.id });
+  }
+
   return (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={navigateToTransaction}>
       <View style={styles.mainRow}>
         <Text style={styles.title}>{transaction.name}</Text>
         <Text style={styles.description}>{transaction.description}</Text>
         <View style={styles.badges}>
           {badges?.map((category, idx) => {
             return (
-              <TransactionCardBadge
-                key={idx}
-                color={category.color}
-                text={category.name}
-              />
+              <AppBadge key={idx} color={category.color} text={category.name} />
             );
           })}
         </View>
       </View>
       <View style={styles.valueRow}>
-        <Text style={[styles.valueText, valueStyle]}>R$ {value}</Text>
+        <Text style={[transactionsStyles.valueText, valueStyle]}>R$ {value}</Text>
         {dueDate && (
           <Text style={styles.createdDateText}>Vence em {dueDate}</Text>
         )}

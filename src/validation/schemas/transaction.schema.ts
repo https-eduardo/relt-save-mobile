@@ -1,5 +1,8 @@
 import * as yup from "yup";
-import { REQUIRED_FIELD, TRANSACTION_NAME_INVALID } from "../../constants/messages";
+import {
+  REQUIRED_FIELD,
+  TRANSACTION_NAME_INVALID,
+} from "../../constants/messages";
 yup.setLocale({ mixed: { required: REQUIRED_FIELD } });
 
 export const transactionSchema = yup.object().shape({
@@ -13,4 +16,6 @@ export const transactionSchema = yup.object().shape({
     .required()
     .oneOf(["BALANCE", "PHYSICAL_MONEY", "CARD"]),
   installments: yup.number().required().moreThan(0),
+  cardId: yup.number().optional().moreThan(0),
+  bankAccountId: yup.number().optional().moreThan(0),
 });
