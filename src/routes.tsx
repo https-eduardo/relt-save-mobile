@@ -18,11 +18,16 @@ import RecoverPasswordScreen from "./screens/Auth/RecoverPassword";
 import Ionicon from "@expo/vector-icons/Ionicons";
 import { COLORS } from "./theme";
 import SettingsScreen from "./screens/Settings";
-import TransactionsRegister from "./screens/TransactionsRegister";
-import { TransactionFormProps } from "./shared/interfaces";
+import {
+  TransactionFormProps,
+  TransactionScreenProps,
+} from "./shared/interfaces";
+import TransactionsRegisterScreen from "./screens/TransactionsRegister";
+import TransactionScreen from "./screens/Transaction";
 
 export type RootStackParamList = {
   Home: undefined;
+  Transaction: TransactionScreenProps;
   Transactions: undefined;
   Profile: undefined;
   Settings: undefined;
@@ -115,8 +120,9 @@ const AppRoutes: React.FC = () => (
     <RootStack.Screen name="TabRoutes" component={TabRoutes} />
     <RootStack.Screen
       name="TransactionsRegister"
-      component={TransactionsRegister}
+      component={TransactionsRegisterScreen}
     />
+    <RootStack.Screen name="Transaction" component={TransactionScreen} />
   </RootStack.Navigator>
 );
 

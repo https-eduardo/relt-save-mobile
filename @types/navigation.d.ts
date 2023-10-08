@@ -1,4 +1,4 @@
-import { TransactionFormProps } from '../src/shared/interfaces';
+import { TransactionFormProps } from "../src/shared/interfaces";
 
 export interface RecoveryCodeRouteProps {
   email: string;
@@ -17,6 +17,7 @@ export type AppRootParamList = {
   RecoveryCode: RecoveryCodeRouteProps;
   RecoverPassword: RecoverPasswordRouteProps;
   TransactionsRegister: TransactionFormProps;
+  Transaction: TransactionScreenProps;
   MailLogin: undefined;
   Register: undefined;
   Transactions: undefined;

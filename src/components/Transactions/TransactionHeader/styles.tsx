@@ -2,16 +2,19 @@ import { StyleSheet } from "react-native";
 import { COLORS } from "../../../theme";
 
 export const styles = StyleSheet.create({
-  card: {
-    flexDirection: "row",
-    gap: 24,
+  transactionHeader: {
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 16,
     shadowOffset: { width: 2, height: 2 },
     shadowRadius: 16,
     shadowColor: COLORS.shadowColor,
     backgroundColor: COLORS.white,
-    padding: 16,
-    borderRadius: 8,
-    justifyContent: "center",
+  },
+  headerContent: {
+    flexDirection: "row",
+    paddingHorizontal: 24,
+    paddingVertical: 24,
+    marginTop: 8,
   },
   mainRow: {
     flex: 1,
@@ -19,25 +22,28 @@ export const styles = StyleSheet.create({
   valueRow: {
     alignItems: "flex-end",
   },
+  dateText: {
+    fontFamily: "InterRegular",
+    color: COLORS.text,
+  },
   title: {
-    color: COLORS.black,
+    color: COLORS.primary,
     fontFamily: "InterBold",
-    fontSize: 16,
+    fontSize: 24,
   },
   description: {
     color: COLORS.text,
-    fontFamily: "InterMedium",
+    fontFamily: "InterRegular",
     fontSize: 14,
+  },
+  valueText: {
+    fontFamily: "InterSemiBold",
+    fontSize: 18,
   },
   badges: {
     flexDirection: "row",
-    marginTop: 8,
+    marginTop: 16,
     flexWrap: "wrap",
     gap: 4,
-  },
-  createdDateText: {
-    color: COLORS.text,
-    fontFamily: "InterRegular",
-    fontSize: 12,
   },
 });

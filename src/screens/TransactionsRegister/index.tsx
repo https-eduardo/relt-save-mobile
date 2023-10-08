@@ -5,7 +5,7 @@ import TransactionForm from "../../components/Transactions/TransactionForm";
 import { TransactionFormProps } from "../../shared/interfaces";
 import { useRoute } from "@react-navigation/native";
 
-export default function TransactionsRegister() {
+export default function TransactionsRegisterScreen() {
   const route = useRoute();
 
   return (

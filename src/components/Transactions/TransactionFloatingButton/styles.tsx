@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
     gap: 16,
   },
   transactionsOptionButton: {
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.bgInput,
   },
   incomesFloatingButton: {
     color: COLORS.green,

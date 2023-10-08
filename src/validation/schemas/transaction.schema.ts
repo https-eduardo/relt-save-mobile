@@ -17,5 +17,5 @@ export const transactionSchema = yup.object().shape({
     .oneOf(["BALANCE", "PHYSICAL_MONEY", "CARD"]),
   installments: yup.number().required().moreThan(0),
   cardId: yup.number().optional().moreThan(0),
-  bankId: yup.number().optional().moreThan(0),
+  bankAccountId: yup.number().optional().moreThan(0),
 });

@@ -29,7 +29,7 @@ export default function TransactionsScreen() {
       if (!transactionsByDay[day]) transactionsByDay[day] = [];
       transactionsByDay[day].push(transaction);
     }
-    setTransactionsByDay(Object.entries(transactionsByDay));
+    setTransactionsByDay(Object.entries(transactionsByDay).reverse());
   }
   const navigation = useNavigation();
 

@@ -9,4 +9,3 @@ export * from "./transaction.interface";
 export * from "./card.interface";
 export * from "./category.interface";
 export * from "./badge-select.interface";
-export * from "./global.interface";

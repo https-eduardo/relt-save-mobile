@@ -45,7 +45,7 @@ export default function TransactionForm(props: TransactionFormProps) {
     control,
     getValues,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(transactionSchema) });
+  } = useForm({ resolver: yupResolver(transactionSchema, { strict: true }) });
 
   useEffect(() => {
     fetchCategories();
@@ -188,7 +188,7 @@ export default function TransactionForm(props: TransactionFormProps) {
         <View style={styles.valueGroup}>
           <Controller
             name="value"
-            defaultValue={"R$ 00,00"}
+            defaultValue={"R$ 0,00"}
             control={control}
             render={({ field }) => (
               <AppTextInput

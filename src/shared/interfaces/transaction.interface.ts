@@ -44,6 +44,10 @@ export interface TransactionFormProps {
   transaction?: Transaction;
 }
 
+export interface TransactionScreenProps {
+  transactionId: number;
+}
+
 export type TransactionFormType = "NEW_INCOME" | "NEW_EXPENSE" | "EDIT";
 
 export type TransactionPaymentType = "BALANCE" | "PHYSICAL_MONEY" | "CARD";

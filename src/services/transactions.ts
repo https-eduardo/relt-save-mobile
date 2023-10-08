@@ -15,6 +15,11 @@ export class TransactionsService {
 
     return data;
   }
+  public static async getTransaction(transactionId: number) {
+    const { data } = await api.get(`transactions/${transactionId}`);
+
+    return data;
+  }
   public static async create(transactionData: TransactionData) {
     const { data } = await api.post("transactions", transactionData);
 
