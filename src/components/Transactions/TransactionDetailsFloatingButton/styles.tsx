@@ -24,4 +24,16 @@ export const styles = StyleSheet.create({
   deleteTransactionButton: {
     color: COLORS.red,
   },
+  dialogButtonText: {
+    fontSize: 14,
+  },
+  dialogButton: {
+    padding: 12,
+  },
+  dialogConfirmDelete: {
+    backgroundColor: COLORS.bgRed,
+  },
+  dialogConfirmDeleteText: {
+    color: COLORS.white,
+  },
 });

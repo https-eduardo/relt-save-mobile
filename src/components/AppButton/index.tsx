@@ -4,6 +4,7 @@ import {
   GestureResponderEvent,
   Text,
   ViewStyle,
+  TextStyle,
 } from "react-native";
 import { styles } from "./styles";
 
@@ -14,6 +15,7 @@ interface AppButtonProps extends PropsWithChildren {
   secondary?: boolean;
   block?: boolean;
   style?: ViewStyle;
+  textStyle?: TextStyle;
 }
 
 export default function AppButton(props: AppButtonProps) {
@@ -29,7 +31,13 @@ export default function AppButton(props: AppButtonProps) {
       style={[styles.buttonContainer, propsStyles, props.style]}
     >
       {props.text && (
-        <Text style={{ ...styles.buttonText, color: propsStyles.color }}>
+        <Text
+          style={{
+            ...styles.buttonText,
+            color: propsStyles.color,
+            ...props.textStyle,
+          }}
+        >
           {props.text}
         </Text>
       )}
