@@ -44,7 +44,7 @@ export interface TransactionFormProps {
   transaction?: Transaction;
 }
 
-export interface TransactionScreenProps {
+export interface TransactionDetailsScreenProps {
   transactionId: number;
 }
 

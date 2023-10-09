@@ -26,6 +26,7 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { transactionSchema } from "../../../validation/schemas/transaction.schema";
 import PaymentTypeOption from "./PaymentTypeOption";
+import { TransactionUtils } from "../../../utils/transaction";
 
 export default function TransactionForm(props: TransactionFormProps) {
   const alert = useContext(AlertContext);
@@ -47,8 +48,22 @@ export default function TransactionForm(props: TransactionFormProps) {
     formState: { errors },
   } = useForm({ resolver: yupResolver(transactionSchema, { strict: true }) });
 
+  function setTransactionValues() {
+    const transaction = props.transaction;
+    if (!transaction) return;
+
+    const transactionValues =
+      TransactionUtils.getTransactionValues(transaction);
+    for (const key in transactionValues) {
+      const valueKey = key as keyof typeof transactionSchema.__default;
+
+      setValue(valueKey, transactionValues[key] ?? undefined);
+    }
+  }
+
   useEffect(() => {
     fetchCategories();
+    setTransactionValues();
   }, []);
 
   function handleCategoriesSelect(categories: BadgeSelect[]) {
@@ -104,7 +119,6 @@ export default function TransactionForm(props: TransactionFormProps) {
   }: TransactionFormData) {
     try {
       let numericValue = NumberUtils.unformat(value);
-
       if (props.type === "NEW_EXPENSE") numericValue = -numericValue;
       if (props.type === "EDIT") {
         const editTransactionValue = props.transaction?.value;
@@ -220,16 +234,18 @@ export default function TransactionForm(props: TransactionFormProps) {
         <Controller
           name="paymentType"
           control={control}
-          render={({ field }) => (
-            <AppBadgeSelect
-              label="Tipo de pagamento"
-              options={paymentTypeOptions}
-              value={field.value}
-              onSelect={field.onChange}
-              backgroundColor={COLORS.primary}
-              color={COLORS.white}
-            />
-          )}
+          render={({ field }) => {
+            return (
+              <AppBadgeSelect
+                label="Tipo de pagamento"
+                options={paymentTypeOptions}
+                value={field.value}
+                onSelect={field.onChange}
+                backgroundColor={COLORS.primary}
+                color={COLORS.white}
+              />
+            );
+          }}
         />
         <PaymentTypeOption control={control} />
         <Controller

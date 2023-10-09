@@ -28,6 +28,8 @@ export default function CardSelector(props: CardSelectorProps) {
     fetchCards();
   }, [fetchCards]);
 
+  useEffect(() => setSelected(props.selected), [props.selected]);
+
   return (
     <AppSelect
       label="Cartão"

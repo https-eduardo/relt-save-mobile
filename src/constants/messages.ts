@@ -24,3 +24,5 @@ export const TRANSACTION_NAME_INVALID =
   "O nome da transação deve ter até 32 caracteres.";
 export const CANNOT_REGISTER_TRANSACTION =
   "Houve um erro ao registrar sua transação.";
+export const CANNOT_DELETE_TRANSACTION =
+  "Houve um erro ao deletar esta transação.";

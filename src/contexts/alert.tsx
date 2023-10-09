@@ -1,7 +1,6 @@
 import { createContext, useState, PropsWithChildren, useEffect } from "react";
 import AppAlert from "../components/AppAlert";
 import { Alert } from "../shared/interfaces/alert.interface";
-import { BackHandler } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 interface AlertContextData {

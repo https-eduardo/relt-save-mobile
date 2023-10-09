@@ -6,7 +6,7 @@ import { NumberUtils } from "../../../utils/number";
 import { Transaction } from "../../../shared/interfaces/transaction.interface";
 import AppBadge from "../../AppBadge";
 import { COLORS } from "../../../theme";
-import { TransactionBadges } from "../../../utils/transaction-badges";
+import { TransactionUtils } from "../../../utils/transaction";
 import { transactionsStyles } from "../../../shared/styles/transaction.styles";
 import { useNavigation } from "@react-navigation/native";
 
@@ -38,7 +38,7 @@ export default function TransactionCard({ transaction }: TransactionCardProps) {
   }, [transaction.value]);
 
   const badges = useMemo(() => {
-    return TransactionBadges.getBadges(transaction);
+    return TransactionUtils.getBadges(transaction);
   }, [transaction.categories]);
 
   function navigateToTransaction() {
@@ -59,7 +59,9 @@ export default function TransactionCard({ transaction }: TransactionCardProps) {
         </View>
       </View>
       <View style={styles.valueRow}>
-        <Text style={[transactionsStyles.valueText, valueStyle]}>R$ {value}</Text>
+        <Text style={[transactionsStyles.valueText, valueStyle]}>
+          R$ {value}
+        </Text>
         {dueDate && (
           <Text style={styles.createdDateText}>Vence em {dueDate}</Text>
         )}

@@ -85,7 +85,7 @@ export default function AppSelect(props: AppSelectProps) {
       const item = getItemByValue(props.selected);
       setSelected(item?.value ?? null);
     }
-  }, [props.selected]);
+  }, [props.selected, props.data]);
 
   const selectedItem = useMemo(() => {
     return getItemByValue(selected);

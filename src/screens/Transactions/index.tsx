@@ -1,6 +1,6 @@
 import { ScrollView, Text, View } from "react-native";
 import Header from "../../components/Header";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused } from "@react-navigation/native";
 import { styles } from "./styles";
 import { TransactionsService } from "../../services/transactions";
 import { Transaction } from "../../shared/interfaces/transaction.interface";
@@ -8,14 +8,12 @@ import { useContext, useEffect, useState } from "react";
 import TransactionCard from "../../components/Transactions/TransactionsCard";
 import TransactionsSearch from "../../components/Transactions/TransactionSearch";
 import TransactionsContext from "../../contexts/transactions";
-import Ionicon from "@expo/vector-icons/Ionicons";
-import AppButton from "../../components/AppButton";
 import TransactionFloatingButton from "../../components/Transactions/TransactionFloatingButton";
 
 export default function TransactionsScreen() {
   const [transactionsByDay, setTransactionsByDay] =
     useState<[string, Transaction[]][]>();
-
+  const isFocused = useIsFocused();
   const { filters } = useContext(TransactionsContext);
 
   async function fetchTransactions() {
@@ -31,11 +29,10 @@ export default function TransactionsScreen() {
     }
     setTransactionsByDay(Object.entries(transactionsByDay).reverse());
   }
-  const navigation = useNavigation();
 
   useEffect(() => {
     fetchTransactions();
-  }, [filters]);
+  }, [filters, isFocused]);
 
   return (
     <View style={styles.transactionsContainer}>
@@ -44,23 +41,19 @@ export default function TransactionsScreen() {
         <TransactionsSearch />
       </Header>
       <ScrollView style={styles.transactionsList}>
-        {transactionsByDay?.map(([day, transactions]) => {
-          return (
-            <View style={styles.transactionsByDayContainer} key={day}>
-              <Text style={styles.transactionsDayTitle}>Dia {day}</Text>
-              <View style={styles.transactionsDayList}>
-                {transactions.map((transaction) => {
-                  return (
-                    <TransactionCard
-                      key={transaction.id}
-                      transaction={transaction}
-                    />
-                  );
-                })}
-              </View>
+        {transactionsByDay?.map(([day, transactions]) => (
+          <View style={styles.transactionsByDayContainer} key={day}>
+            <Text style={styles.transactionsDayTitle}>Dia {day}</Text>
+            <View style={styles.transactionsDayList}>
+              {transactions.map((transaction) => (
+                <TransactionCard
+                  key={transaction.id}
+                  transaction={transaction}
+                />
+              ))}
             </View>
-          );
-        })}
+          </View>
+        ))}
       </ScrollView>
       <TransactionFloatingButton />
     </View>

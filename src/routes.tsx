@@ -20,14 +20,14 @@ import { COLORS } from "./theme";
 import SettingsScreen from "./screens/Settings";
 import {
   TransactionFormProps,
-  TransactionScreenProps,
+  TransactionDetailsScreenProps,
 } from "./shared/interfaces";
 import TransactionsRegisterScreen from "./screens/TransactionsRegister";
-import TransactionScreen from "./screens/Transaction";
+import TransactionDetailsScreen from "./screens/TransactionDetails";
 
 export type RootStackParamList = {
   Home: undefined;
-  Transaction: TransactionScreenProps;
+  Transaction: TransactionDetailsScreenProps;
   Transactions: undefined;
   Profile: undefined;
   Settings: undefined;
@@ -122,7 +122,7 @@ const AppRoutes: React.FC = () => (
       name="TransactionsRegister"
       component={TransactionsRegisterScreen}
     />
-    <RootStack.Screen name="Transaction" component={TransactionScreen} />
+    <RootStack.Screen name="Transaction" component={TransactionDetailsScreen} />
   </RootStack.Navigator>
 );
 

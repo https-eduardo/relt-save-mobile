@@ -33,4 +33,9 @@ export class TransactionsService {
 
     return data;
   }
+  public static async deleteById(id: number) {
+    const { data } = await api.delete(`transactions/${id}`);
+
+    return data;
+  }
 }

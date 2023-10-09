@@ -1,5 +1,8 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Transaction, TransactionScreenProps } from "../../shared/interfaces";
+import {
+  Transaction,
+  TransactionDetailsScreenProps,
+} from "../../shared/interfaces";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { TransactionsService } from "../../services/transactions";
 import { Text, View } from "react-native";
@@ -7,14 +10,15 @@ import TransactionHeader from "../../components/Transactions/TransactionHeader";
 import { styles } from "./styles";
 import ChargesList from "../../components/Charges/ChargesList";
 import { NumberUtils } from "../../utils/number";
+import TransactionDetailsFloatingButton from '../../components/Transactions/TransactionDetailsFloatingButton';
 
-export default function TransactionScreen() {
+export default function TransactionDetailsScreen() {
   const [transaction, setTransaction] = useState<Transaction | null>(null);
   const route = useRoute();
   const navigation = useNavigation();
 
   const params = useMemo(
-    () => route.params as TransactionScreenProps,
+    () => route.params as TransactionDetailsScreenProps,
     [route.params]
   );
 
@@ -54,6 +58,7 @@ export default function TransactionScreen() {
         </View>
         {transaction && <ChargesList charges={transaction.charges} />}
       </View>
+      <TransactionDetailsFloatingButton transaction={transaction}/>
     </View>
   );
 }
