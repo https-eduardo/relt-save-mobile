@@ -20,13 +20,17 @@ export default function BankAccountSelector(props: BankAccountSelectorProps) {
         value: bankAccount.id.toString(),
       }));
       setBankAccounts(bankAccountsOptions);
-      if (!props.selected) setSelected(bankAccountsOptions[0]?.value);
+      setSelected(props.selected ?? bankAccountsOptions[0]?.value);
     } catch {}
   }, []);
 
   useEffect(() => {
     fetchBankAccounts();
   }, [fetchBankAccounts]);
+
+  useEffect(() => {
+    setSelected(props.selected);
+  }, [props.selected]);
 
   return (
     <AppSelect

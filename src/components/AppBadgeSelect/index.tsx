@@ -45,7 +45,7 @@ export default function AppBadgeSelect(props: AppBadgeSelectProps) {
       (option) => option.value === props.value
     );
     setSelected(defaultOption ?? null);
-  }, [props.value]);
+  }, [props.value, props.options]);
 
   return (
     <View style={styles.optionSelectContainer}>

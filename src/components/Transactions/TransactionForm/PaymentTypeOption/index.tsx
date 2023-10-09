@@ -11,6 +11,7 @@ export default function PaymentTypeOption({ control }: PaymentTypeOptionProps) {
   const form = useWatch({
     control,
   });
+
   if (form.paymentType === "BALANCE")
     return (
       <Controller
@@ -18,7 +19,7 @@ export default function PaymentTypeOption({ control }: PaymentTypeOptionProps) {
         name="bankAccountId"
         render={({ field }) => (
           <BankAccountSelector
-            onSelect={field.onChange}
+            onSelect={(text) => field.onChange(Number(text))}
             selected={field.value?.toString()}
           />
         )}
@@ -31,7 +32,7 @@ export default function PaymentTypeOption({ control }: PaymentTypeOptionProps) {
         name="cardId"
         render={({ field }) => (
           <CardSelector
-            onSelect={field.onChange}
+            onSelect={(text) => field.onChange(Number(text))}
             selected={field.value?.toString()}
           />
         )}

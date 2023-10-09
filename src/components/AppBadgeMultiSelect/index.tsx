@@ -22,7 +22,7 @@ export default function AppBadgeMultiSelect(props: AppBadgeMultiSelectProps) {
       props.values?.includes(badge.value)
     );
     setSelectedOptions(defaultValues);
-  }, []);
+  }, [props.options, props.options]);
 
   function select(option: BadgeSelect) {
     let newOptions: BadgeSelect[];

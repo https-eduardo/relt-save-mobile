@@ -5,7 +5,7 @@ import { DateUtils } from "../../../utils/date";
 import { useMemo } from "react";
 import { NumberUtils } from "../../../utils/number";
 import { transactionsStyles } from "../../../shared/styles/transaction.styles";
-import { TransactionBadges } from "../../../utils/transaction-badges";
+import { TransactionUtils } from "../../../utils/transaction";
 import { styles } from "./styles";
 import AppBadge from "../../AppBadge";
 
@@ -38,7 +38,7 @@ export default function TransactionHeader({
   }, [transaction.value]);
 
   const badges = useMemo(() => {
-    return TransactionBadges.getBadges(transaction);
+    return TransactionUtils.getBadges(transaction);
   }, [transaction.categories]);
 
   return (
