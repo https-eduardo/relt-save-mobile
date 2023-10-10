@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { COLORS } from "../../theme";
 
-export const transactionsStyles = StyleSheet.create({
+export const numberStyles = StyleSheet.create({
   expense: {
     color: COLORS.red,
   },

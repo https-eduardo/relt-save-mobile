@@ -24,6 +24,7 @@ import {
 } from "./shared/interfaces";
 import TransactionsRegisterScreen from "./screens/TransactionsRegister";
 import TransactionDetailsScreen from "./screens/TransactionDetails";
+import BankAccountsScreen from "./screens/BankAccounts";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -32,6 +33,7 @@ export type RootStackParamList = {
   Profile: undefined;
   Settings: undefined;
   TransactionsRegister: TransactionFormProps;
+  BankAccounts: undefined;
   TabRoutes: undefined;
 };
 
@@ -43,6 +45,7 @@ export type AuthStackParamList = {
   RecoverPassword: RecoverPasswordRouteProps;
   Home: undefined;
   Transactions: undefined;
+  BankAccounts: undefined;
   Register: undefined;
   ForgotPassword: undefined;
 };
@@ -95,6 +98,16 @@ const TabRoutes: React.FC = () => (
         title: "Movimentações",
         tabBarIcon: ({ size, color }) => (
           <Ionicon name="shuffle-outline" size={size} color={color} />
+        ),
+      }}
+    />
+    <Stack.Screen
+      name="BankAccounts"
+      component={BankAccountsScreen}
+      options={{
+        title: "Contas",
+        tabBarIcon: ({ size, color }) => (
+          <Ionicon name="wallet-outline" size={size} color={color} />
         ),
       }}
     />

@@ -1,3 +1,4 @@
+import { Bank } from './bank.interface';
 import { Card } from './card.interface';
 
 export interface BankAccount {
@@ -5,4 +6,5 @@ export interface BankAccount {
   name: string;
   balance: number;
   cards?: Card[];
+  bank: Bank;
 }
