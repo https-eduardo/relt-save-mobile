@@ -9,6 +9,7 @@ import TransactionCard from "../../components/Transactions/TransactionsCard";
 import TransactionsSearch from "../../components/Transactions/TransactionSearch";
 import TransactionsContext from "../../contexts/transactions";
 import TransactionFloatingButton from "../../components/Transactions/TransactionFloatingButton";
+import { layoutStyles } from "../../shared/styles/layout.styles";
 
 export default function TransactionsScreen() {
   const [transactionsByDay, setTransactionsByDay] =
@@ -40,7 +41,7 @@ export default function TransactionsScreen() {
         <Header.Title>Suas movimentações</Header.Title>
         <TransactionsSearch />
       </Header>
-      <ScrollView style={styles.transactionsList}>
+      <ScrollView style={layoutStyles.list}>
         {transactionsByDay?.map(([day, transactions]) => (
           <View style={styles.transactionsByDayContainer} key={day}>
             <Text style={styles.transactionsDayTitle}>Dia {day}</Text>

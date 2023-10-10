@@ -21,6 +21,7 @@ export type AppRootParamList = {
   MailLogin: undefined;
   Register: undefined;
   Transactions: undefined;
+  BankAccounts: undefined;
   Settings: undefined;
 };
 

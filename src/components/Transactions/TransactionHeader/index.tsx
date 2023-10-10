@@ -4,7 +4,7 @@ import ReturnIcon from "../../ReturnIcon";
 import { DateUtils } from "../../../utils/date";
 import { useMemo } from "react";
 import { NumberUtils } from "../../../utils/number";
-import { transactionsStyles } from "../../../shared/styles/transaction.styles";
+import { numberStyles } from "../../../shared/styles/numbers.styles";
 import { TransactionUtils } from "../../../utils/transaction";
 import { styles } from "./styles";
 import AppBadge from "../../AppBadge";
@@ -28,9 +28,7 @@ export default function TransactionHeader({
   }, [transaction.due_date]);
 
   const valueStyle = useMemo(() => {
-    return transaction.value < 0
-      ? transactionsStyles.expense
-      : transactionsStyles.income;
+    return transaction.value < 0 ? numberStyles.expense : numberStyles.income;
   }, [transaction.value]);
 
   const value = useMemo(() => {

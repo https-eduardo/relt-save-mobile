@@ -2,7 +2,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { Charge } from "../../../shared/interfaces";
 import { styles } from "./styles";
 import { NumberUtils } from "../../../utils/number";
-import { transactionsStyles } from "../../../shared/styles/transaction.styles";
+import { numberStyles } from "../../../shared/styles/numbers.styles";
 import { useMemo } from "react";
 import { DateUtils } from "../../../utils/date";
 
@@ -28,9 +28,7 @@ export default function ChargeCard({ charge }: ChargeCardProps) {
   }, [charge.paid_at, charge.due_date]);
 
   const valueStyle = useMemo(() => {
-    return charge.value < 0
-      ? transactionsStyles.expense
-      : transactionsStyles.income;
+    return charge.value < 0 ? numberStyles.expense : numberStyles.income;
   }, [charge.value]);
 
   return (
@@ -42,9 +40,7 @@ export default function ChargeCard({ charge }: ChargeCardProps) {
         </Text>
       </View>
       <View>
-        <Text style={[transactionsStyles.valueText, valueStyle]}>
-          R$ {value}
-        </Text>
+        <Text style={[numberStyles.valueText, valueStyle]}>R$ {value}</Text>
       </View>
     </TouchableOpacity>
   );
