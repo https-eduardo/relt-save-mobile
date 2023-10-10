@@ -2,15 +2,15 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import {
   Transaction,
   TransactionDetailsScreenProps,
-} from "../../shared/interfaces";
+} from "../../../shared/interfaces";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { TransactionsService } from "../../services/transactions";
+import { TransactionsService } from "../../../services/transactions";
 import { Text, View } from "react-native";
-import TransactionHeader from "../../components/Transactions/TransactionHeader";
+import TransactionHeader from "../../../components/Transactions/TransactionHeader";
 import { styles } from "./styles";
-import ChargesList from "../../components/Charges/ChargesList";
-import { NumberUtils } from "../../utils/number";
-import TransactionDetailsFloatingButton from '../../components/Transactions/TransactionDetailsFloatingButton';
+import ChargesList from "../../../components/Charges/ChargesList";
+import { NumberUtils } from "../../../utils/number";
+import TransactionDetailsFloatingButton from "../../../components/Transactions/TransactionDetailsFloatingButton";
 
 export default function TransactionDetailsScreen() {
   const [transaction, setTransaction] = useState<Transaction | null>(null);
@@ -58,7 +58,7 @@ export default function TransactionDetailsScreen() {
         </View>
         {transaction && <ChargesList charges={transaction.charges} />}
       </View>
-      <TransactionDetailsFloatingButton transaction={transaction}/>
+      <TransactionDetailsFloatingButton transaction={transaction} />
     </View>
   );
 }

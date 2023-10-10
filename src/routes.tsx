@@ -22,8 +22,8 @@ import {
   TransactionFormProps,
   TransactionDetailsScreenProps,
 } from "./shared/interfaces";
-import TransactionsRegisterScreen from "./screens/TransactionsRegister";
-import TransactionDetailsScreen from "./screens/TransactionDetails";
+import TransactionsRegisterScreen from "./screens/Transactions/TransactionsRegister";
+import TransactionDetailsScreen from "./screens/Transactions/TransactionDetails";
 import BankAccountsScreen from "./screens/BankAccounts";
 
 export type RootStackParamList = {
