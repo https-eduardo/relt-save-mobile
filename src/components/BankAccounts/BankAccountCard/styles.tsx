@@ -11,6 +11,7 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     padding: 16,
     borderRadius: 8,
+    marginBottom: 16,
     justifyContent: "center",
   },
   bankAccountTitle: {

@@ -41,7 +41,6 @@ export default function AppSelect(props: AppSelectProps) {
 
   function onItemPress(item: SelectItem) {
     setSelected(item.value);
-    props.onSelect(item.value);
     setVisible(false);
   }
 
@@ -81,14 +80,18 @@ export default function AppSelect(props: AppSelectProps) {
   }
 
   useEffect(() => {
-    if (props.selected) {
-      const item = getItemByValue(props.selected);
-      setSelected(item?.value ?? null);
-    }
+    let item: SelectItem | undefined = props.data[0];
+    if (props.selected) item = getItemByValue(props.selected);
+
+    setSelected(item?.value ?? null);
   }, [props.selected, props.data]);
 
   const selectedItem = useMemo(() => {
     return getItemByValue(selected);
+  }, [selected]);
+
+  useEffect(() => {
+    if (selected) props.onSelect(selected);
   }, [selected]);
 
   return (

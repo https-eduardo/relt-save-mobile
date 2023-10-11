@@ -17,6 +17,7 @@ export type AppRootParamList = {
   RecoveryCode: RecoveryCodeRouteProps;
   RecoverPassword: RecoverPasswordRouteProps;
   TransactionsRegister: TransactionFormProps;
+  BankAccountsRegister: BankAccountFormProps;
   Transaction: TransactionScreenProps;
   MailLogin: undefined;
   Register: undefined;

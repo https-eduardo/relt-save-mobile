@@ -12,7 +12,7 @@ interface BankAccountCardProps {
 
 export default function BankAccountCard({ bankAccount }: BankAccountCardProps) {
   const balance = useMemo(
-    () => NumberUtils.formatValue(bankAccount.balance, "never"),
+    () => NumberUtils.formatValue(bankAccount.balance),
     [bankAccount.balance]
   );
 

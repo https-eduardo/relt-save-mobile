@@ -18,7 +18,7 @@ export class NumberUtils {
 
     unformatted = unformatted.replaceAll(".", "");
     unformatted = unformatted.replace(",", ".");
-    unformatted = unformatted.replace(/[^0-9.]/g, "");
+    unformatted = unformatted.replace(/[^0-9-.]/g, "");
 
     return Number(unformatted);
   }

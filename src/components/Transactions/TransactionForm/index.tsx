@@ -5,7 +5,7 @@ import AppBadgeMultiSelect from "../../AppBadgeMultiSelect";
 import AppDatePicker from "../../AppDatePicker";
 import AppButton from "../../AppButton";
 import { COLORS } from "../../../theme";
-import { CANNOT_REGISTER_TRANSACTION } from "../../../constants/messages";
+import { CANNOT_SAVE_TRANSACTION } from "../../../constants/messages";
 import { TransactionsService } from "../../../services/transactions";
 import { NumberUtils } from "../../../utils/number";
 import { useContext, useEffect, useMemo, useState } from "react";
@@ -46,7 +46,7 @@ export default function TransactionForm(props: TransactionFormProps) {
     control,
     getValues,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(transactionSchema, { strict: true }) });
+  } = useForm({ resolver: yupResolver(transactionSchema) });
 
   function setTransactionValues() {
     const transaction = props.transaction;
@@ -74,6 +74,7 @@ export default function TransactionForm(props: TransactionFormProps) {
   function handleValueChange(text: string) {
     let newValue = NumberUtils.unformat(text);
     if (isNaN(newValue)) return;
+  
     const { value } = getValues();
     if (text.length < value.length) {
       newValue /= 10;
@@ -148,7 +149,7 @@ export default function TransactionForm(props: TransactionFormProps) {
       const msg = ErrorUtils.getErrorMessage(error);
 
       alert.update({
-        text: msg ?? CANNOT_REGISTER_TRANSACTION,
+        text: msg ?? CANNOT_SAVE_TRANSACTION,
         type: AlertType.ERROR,
       });
     }
