@@ -21,10 +21,12 @@ import SettingsScreen from "./screens/Settings";
 import {
   TransactionFormProps,
   TransactionDetailsScreenProps,
+  BankAccountFormProps,
 } from "./shared/interfaces";
 import TransactionsRegisterScreen from "./screens/Transactions/TransactionsRegister";
 import TransactionDetailsScreen from "./screens/Transactions/TransactionDetails";
 import BankAccountsScreen from "./screens/BankAccounts";
+import BankAccountsRegisterScreen from "./screens/BankAccounts/BankAccountsRegister";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -33,6 +35,7 @@ export type RootStackParamList = {
   Profile: undefined;
   Settings: undefined;
   TransactionsRegister: TransactionFormProps;
+  BankAccountsRegister: BankAccountFormProps;
   BankAccounts: undefined;
   TabRoutes: undefined;
 };
@@ -134,6 +137,10 @@ const AppRoutes: React.FC = () => (
     <RootStack.Screen
       name="TransactionsRegister"
       component={TransactionsRegisterScreen}
+    />
+    <RootStack.Screen
+      name="BankAccountsRegister"
+      component={BankAccountsRegisterScreen}
     />
     <RootStack.Screen name="Transaction" component={TransactionDetailsScreen} />
   </RootStack.Navigator>

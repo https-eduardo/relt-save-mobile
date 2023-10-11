@@ -38,6 +38,10 @@ export default function Header(props: HeaderProps) {
     return `${month}/${year}`;
   }, [period]);
 
+  function handleSelect(item: string) {
+    updatePeriod(item);
+  }
+
   return (
     <SafeAreaView style={[styles.header, props.style]}>
       {props.periodSelector && (
@@ -47,7 +51,7 @@ export default function Header(props: HeaderProps) {
             label="Finish"
             selected={selectedPeriod}
             style={{ backgroundColor: "transaparent" }}
-            onSelect={(item) => updatePeriod(item)}
+            onSelect={handleSelect}
             color={COLORS.primary}
           />
         </View>

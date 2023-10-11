@@ -22,7 +22,9 @@ export const CANNOT_SAVE_PROFILE =
 export const NOT_POSITIVE = "O valor tem que ser positivo.";
 export const TRANSACTION_NAME_INVALID =
   "O nome da transação deve ter até 32 caracteres.";
-export const CANNOT_REGISTER_TRANSACTION =
-  "Houve um erro ao registrar sua transação.";
+export const CANNOT_SAVE_TRANSACTION = "Houve um erro ao salvar sua transação.";
 export const CANNOT_DELETE_TRANSACTION =
   "Houve um erro ao deletar esta transação.";
+export const CANNOT_SAVE_BANK_ACCOUNT =
+  "Houve um error ao salvar esta conta bancária.";
+export const INVALID_BALANCE_NUMBER = "O valor de saldo inserido é invalido.";

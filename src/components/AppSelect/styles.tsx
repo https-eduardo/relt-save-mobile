@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
     borderTopStartRadius: 24,
     borderTopEndRadius: 24,
     maxHeight: "60%",
-    minHeight: 100,
+    minHeight: 200,
   },
   overlay: {
     width: "100%",

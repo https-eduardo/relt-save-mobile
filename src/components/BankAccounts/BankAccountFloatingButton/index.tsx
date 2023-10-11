@@ -6,7 +6,7 @@ export default function BankAccountFloatingButton() {
   const { navigate } = useNavigation();
 
   function navigateToBankAccountRegister() {
-    // navigate('BankAccountRegister')
+    navigate("BankAccountsRegister", { type: "NEW" });
   }
 
   return (
