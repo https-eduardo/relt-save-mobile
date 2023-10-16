@@ -13,7 +13,7 @@ import AuthLayout from "../../../layouts/auth";
 import {
   ACCESS_TOKEN_STORE_KEY,
   REFRESH_TOKEN_STORE_KEY,
-} from "../../../constants/auth";
+} from "../../../constants";
 import { setDefaultBearerToken } from "../../../services";
 
 interface OAuthResponse {

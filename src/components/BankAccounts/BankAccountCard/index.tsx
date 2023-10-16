@@ -8,9 +8,13 @@ import Ionicon from "@expo/vector-icons/Ionicons";
 
 interface BankAccountCardProps {
   bankAccount: BankAccount;
+  onPress?: () => void;
 }
 
-export default function BankAccountCard({ bankAccount }: BankAccountCardProps) {
+export default function BankAccountCard({
+  bankAccount,
+  onPress,
+}: BankAccountCardProps) {
   const balance = useMemo(
     () => NumberUtils.formatValue(bankAccount.balance),
     [bankAccount.balance]
@@ -27,7 +31,7 @@ export default function BankAccountCard({ bankAccount }: BankAccountCardProps) {
   }, [bankAccount.cards]);
 
   return (
-    <TouchableOpacity style={styles.bankAccountsCard}>
+    <TouchableOpacity style={styles.bankAccountsCard} onPress={onPress}>
       <View style={styles.mainRow}>
         <Text style={styles.bankAccountTitle}>{bankAccount.name}</Text>
         <Text style={styles.balanceTitle}>Saldo da conta</Text>

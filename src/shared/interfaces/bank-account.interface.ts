@@ -7,11 +7,15 @@ export interface BankAccount {
   balance: number;
   cards?: Card[];
   bank: Bank;
+  created_at: string;
 }
 
 export interface BankAccountFormProps {
   type: BankAccountFormType;
   bankAccount?: BankAccount;
+}
+export interface BankAccountDetailsProps {
+  bankAccountId: number;
 }
 
 export type BankAccountFormType = "NEW" | "EDIT";

@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { REQUIRED_FIELD } from "../../constants/messages";
+import { REQUIRED_FIELD } from "../../constants";
 yup.setLocale({ mixed: { required: REQUIRED_FIELD } });
 
 export const bankAccountSchema = yup.object().shape({
