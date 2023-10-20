@@ -1,10 +1,10 @@
 import * as yup from "yup";
 import { passwordValidator } from "../validators/password";
-import { INVALID_USERNAME_LENGTH } from "../../constants/messages";
+import { INVALID_USERNAME_LENGTH } from "../../constants";
 import { recoveryCodeValidator } from "../validators/recovery-code";
 import { emailValidator } from "../validators/email";
 import { confirmPasswordValidator } from "../validators/confirm-password";
-import { REQUIRED_FIELD } from "../../constants/messages";
+import { REQUIRED_FIELD } from "../../constants";
 yup.setLocale({ mixed: { required: REQUIRED_FIELD } });
 
 export const mailLoginSchema = yup.object().shape({

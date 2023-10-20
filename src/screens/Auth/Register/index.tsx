@@ -10,7 +10,7 @@ import AuthLayout from "../../../layouts/auth";
 import { AuthService } from "../../../services/auth";
 import { ErrorUtils } from "../../../utils/error";
 import AlertContext from "../../../contexts/alert";
-import { CANNOT_REGISTER } from "../../../constants/messages";
+import { CANNOT_REGISTER } from "../../../constants";
 import { AlertType } from "../../../shared/interfaces/alert.interface";
 import { useForm } from "react-hook-form";
 import { registerSchema } from "../../../validation/schemas/auth.schema";

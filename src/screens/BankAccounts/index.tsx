@@ -7,14 +7,24 @@ import { useCallback, useEffect, useState } from "react";
 import { BankAccountsService } from "../../services/bank-accounts";
 import BankAccountFloatingButton from "../../components/BankAccounts/BankAccountFloatingButton";
 import { layoutStyles } from "../../shared/styles/layout.styles";
-import { useIsFocused } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 
 export default function BankAccountsScreen() {
   const [bankAccounts, setBankAccounts] = useState<BankAccount[]>([]);
+  const { navigate } = useNavigation();
   const isFocused = useIsFocused();
 
+  function navigateToBankAccountDetails(bankAccountId: number) {
+    navigate("BankAccount", { bankAccountId });
+  }
+
   function renderItem({ item }: ListRenderItemInfo<BankAccount>) {
-    return <BankAccountCard bankAccount={item} />;
+    return (
+      <BankAccountCard
+        bankAccount={item}
+        onPress={() => navigateToBankAccountDetails(item.id)}
+      />
+    );
   }
 
   const fetchBankAccounts = useCallback(async () => {

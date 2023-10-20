@@ -8,13 +8,13 @@ import AuthLayout from "../../../layouts/auth";
 import { AuthService } from "../../../services/auth";
 import { ErrorUtils } from "../../../utils/error";
 import AlertContext from "../../../contexts/alert";
-import { CANNOT_LOGIN } from "../../../constants/messages";
+import { CANNOT_LOGIN } from "../../../constants";
 import { AlertType } from "../../../shared/interfaces/alert.interface";
 import UserContext from "../../../contexts/auth";
 import {
   ACCESS_TOKEN_STORE_KEY,
   REFRESH_TOKEN_STORE_KEY,
-} from "../../../constants/auth";
+} from "../../../constants";
 import { setDefaultBearerToken } from "../../../services";
 import * as SecureStore from "expo-secure-store";
 import { useForm } from "react-hook-form";
