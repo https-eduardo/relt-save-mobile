@@ -1,4 +1,4 @@
-import { PASSWORDS_ARE_NOT_SAME } from "../../constants/messages";
+import { PASSWORDS_ARE_NOT_SAME } from "../../constants";
 import { passwordValidator } from "./password";
 import * as yup from "yup";
 

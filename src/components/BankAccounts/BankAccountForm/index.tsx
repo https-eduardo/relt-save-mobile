@@ -21,7 +21,7 @@ import AlertContext from "../../../contexts/alert";
 import {
   CANNOT_SAVE_BANK_ACCOUNT,
   INVALID_BALANCE_NUMBER,
-} from "../../../constants/messages";
+} from "../../../constants";
 import { NumberUtils } from "../../../utils/number";
 import StringUtils from "../../../utils/string";
 import { useNavigation } from "@react-navigation/native";

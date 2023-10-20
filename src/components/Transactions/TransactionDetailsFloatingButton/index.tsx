@@ -9,7 +9,7 @@ import AppButton from "../../AppButton";
 import { TransactionsService } from "../../../services/transactions";
 import { ErrorUtils } from "../../../utils/error";
 import AlertContext from "../../../contexts/alert";
-import { CANNOT_DELETE_TRANSACTION } from "../../../constants/messages";
+import { CANNOT_DELETE_TRANSACTION } from "../../../constants";
 
 interface TransactionDetailsFloatingButtonProps {
   transaction: Transaction | null;

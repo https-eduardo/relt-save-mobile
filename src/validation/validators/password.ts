@@ -3,7 +3,7 @@ import {
   INVALID_PASSWORD,
   INVALID_PASSWORD_LENGTH,
   REQUIRED_FIELD,
-} from "../../constants/messages";
+} from "../../constants";
 
 const PASSWORD_REGEX = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*/;
 

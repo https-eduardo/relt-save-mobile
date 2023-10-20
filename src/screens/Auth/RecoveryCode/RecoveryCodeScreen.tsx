@@ -10,7 +10,7 @@ import AuthLayout from "../../../layouts/auth";
 import AlertContext from "../../../contexts/alert";
 import { ErrorUtils } from "../../../utils/error";
 import { AlertType } from "../../../shared/interfaces/alert.interface";
-import { CANNOT_VALIDATE_RECOVERY_CODE } from "../../../constants/messages";
+import { CANNOT_VALIDATE_RECOVERY_CODE } from "../../../constants";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { recoveryCodeSchema } from "../../../validation/schemas/auth.schema";

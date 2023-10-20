@@ -8,7 +8,7 @@ import AuthLayout from "../../../layouts/auth";
 import AlertContext from "../../../contexts/alert";
 import { AlertType } from "../../../shared/interfaces/alert.interface";
 import { ErrorUtils } from "../../../utils/error";
-import { CANNOT_RECOVER_PASSWORD } from "../../../constants/messages";
+import { CANNOT_RECOVER_PASSWORD } from "../../../constants";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { recoverPasswordSchema } from "../../../validation/schemas/auth.schema";
