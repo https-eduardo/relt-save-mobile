@@ -7,6 +7,9 @@ import UserContext from "../../contexts/auth";
 import { styles } from "./styles";
 import Header from "../../components/Header";
 import Avatar from "../../components/Avatar";
+import SummaryHeader from "../../components/Summary/SummaryHeader";
+import CategoryChardCard from "../../components/Summary/CategoryChartCard";
+import SummaryAlertsCard from "../../components/Summary/SummaryAlertsCard";
 
 export default function HomeScreen() {
   const { navigate } = useNavigation();
@@ -18,12 +21,9 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Header periodSelector>
-        <View style={styles.profileContainer}>
-          <Header.Title>Olá, {user?.name.split(" ")[0]}</Header.Title>
-          <Avatar url={user?.profile_url} style={styles.profile} />
-        </View>
-      </Header>
+      <SummaryHeader />
+      <CategoryChardCard />
+      <SummaryAlertsCard />
     </View>
   );
 }
