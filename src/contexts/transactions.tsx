@@ -7,6 +7,7 @@ import {
 } from "react";
 import { TransactionsFilter } from "../shared/interfaces/transaction.interface";
 import GlobalContext from "./global";
+import { DateUtils } from "../utils/date";
 
 interface TransactionsContextData {
   filters: TransactionsFilter;
@@ -23,19 +24,11 @@ export const TransactionsProvider = ({ children }: PropsWithChildren) => {
   const { period } = useContext(GlobalContext);
   const initialFilter = {
     minDate: period,
-    maxDate: getMaxDate(period),
+    maxDate: DateUtils.getMonthMaxDate(period),
   };
   const [filters, setFilters] = useState<TransactionsFilter>(initialFilter);
   const [tempFilters, setTempFilters] =
     useState<TransactionsFilter>(initialFilter);
-
-  function getMaxDate(period: Date) {
-    const month = period.getUTCMonth() + 1;
-    const year = period.getUTCFullYear();
-    const date = new Date(year, month, 0);
-    date.setUTCHours(23, 59, 59);
-    return date;
-  }
 
   function updateFilters(transactionsFilter: TransactionsFilter) {
     setTempFilters({ ...tempFilters, ...transactionsFilter });
@@ -48,7 +41,7 @@ export const TransactionsProvider = ({ children }: PropsWithChildren) => {
   function clearFilters() {
     const initialFilter = {
       minDate: period,
-      maxDate: getMaxDate(period),
+      maxDate: DateUtils.getMonthMaxDate(period),
     };
     setFilters(initialFilter);
     setTempFilters(initialFilter);
@@ -57,7 +50,7 @@ export const TransactionsProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     const dateFilter = {
       minDate: period,
-      maxDate: getMaxDate(period),
+      maxDate: DateUtils.getMonthMaxDate(period),
     };
     setFilters({ ...filters, ...dateFilter });
   }, [period]);

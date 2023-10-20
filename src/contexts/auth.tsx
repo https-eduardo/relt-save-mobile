@@ -1,8 +1,5 @@
 import { createContext, useState, PropsWithChildren, useEffect } from "react";
 import { User } from "../shared/interfaces/user.interface";
-import { Category } from "../shared/interfaces/category.interface";
-import { CategoriesService } from "../services/categories";
-import { useNavigation } from "@react-navigation/native";
 
 interface UserContextData {
   isAuthenticated: boolean;

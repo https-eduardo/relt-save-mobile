@@ -10,4 +10,11 @@ export class DateUtils {
 
     return `${day}/${month}/${year}`;
   }
+  public static getMonthMaxDate(period: Date) {
+    const month = period.getUTCMonth() + 1;
+    const year = period.getUTCFullYear();
+    const date = new Date(year, month, 0);
+    date.setUTCHours(23, 59, 59);
+    return date;
+  }
 }
