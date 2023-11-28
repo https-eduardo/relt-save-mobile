@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { COLORS } from "../../theme";
+import { COLORS } from "../../../theme";
 
 export const styles = StyleSheet.create({
   bankCard: {
@@ -32,6 +32,12 @@ export const styles = StyleSheet.create({
   cardNumber: {
     color: COLORS.primary,
     fontFamily: "InterSemiBold",
+    fontSize: 16,
+  },
+  deleteButton: {
+    padding: 12,
+  },
+  deleteButtonText: {
     fontSize: 16,
   },
 });

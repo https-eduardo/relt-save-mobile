@@ -33,14 +33,14 @@ export default function GoogleLoginScreen() {
   const { navigate } = useNavigation();
   const { colors } = useTheme();
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { updateUser } = useContext(UserContext);
 
   async function handleAutomaticAuthentication() {
     const refreshToken = await SecureStore.getItemAsync(
       REFRESH_TOKEN_STORE_KEY
     );
-    let accessToken = await SecureStore.getItemAsync(ACCESS_TOKEN_STORE_KEY);
+    const accessToken = await SecureStore.getItemAsync(ACCESS_TOKEN_STORE_KEY);
     let user = null;
 
     if (!refreshToken || !accessToken) {
@@ -48,22 +48,27 @@ export default function GoogleLoginScreen() {
       return;
     }
 
+    setDefaultBearerToken(accessToken);
+
     try {
-      let profile = await AuthService.getProfile();
-      user = profile;
+      user = await AuthService.getProfile();
     } catch {
       try {
-        let profile = await AuthService.refreshAccessToken(refreshToken);
-        await SecureStore.setItemAsync(
-          ACCESS_TOKEN_STORE_KEY,
-          profile.access_token
-        );
+        const { access_token, refresh_token } =
+          await AuthService.refreshAccessToken(refreshToken);
+        SecureStore.setItemAsync(ACCESS_TOKEN_STORE_KEY, access_token);
+        SecureStore.setItemAsync(REFRESH_TOKEN_STORE_KEY, refresh_token);
+        setDefaultBearerToken(access_token);
+        user = await AuthService.getProfile();
       } catch {
+        SecureStore.deleteItemAsync(ACCESS_TOKEN_STORE_KEY);
+        SecureStore.deleteItemAsync(REFRESH_TOKEN_STORE_KEY);
         setLoading(false);
         return;
       }
     }
 
+    setLoading(false);
     updateUser(user);
   }
 
@@ -92,7 +97,7 @@ export default function GoogleLoginScreen() {
   }
 
   useEffect(() => {
-    // handleAutomaticAuthentication();
+    handleAutomaticAuthentication();
   }, []);
 
   if (loading) return null;

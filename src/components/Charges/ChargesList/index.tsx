@@ -1,4 +1,4 @@
-import { FlatList, ListRenderItemInfo } from "react-native";
+import { FlatList, ListRenderItemInfo, Text } from "react-native";
 import { Charge } from "../../../shared/interfaces";
 import ChargeCard from "../../Charges/ChargeCard";
 

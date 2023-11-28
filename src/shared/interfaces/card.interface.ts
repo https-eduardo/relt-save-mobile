@@ -8,4 +8,15 @@ export interface Card {
   bank_account?: BankAccount;
 }
 
+export interface CardFormData {
+  bankAccountId?: number;
+  name: string;
+  cardType?: string;
+  finalNumbers: string;
+}
+
+export interface CardFormProps {
+  bankAccountId: number;
+}
+
 export type CardType = "DEBIT" | "CREDIT";

@@ -102,6 +102,7 @@ export default function TransactionForm(props: TransactionFormProps) {
       const categoriesOptions = categories.map((category) => ({
         label: category.name,
         value: category.id.toString(),
+        color: category.color,
       }));
       setUserCategoriesOptions(categoriesOptions);
     } catch {}
@@ -127,8 +128,7 @@ export default function TransactionForm(props: TransactionFormProps) {
           numericValue = -numericValue;
       }
 
-      const date =
-        installments > 1 ? { dueDate: paymentDate } : { paidAt: paymentDate };
+      const date = installments > 1 ? { dueDate: paymentDate } : {};
       const body: TransactionData = {
         name,
         description,

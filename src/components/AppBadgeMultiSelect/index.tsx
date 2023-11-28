@@ -65,7 +65,7 @@ export default function AppBadgeMultiSelect(props: AppBadgeMultiSelectProps) {
             text={option.label}
             onPress={() => select(option)}
             style={getBadgeStyle(option)}
-            color={isSelected(option) ? props.backgroundColor : undefined}
+            color={isSelected(option) ? option.color : undefined}
           />
         ))}
       </View>

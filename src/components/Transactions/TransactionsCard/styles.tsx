@@ -4,7 +4,7 @@ import { COLORS } from "../../../theme";
 export const styles = StyleSheet.create({
   card: {
     flexDirection: "row",
-    gap: 24,
+    gap: 4,
     shadowOffset: { width: 2, height: 2 },
     shadowRadius: 16,
     shadowColor: COLORS.shadowColor,

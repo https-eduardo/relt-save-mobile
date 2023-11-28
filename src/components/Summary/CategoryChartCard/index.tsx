@@ -1,39 +1,40 @@
-import { Dimensions, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { PieChart, PieChartData } from "react-native-svg-charts";
 import { styles } from "./styles";
 import { COLORS } from "../../../theme";
 import ChartCategoryLegendItem from "./ChartCategoryLegendItem";
+import { useCallback, useState, useContext, useEffect } from "react";
+import { ChargesService } from "../../../services/charges";
+import GlobalContext from "../../../contexts/global";
+import { DateUtils } from "../../../utils/date";
 
 export default function CategoryChardCard() {
-  const pieData: PieChartData[] = [
-    {
-      key: "Padaria",
-      value: 1580,
-      svg: {
-        fill: COLORS.black,
-        stroke: "white",
-        strokeWidth: 1,
-      },
-    },
-    {
-      key: "Sem categoria",
-      value: 4200,
-      svg: {
-        fill: COLORS.text,
-        stroke: "white",
-        strokeWidth: 1,
-      },
-    },
-    {
-      key: "Mercado",
-      value: 800,
-      svg: {
-        fill: COLORS.green,
-        stroke: "white",
-        strokeWidth: 1,
-      },
-    },
-  ];
+  const { period } = useContext(GlobalContext);
+  const [pieData, setPieData] = useState<PieChartData[]>([]);
+
+  const fetchPieData = useCallback(async () => {
+    const data = await ChargesService.getChargesBalanceByCategory({
+      minDate: period,
+      maxDate: DateUtils.getMonthMaxDate(period),
+    });
+    const convertedPieData = data.map((categoryBalance) => {
+      return {
+        key: categoryBalance.name,
+        value: Math.abs(categoryBalance.value),
+        svg: {
+          fill: categoryBalance.color ?? COLORS.black,
+          stroke: "white",
+          strokeWidth: 1,
+        },
+      };
+    });
+    setPieData(convertedPieData);
+  }, [period]);
+
+  useEffect(() => {
+    fetchPieData();
+  }, [fetchPieData]);
+
   return (
     <View style={styles.chartCardWrapper}>
       <Text style={styles.chartTitle}>Despesas por categoria</Text>
@@ -46,21 +47,14 @@ export default function CategoryChardCard() {
           padAngle={0}
         />
         <View style={styles.chartLegend}>
-          <ChartCategoryLegendItem
-            color={COLORS.black}
-            name="Padaria"
-            value="R$ 1580,00"
-          />
-          <ChartCategoryLegendItem
-            color={COLORS.green}
-            name="Mercado"
-            value="R$ 800,00"
-          />
-          <ChartCategoryLegendItem
-            color={COLORS.text}
-            name="Sem categoria"
-            value="R$ 4200,00"
-          />
+          {pieData.map((chartElement) => (
+            <ChartCategoryLegendItem
+              key={chartElement.key}
+              color={chartElement.svg?.fill}
+              name={chartElement.key.toString()}
+              value={chartElement.value}
+            />
+          ))}
         </View>
       </View>
     </View>
