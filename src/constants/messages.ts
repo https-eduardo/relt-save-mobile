@@ -28,3 +28,8 @@ export const CANNOT_DELETE_TRANSACTION =
 export const CANNOT_SAVE_BANK_ACCOUNT =
   "Houve um error ao salvar esta conta bancária.";
 export const INVALID_BALANCE_NUMBER = "O valor de saldo inserido é invalido.";
+export const CANNOT_MARK_CHARGE_AS_PAID =
+  "Não foi possível alterar a situação da cobrança.";
+export const CANNOT_DELETE_CARD =
+  "Não foi possível deletar o cartão associado a conta bancária.";
+export const CANNOT_CREATE_CARD = "Não foi possível criar o cartão.";

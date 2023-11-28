@@ -1,31 +1,20 @@
 import { FlatList, ListRenderItemInfo, Text, View } from "react-native";
 import { styles } from "./styles";
 import SummaryAlert from "./SummaryAlert";
-import { SummaryAlertProps } from "../../../shared/interfaces/summary.interface";
 import { COLORS } from "../../../theme";
 import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { TransactionsService } from "../../../services/transactions";
 import GlobalContext from "../../../contexts/global";
 import { DateUtils } from "../../../utils/date";
-import { BankAccount, Transaction } from "../../../shared/interfaces";
-import { NumberUtils } from "../../../utils/number";
+import { BankAccount, Charge } from "../../../shared/interfaces";
 import { BankAccountsService } from "../../../services/bank-accounts";
+import { ChargesService } from "../../../services/charges";
 
 export default function SummaryAlertsCard() {
   const { period } = useContext(GlobalContext);
   const [pendingIncomesValue, setPendingIncomesValue] = useState(0);
   const [pendingExpensesValue, setPendingExpensesValue] = useState(0);
   const [bankAccountsBalance, setBankAccountsBalance] = useState(0);
-
-  const Separator = () => {
-    return <View style={styles.separator} />;
-  };
-
-  function getTransactionsTotalValue(transactions: Transaction[]) {
-    const values = transactions.map((transaction) => transaction.value);
-    if (values.length === 0) return 0;
-    return values.reduce((prev, curr) => prev + curr);
-  }
 
   function getTotalBalance(bankAccounts: BankAccount[]) {
     const balances = bankAccounts.map((bankAccount) => bankAccount.balance);
@@ -34,23 +23,23 @@ export default function SummaryAlertsCard() {
   }
 
   const fetchPendingIncomesValue = useCallback(async () => {
-    const incomes = await TransactionsService.getTransactions({
+    const incomes = await ChargesService.getChargesValueResume({
       minDate: period,
       maxDate: DateUtils.getMonthMaxDate(period),
       paid: false,
       type: "incomes",
     });
-    setPendingIncomesValue(getTransactionsTotalValue(incomes));
+    setPendingIncomesValue(incomes.value);
   }, [period]);
 
   const fetchPendingExpensesValue = useCallback(async () => {
-    const expenses = await TransactionsService.getTransactions({
+    const expenses = await ChargesService.getChargesValueResume({
       minDate: period,
       maxDate: DateUtils.getMonthMaxDate(period),
       paid: false,
       type: "expenses",
     });
-    setPendingExpensesValue(getTransactionsTotalValue(expenses));
+    setPendingExpensesValue(expenses.value);
   }, [period]);
 
   const fetchBankAccountsBalance = useCallback(async () => {
@@ -67,7 +56,7 @@ export default function SummaryAlertsCard() {
   }, [period]);
 
   const finalBalance = useMemo(() => {
-    return bankAccountsBalance + pendingIncomesValue - pendingExpensesValue;
+    return bankAccountsBalance + pendingIncomesValue + pendingExpensesValue;
   }, [bankAccountsBalance, pendingExpensesValue, pendingIncomesValue]);
 
   return (

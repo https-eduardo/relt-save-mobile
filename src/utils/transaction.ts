@@ -8,8 +8,9 @@ export class TransactionUtils {
   public static getBadges(transaction: Transaction) {
     const badges: Record<string, any>[] = [...transaction.categories];
 
-    if (transaction.paid_at)
-      badges.push({ color: COLORS.bgGreen, name: "Pago" });
+    const isPaid = transaction.charges.every((charge) => charge.paid_at);
+
+    if (isPaid) badges.push({ color: COLORS.bgGreen, name: "Pago" });
     else badges.push({ color: COLORS.bgRed, name: "Pendente" });
 
     const card = transaction.card;

@@ -26,4 +26,10 @@ export const styles = StyleSheet.create({
     fontSize: 12,
     color: COLORS.text,
   },
+  editButton: {
+    padding: 12,
+  },
+  editButtonText: {
+    fontSize: 16,
+  },
 });

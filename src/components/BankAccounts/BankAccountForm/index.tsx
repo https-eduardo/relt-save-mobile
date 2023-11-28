@@ -10,7 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import { bankAccountSchema } from "../../../validation/schemas/bank-account.schema";
 import { styles } from "./styles";
-import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import AppTextInput from "../../AppTextInput";
 import AppSelect from "../../AppSelect";
 import BanksService from "../../../services/banks";

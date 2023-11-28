@@ -17,7 +17,15 @@ export class AuthService {
   }
 
   public static async refreshAccessToken(refreshToken: string) {
-    const { data } = await api.post("auth/google/refresh", { refreshToken });
+    const { data } = await api.post("auth/refresh", {
+      headers: { Authorization: `Bearer ${refreshToken}` },
+    });
+    return data;
+  }
+
+  public static async logout() {
+    const { data } = await api.post("auth/logout");
+
     return data;
   }
 

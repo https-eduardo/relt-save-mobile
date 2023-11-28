@@ -1,4 +1,8 @@
-import { useNavigation, useRoute } from "@react-navigation/native";
+import {
+  useIsFocused,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 import {
   Transaction,
   TransactionDetailsScreenProps,
@@ -15,6 +19,7 @@ import TransactionDetailsFloatingButton from "../../../components/Transactions/T
 export default function TransactionDetailsScreen() {
   const [transaction, setTransaction] = useState<Transaction | null>(null);
   const route = useRoute();
+  const isFocused = useIsFocused();
   const navigation = useNavigation();
 
   const params = useMemo(
@@ -35,7 +40,7 @@ export default function TransactionDetailsScreen() {
 
   useEffect(() => {
     fetchTransaction();
-  }, []);
+  }, [fetchTransaction, isFocused]);
 
   const installmentsDisplay = useMemo(() => {
     const paidInstallments = transaction?.charges.filter(

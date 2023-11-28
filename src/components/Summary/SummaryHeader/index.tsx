@@ -12,6 +12,7 @@ import { NumberUtils } from "../../../utils/number";
 import { TransactionsService } from "../../../services/transactions";
 import GlobalContext from "../../../contexts/global";
 import { DateUtils } from "../../../utils/date";
+import { ChargesService } from "../../../services/charges";
 
 export default function SummaryHeader() {
   const { user } = useContext(UserContext);
@@ -30,12 +31,6 @@ export default function SummaryHeader() {
     return balances.reduce((prev, curr) => prev + curr);
   }
 
-  function getTransactionsTotalValue(transactions: Transaction[]) {
-    const values = transactions.map((transaction) => transaction.value);
-    if (values.length === 0) return 0;
-    return values.reduce((prev, curr) => prev + curr);
-  }
-
   const fetchBankAccountsBalance = useCallback(async () => {
     try {
       const bankAccounts = await BankAccountsService.getBankAccounts();
@@ -45,23 +40,23 @@ export default function SummaryHeader() {
 
   const fetchIncomesValue = useCallback(async () => {
     try {
-      const transactions = await TransactionsService.getTransactions({
-        type: "incomes",
+      const data = await ChargesService.getChargesValueResume({
         minDate: period,
         maxDate: DateUtils.getMonthMaxDate(period),
+        type: "incomes",
       });
-      setMonthIncomes(getTransactionsTotalValue(transactions));
+      setMonthIncomes(data.value);
     } catch {}
   }, [period]);
 
   const fetchExpensesValue = useCallback(async () => {
     try {
-      const transactions = await TransactionsService.getTransactions({
-        type: "expenses",
+      const data = await ChargesService.getChargesValueResume({
         minDate: period,
         maxDate: DateUtils.getMonthMaxDate(period),
+        type: "expenses",
       });
-      setMonthExpenses(getTransactionsTotalValue(transactions));
+      setMonthExpenses(data.value);
     } catch {}
   }, [period]);
 

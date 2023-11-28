@@ -1,6 +1,7 @@
 import {
   BankAccountDetailsProps,
   TransactionFormProps,
+  BankAccountFormProps,
 } from "../src/shared/interfaces";
 
 export interface RecoveryCodeRouteProps {
@@ -21,6 +22,7 @@ export type AppRootParamList = {
   RecoverPassword: RecoverPasswordRouteProps;
   TransactionsRegister: TransactionFormProps;
   BankAccountsRegister: BankAccountFormProps;
+  BankCardRegister: CardFormProps;
   BankAccount: BankAccountDetailsProps;
   Transaction: TransactionScreenProps;
   MailLogin: undefined;
