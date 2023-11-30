@@ -10,14 +10,19 @@ import {
   ACCESS_TOKEN_STORE_KEY,
   REFRESH_TOKEN_STORE_KEY,
 } from "../../constants";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import UserContext from "../../contexts/auth";
+import CategoriesModal from "../../components/Settings/CategoriesModal";
 
 export default function SettingsScreen() {
   const { updateUser } = useContext(UserContext);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  function toggleCategoriesModal() {
+    setModalVisible(!modalVisible);
+  }
 
   function changeUserData() {}
-  function manageCategories() {}
   function reportProblem() {}
   function deleteUserData() {}
 
@@ -35,6 +40,10 @@ export default function SettingsScreen() {
   return (
     <View style={styles.container}>
       <SettingsHeader />
+      <CategoriesModal
+        visible={modalVisible}
+        onDismiss={toggleCategoriesModal}
+      />
       <View style={styles.settingsContainer}>
         <Text style={styles.title}>Configurações</Text>
         <View style={styles.buttonsContainer}>
@@ -45,7 +54,7 @@ export default function SettingsScreen() {
           />
           <SettingsButton
             icon="bookmarks-outline"
-            onPress={manageCategories}
+            onPress={toggleCategoriesModal}
             text="Gerenciar categorias de movimentações"
           />
           <SettingsButton

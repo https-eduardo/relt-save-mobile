@@ -3,3 +3,8 @@ export interface Category {
   name: string;
   color: string;
 }
+
+export interface CategoryData {
+  name: string;
+  color: string;
+}
