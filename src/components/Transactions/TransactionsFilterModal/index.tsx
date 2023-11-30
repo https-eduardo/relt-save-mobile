@@ -60,7 +60,7 @@ export default function TransactionsFilterModal(
   }
 
   async function fetchCategories() {
-    const categories = await CategoriesService.getCategories();
+    const categories = await CategoriesService.getAll();
     setCategories(categories);
   }
 

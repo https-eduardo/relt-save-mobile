@@ -98,7 +98,7 @@ export default function TransactionForm(props: TransactionFormProps) {
 
   async function fetchCategories() {
     try {
-      const categories = await CategoriesService.getCategories();
+      const categories = await CategoriesService.getAll();
       const categoriesOptions = categories.map((category) => ({
         label: category.name,
         value: category.id.toString(),
